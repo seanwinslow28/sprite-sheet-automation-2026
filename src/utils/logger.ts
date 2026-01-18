@@ -1,0 +1,12 @@
+/**
+ * Pino logger wrapper for structured JSON logging
+ */
+
+import { pino } from 'pino';
+
+const logger = pino({
+    level: process.env.LOG_LEVEL || 'info',
+});
+
+export { logger };
+export default logger;

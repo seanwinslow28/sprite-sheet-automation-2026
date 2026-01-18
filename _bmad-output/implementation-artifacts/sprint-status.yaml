@@ -1,0 +1,466 @@
+# Sprint Status - Sprite-Sheet-Automation-Project_2026
+# ==================================================
+# generated: 2026-01-18
+# project: Sprite-Sheet-Automation-Project_2026
+# tracking_system: file-system
+# story_location: "_bmad-output/implementation-artifacts"
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - SM typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+#
+# AI AGENT ASSIGNMENTS:
+# ====================
+# Each story is assigned an AI agent based on Terminal Agents + BMAD Strategy:
+#   - claude-code: Complex architecture, multi-file refactoring, state machines
+#   - codex-cli: Well-defined features, autonomous 2-8 hour builds
+#   - gemini-cli: Fast prototypes, large context analysis, debugging
+#   - cursor: UI components, frontend work, real-time visual feedback
+
+generated: 2026-01-18
+project: Sprite-Sheet-Automation-Project_2026
+tracking_system: file-system
+story_location: "_bmad-output/implementation-artifacts"
+
+development_status:
+  # ============================================================================
+  # EPIC 1: Project Foundation & Engine Spike
+  # ============================================================================
+  # Establishes CLI scaffolding and proves the Puppeteer+Phaser "Engine Truth"
+  # dependency. HIGH RISK spike - validates core technical assumption.
+  # ----------------------------------------------------------------------------
+  epic-1: done
+
+  1-1-initialize-cli-project-with-oclif-scaffold:
+    status: done
+    agent: codex-cli
+    rationale: "Well-defined scaffolding task. Codex excels at project setup from clear specs. Autonomous execution, no architectural decisions needed."
+    completion_date: 2026-01-18
+    notes: "Implemented with Commander.js 12.x instead of Oclif per story specification. All ACs met."
+
+  1-2-implement-pipeline-doctor-dependency-check:
+    status: done
+    agent: codex-cli
+    rationale: "Clear spec with checklist of checks. Codex can execute autonomously. Output is deterministic."
+    completion_date: 2026-01-18
+    notes: "All 6 dependency checks implemented with actionable error messages. Chrome/Gemini checks stubbed for future integration."
+
+  1-3-implement-pipeline-schema-command:
+    status: done
+    agent: codex-cli
+    rationale: "Well-defined output (JSON schema display). Fast autonomous execution from spec."
+    completion_date: 2026-01-18
+    notes: "Complete Zod schema with all manifest sections. JSON Schema generation and example manifest working."
+
+  1-4-engine-truth-spike-puppeteer-phaser:
+    status: done
+    agent: claude-code
+    rationale: "HIGH RISK SPIKE. Requires complex multi-file setup (Puppeteer+Phaser+WebGL). Architectural decisions on test harness structure. Claude's reasoning catches edge cases."
+    completion_date: 2026-01-18
+    notes: "SPIKE VALIDATED ✅ - Phaser 3 WebGL rendering confirmed working in headless Chrome with SwiftShader. All artifacts persist correctly."
+
+  epic-1-retrospective: optional
+
+  # ============================================================================
+  # EPIC 2: Manifest-Driven Generation & Post-Processing
+  # ============================================================================
+  # Core AI generation loop with Semantic Interleaving, Contact Patch Alignment,
+  # and 4x resolution strategy. CRITICAL ARCHITECTURE.
+  # ----------------------------------------------------------------------------
+  epic-2: backlog
+
+  2-1-define-manifest-schema-with-zod:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "Schema design is architectural. Zod schemas become source of truth. Claude's comprehensive reasoning ensures complete field coverage."
+
+  2-2-implement-manifest-lock-file-generation:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Clear spec: read manifest, resolve paths, write lock file atomically. Well-defined input/output."
+
+  2-3-implement-gemini-generator-adapter-semantic-interleaving:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "CRITICAL COMPLEXITY. Semantic Interleaving pattern, CRC32 seed, temperature lock, thought extraction. Multi-concern adapter requiring deep reasoning."
+
+  2-4-implement-prompt-template-system:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Template selection logic is well-defined (master/variation/lock/negative). Clear decision tree."
+
+  2-5-implement-run-folder-structure:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "File system organization with atomic writes. Clear patterns, autonomous execution."
+
+  2-6-implement-single-pipeline-run-command:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "Orchestration command connecting multiple components. Integration complexity requires Claude's multi-file awareness."
+
+  2-7-implement-anchor-analysis:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Image analysis algorithm is well-specified (baselineY, rootX extraction). Clear inputs/outputs."
+
+  2-8-implement-4x-resolution-generation:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Sharp-based resize with nearest-neighbor. Implementation is straightforward once spec is clear."
+
+  2-9-implement-contact-patch-alignment:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "DEEP THINK LOCK algorithm. Visible bounds, root zone, shift clamping. Multiple edge cases require reasoning."
+
+  2-10-implement-loop-closure-pattern:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Prompt modification for final frame. Logic is clear once understood."
+
+  2-11-implement-phase-based-pose-library:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Data structure definition (MOVES_LIBRARY). Well-scoped TypeScript const."
+
+  epic-2-retrospective: optional
+
+  # ============================================================================
+  # EPIC 3: Automated Quality Guardrails
+  # ============================================================================
+  # Frame normalization, hard gates (HF01-HF05), SSIM metrics, and soft fail
+  # detection. QUALITY CRITICAL.
+  # ----------------------------------------------------------------------------
+  epic-3: in-progress
+
+  3-1-implement-frame-normalization-pipeline:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Image processing pipeline with Sharp. Sequential operations are well-defined."
+
+  3-2-implement-transparency-strategy-with-dynamic-chroma:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "Dynamic auto-detection of chroma key based on anchor palette. Edge case handling (green in sprite, fringe artifacts)."
+
+  3-3-implement-hard-gate-evaluators:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "5 discrete checks (HF01-HF05). Each is independent and well-defined."
+
+  3-4-implement-ssim-identity-metric:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "SSIM calculation with Sharp. Well-known algorithm, clear output."
+
+  3-5-implement-palette-fidelity-metric:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Color matching within tolerance. Algorithmic, well-defined."
+
+  3-6-implement-alpha-artifact-detection:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Edge pixel analysis. Clear algorithm."
+
+  3-7-implement-baseline-drift-measurement:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Compare sprite baseline to anchor. Simple geometric calculation."
+
+  3-8-implement-soft-metric-aggregation:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "Weighted scoring with MAPD move-type thresholds. Multiple conditions and bypass logic requires reasoning."
+
+  3-9-implement-auditor-threshold-config:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Configuration reading and defaults. Straightforward."
+
+  3-10-implement-orphan-pixel-detection:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Neighbor-based pixel scan. Algorithm is well-specified in Deep Think Follow-Up."
+
+  epic-3-retrospective: optional
+
+  # ============================================================================
+  # EPIC 4: Resilient Orchestration & Retry Ladder
+  # ============================================================================
+  # State machine connecting Generator and Auditor with failure handling.
+  # STATE MACHINE COMPLEXITY.
+  # ----------------------------------------------------------------------------
+  epic-4: backlog
+
+  4-1-implement-frame-to-frame-chaining:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Chaining logic (use previous approved frame). Clear flow."
+
+  4-2-implement-attempt-tracking:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Counter in state.json. Straightforward persistence."
+
+  4-3-implement-retry-ladder-reason-to-action:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "DECISION TREE with HF_IDENTITY_COLLAPSE escalation, oscillation prevention. Complex state transitions require reasoning."
+
+  4-4-implement-stop-conditions-run-halting:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "Multiple stop condition evaluation. Graceful halt with state preservation."
+
+  4-5-implement-run-status-reporting:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Status aggregation and reporting. Well-defined outputs."
+
+  4-6-implement-diagnostic-report-generation:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "Failure pattern analysis, root cause suggestion. Requires reasoning about failure modes."
+
+  4-7-implement-idempotent-run-resumption:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "State detection, skip logic, manifest hash comparison. Multiple code paths."
+
+  4-8-implement-orchestrator-state-machine:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "CENTRAL STATE MACHINE (INIT→GENERATING→AUDITING→RETRY_DECIDING→APPROVING→NEXT_FRAME→COMPLETED). Core architecture, highest complexity."
+
+  epic-4-retrospective: optional
+
+  # ============================================================================
+  # EPIC 5: Production Export & Validation
+  # ============================================================================
+  # TexturePacker integration and Phaser micro-tests (TEST-02, TEST-03, TEST-04).
+  # EXTERNAL TOOL INTEGRATION.
+  # ----------------------------------------------------------------------------
+  epic-5: backlog
+
+  5-1-implement-deterministic-frame-naming:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "String formatting with 4-digit padding. Simple, well-defined."
+
+  5-2-implement-texturepacker-integration:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Execa subprocess with locked CLI flags. Clear contract."
+
+  5-3-implement-phaser-compatible-atlas-output:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "File organization and JSON structure. Straightforward."
+
+  5-4-implement-multipack-support:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "Multipack validation with textures[] array. Edge cases (frames split across PNGs). Phaser loading behavior."
+
+  5-5-implement-pre-export-validation:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "12-item checklist. Each check is independent."
+
+  5-6-implement-post-export-validation:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "JSON/PNG integrity checks. Well-defined."
+
+  5-7-implement-phaser-micro-test-suite:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "Puppeteer+Phaser integration tests (TEST-02, TEST-03, TEST-04). Multi-file, WebGL context, screenshot capture."
+
+  5-8-implement-release-ready-gating:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Pass/fail logic with override flag. Clear flow."
+
+  5-9-implement-export-settings-config:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Configuration reading. Straightforward."
+
+  epic-5-retrospective: optional
+
+  # ============================================================================
+  # EPIC 6: Pipeline Visibility & Documentation
+  # ============================================================================
+  # Inspection tools, reporting, and operator documentation.
+  # USER EXPERIENCE FOCUS.
+  # ----------------------------------------------------------------------------
+  epic-6: backlog
+
+  6-1-implement-pipeline-inspect-command:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "CLI command with flags (--frame, --diagnostic). Well-defined output."
+
+  6-2-implement-per-frame-audit-metrics:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "JSON file generation with optional CSV export. Straightforward."
+
+  6-3-implement-run-summary-report:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Aggregate statistics calculation. Well-defined."
+
+  6-4-implement-artifact-folder-organization:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "File system organization. Clear structure."
+
+  6-5-implement-manifest-template-generator:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Template file generation with placeholders. Well-defined."
+
+  6-6-implement-operator-guide-documentation:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "Documentation quality. Claude writes the most natural, comprehensive documentation."
+
+  6-7-implement-model-version-warning:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Version comparison and warning logic. Straightforward."
+
+  6-8-implement-one-command-first-run:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Demo command with bundled assets. Well-scoped."
+
+  epic-6-retrospective: optional
+
+  # ============================================================================
+  # EPIC 7: Director Mode (Human-in-the-Loop Interface)
+  # ============================================================================
+  # Web-based UI for review, nudge, and patch. FRONTEND + BACKEND.
+  # ----------------------------------------------------------------------------
+  epic-7: backlog
+
+  7-1-implement-director-session-state:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "Session state management with frame lifecycle. State machine complexity."
+
+  7-2-implement-timeline-component:
+    status: ready-for-dev
+    agent: cursor
+    rationale: "VISUAL UI COMPONENT. Filmstrip with color-coded borders. Cursor's real-time visual feedback is ideal."
+
+  7-3-implement-stage-component-onion-skinning:
+    status: ready-for-dev
+    agent: cursor
+    rationale: "VISUAL UI COMPONENT. Canvas with overlays, zoom levels, transparency. Cursor excels here."
+
+  7-4-implement-nudge-tool:
+    status: ready-for-dev
+    agent: cursor
+    rationale: "INTERACTIVE UI. Drag handling, delta tracking, visual preview. Cursor's real-time feedback."
+
+  7-5-implement-mask-pen-tool:
+    status: ready-for-dev
+    agent: cursor
+    rationale: "CANVAS DRAWING TOOL. Brush cursor, pixel selection, eraser toggle. Frontend-heavy."
+
+  7-6-implement-patch-api:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "Backend API connecting to Gemini inpaint endpoint. Error handling, history preservation."
+
+  7-7-implement-inspector-pane:
+    status: ready-for-dev
+    agent: cursor
+    rationale: "UI COMPONENT. Audit details display, reason code reference. Visual layout."
+
+  7-8-implement-visual-diff-overlays:
+    status: ready-for-dev
+    agent: cursor
+    rationale: "CANVAS OVERLAYS. Blinking pixels, alignment lines, pixel distance labels. Visual feedback critical."
+
+  7-9-implement-commit-and-export-flow:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "Multi-step export flow: apply deltas, write files, close server. Orchestration complexity."
+
+  epic-7-retrospective: optional
+
+  # ============================================================================
+  # EPIC 8: CLI Pipeline Integration
+  # ============================================================================
+  # Unified 'banana' CLI with Express server bridge. FULL-STACK INTEGRATION.
+  # ----------------------------------------------------------------------------
+  epic-8: backlog
+
+  8-1-implement-cli-entry-point:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Commander.js setup with subcommands. Well-defined CLI structure."
+
+  8-2-implement-banana-gen-command:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "Full generation flow connecting all components. Integration orchestration."
+
+  8-3-implement-interactive-mode-flag:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "CLI/server coordination with event handling, process lifecycle management. Complex async flow."
+
+  8-4-implement-director-server-bridge:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "Express server with REST API (GET/POST endpoints). Backend architecture."
+
+  8-5-implement-pipeline-orchestrator:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "CENTRAL ORCHESTRATION. 5-phase execution (INIT→LOOP→DIRECTOR→EXPORT→COMPLETE). Highest integration complexity."
+
+  8-6-implement-graceful-shutdown-resume:
+    status: ready-for-dev
+    agent: claude-code
+    rationale: "SIGINT/SIGTERM handling, state preservation, resume prompts. Complex process lifecycle."
+
+  8-7-implement-export-phase-integration:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "Sequential execution of export steps. Well-defined order."
+
+  8-8-implement-progress-logging-spinners:
+    status: ready-for-dev
+    agent: codex-cli
+    rationale: "ora spinners with status updates. Clear UI patterns."
+
+  epic-8-retrospective: optional

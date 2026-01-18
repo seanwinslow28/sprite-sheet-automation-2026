@@ -1,0 +1,82 @@
+# Sample Manifest for Sprite Animation Generation
+# This manifest demonstrates all 4 prompt template types
+
+identity:
+  character: "champion_01"
+  move: "idle"
+  version: "1.0.0"
+  frame_count: 8
+
+inputs:
+  # Required anchor image - the identity truth
+  anchor: "./assets/characters/champion_01/anchor.png"
+  
+  # Optional reference images
+  style_refs:
+    - "./assets/styles/pixel_art_style.png"
+  pose_refs:
+    - "./assets/poses/idle_reference.png"
+  guides: []
+
+generator:
+  backend: "gemini"
+  model: "gemini-2.0-flash-exp"
+  mode: "edit"
+  seed_policy: "fixed_then_random"
+  max_attempts_per_frame: 50
+  
+  # The 4 prompt template types (master, variation, lock, negative)
+  prompts:
+    # MASTER: First attempt prompt - establishes the base animation
+    master: |
+      Generate a pixel art idle animation frame.
+      Style: 16-bit SNES era, clean pixels, no anti-aliasing.
+      Character: Fantasy champion in armor with sword.
+      Pose: Standing idle, subtle breathing motion.
+      Maintain the exact character design from the anchor image.
+    
+    # VARIATION: Frame i of N prompt - creates frame diversity
+    variation: |
+      This is frame {frame_index} of {frame_count} in the idle animation.
+      Apply subtle variations in breathing or stance.
+      Keep the character's silhouette and style consistent.
+    
+    # LOCK: Recovery prompt after drift - brings back to identity
+    negative: |
+      Avoid: modern 3D rendering, smooth gradients, realistic shading, motion blur, anti-aliasing.
+      Do not change: character design, color palette, pixel density.
+
+auditor:
+  # Hard gates - immediate reject thresholds
+  hard_gates:
+    HF01: 0.5  # Minimum SSIM threshold
+    HF02: 100  # Maximum pixel difference
+  
+  # Soft metrics - retry triggers
+  soft_metrics:
+    SF01: 0.9  # Preferred SSIM threshold
+    SF02: 20   # Preferred pixel difference
+  
+  # Scoring weights
+  weights:
+    ssim: 0.6
+    pixel_diff: 0.4
+
+retry:
+  # Retry ladder - strategies to try in sequence
+  ladder:
+    - "EDIT_FROM_ANCHOR"
+    - "RE_ANCHOR"
+    - "TIGHTEN_PROMPT"
+  
+  # Stop conditions
+  stop_conditions:
+    max_attempts: 50
+    max_cost_usd: 0.20
+
+export:
+  # TexturePacker CLI flags for atlas generation
+  packer_flags: "--format phaser --trim-mode None --size-constraints POT"
+  
+  # Output format
+  atlas_format: "phaser-hash"

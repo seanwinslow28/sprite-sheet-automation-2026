@@ -1,0 +1,9 @@
+{
+  "enabledMcpjsonServers": [
+    "context7",
+    "gemini-cli",
+    "github",
+    "shadcn-ui"
+  ],
+  "enableAllProjectMcpServers": true
+}

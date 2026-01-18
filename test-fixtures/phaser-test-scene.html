@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Phaser Test Scene</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
+    <style>
+        body { margin: 0; padding: 0; background: #000; }
+    </style>
+</head>
+<body>
+    <script>
+        // Test scene for Phaser atlas validation
+        class TestScene extends Phaser.Scene {
+            constructor() {
+                super({ key: 'TestScene' });
+            }
+
+            preload() {
+                console.log(JSON.stringify({ event: 'preload_start' }));
+                
+                // Load test atlas (relative to HTML file)
+                this.load.atlas(
+                    'test',
+                    'test-atlas.png',
+                    'test-atlas.json'
+                );
+            }
+
+            create() {
+                console.log(JSON.stringify({ event: 'create_start' }));
+                
+                try {
+                    // Create sprite from atlas
+                    const sprite = this.add.sprite(128, 128, 'test');
+                    
+                    // Create animation from atlas frames
+                    this.anims.create({
+                        key: 'test-anim',
+                        frames: this.anims.generateFrameNames('test', {
+                            prefix: 'frame_',
+                            start: 0,
+                            end: 3,
+                            zeroPad: 4  // 4-digit padding: frame_0000, frame_0001, etc.
+                        }),
+                        frameRate: 10,
+                        repeat: 0
+                    });
+                    
+                    // Track frame completion
+                    let framesPlayed = 0;
+                    sprite.on('animationupdate', (anim, frame) => {
+                        framesPlayed++;
+                        console.log(JSON.stringify({
+                            event: 'frame',
+                            frame_index: frame.index,
+                            frame_key: frame.textureKey
+                        }));
+                    });
+                    
+                    sprite.on('animationcomplete', () => {
+                        console.log(JSON.stringify({
+                            event: 'complete',
+                            frames_played: framesPlayed
+                        }));
+                        
+                        // Signal completion to Puppeteer
+                        window.__SPIKE_COMPLETE__ = true;
+                        window.__SPIKE_RESULT__ = {
+                            status: 'PASS',
+                            frames_played: framesPlayed
+                        };
+                    });
+                    
+                    // Play animation
+                    sprite.play('test-anim');
+                    
+                } catch (error) {
+                    console.error(JSON.stringify({
+                        event: 'error',
+                        message: error.message,
+                        stack: error.stack
+                    }));
+                    
+                    window.__SPIKE_COMPLETE__ = true;
+                    window.__SPIKE_RESULT__ = {
+                        status: 'FAIL',
+                        error: error.message
+                    };
+                }
+            }
+        }
+
+        // Phaser configuration
+        const config = {
+            type: Phaser.WEBGL,
+            width: 256,
+            height: 256,
+            backgroundColor: '#2d2d2d',
+            scene: TestScene,
+            callbacks: {
+                postBoot: function() {
+                    console.log(JSON.stringify({ event: 'phaser_boot' }));
+                }
+            }
+        };
+
+        // Start Phaser
+        const game = new Phaser.Game(config);
+    </script>
+</body>
+</html>
