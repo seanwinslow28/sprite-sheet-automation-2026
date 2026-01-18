@@ -158,10 +158,16 @@ None - implementation was straightforward
 - Example manifest with all 4 prompt template types (master, variation, lock, negative)
 - Schema validation successful
 
+### Code Review Verification (2026-01-18)
+
+- **Tests**: Added unit tests in `test/commands/schema.test.ts` (Fix #1)
+- **Status**: PASSED adversarial review
+
 ### File List
 
 - src/commands/schema.ts - Schema command with --example flag
 - src/domain/schemas/manifest.ts - Complete Zod schema definitions
 - assets/examples/sample-manifest.yaml - Example manifest with comments
+- test/commands/schema.test.ts - Unit tests for schema output
 - Updated src/bin.ts - Registered schema command
 - package.json - Added zod-to-json-schema dependency

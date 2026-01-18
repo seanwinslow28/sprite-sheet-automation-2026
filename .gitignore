@@ -6,6 +6,25 @@ dist/
 
 # Environment variables
 .env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# MCP configuration (contains API keys)
+.mcp.json
+
+# Secrets and credentials
+*.pem
+*.key
+*.cert
+*.p12
+*.pfx
+credentials.json
+service-account*.json
+config.local.json
+secrets.json
+*.secret
 
 # Run artifacts
 runs/
