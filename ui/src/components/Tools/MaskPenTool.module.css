@@ -1,0 +1,184 @@
+/**
+ * MaskPenTool component styles
+ * Per Story 7.5: Brush drawing with mask overlay and prompt input
+ */
+
+.maskToolContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.maskCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: auto;
+  touch-action: none;
+}
+
+.controls {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 12px;
+  border-radius: 8px;
+  z-index: 10;
+  min-width: 140px;
+}
+
+.brushControls {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.brushControls label {
+  color: #fff;
+  font-size: 12px;
+}
+
+.brushControls input[type="range"] {
+  width: 120px;
+  cursor: pointer;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 8px;
+}
+
+.button {
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.15s;
+  flex: 1;
+  text-align: center;
+}
+
+.button:hover {
+  background: #444;
+}
+
+.button.active {
+  background: #ff4444;
+  border-color: #ff6666;
+}
+
+.promptPanel {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10;
+}
+
+.promptPanel label {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.promptPanel textarea {
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 8px;
+  border-radius: 4px;
+  resize: none;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.promptPanel textarea:focus {
+  outline: none;
+  border-color: #4488ff;
+}
+
+.promptPanel textarea::placeholder {
+  color: #666;
+}
+
+.promptButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.patchButton {
+  background: #4488ff;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  flex: 1;
+  transition: background-color 0.15s;
+}
+
+.patchButton:hover:not(:disabled) {
+  background: #5599ff;
+}
+
+.patchButton:disabled {
+  background: #333;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.cancelButton {
+  background: #444;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.15s;
+}
+
+.cancelButton:hover {
+  background: #555;
+}
+
+.maskInfo {
+  color: #888;
+  font-size: 11px;
+  text-align: center;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Brush cursor preview */
+.brushPreview {
+  position: fixed;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.brushPreview.erasing {
+  border-color: rgba(255, 100, 100, 0.8);
+  background: rgba(255, 100, 100, 0.2);
+}

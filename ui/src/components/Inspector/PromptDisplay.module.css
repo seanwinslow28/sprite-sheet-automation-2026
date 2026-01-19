@@ -1,0 +1,80 @@
+/* PromptDisplay - Prompt text with copy and expand controls */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.copyButton {
+  padding: 4px 8px;
+  font-size: 11px;
+  background: #333;
+  border: 1px solid #444;
+  color: #aaa;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copyButton:hover {
+  background: #444;
+  color: #fff;
+}
+
+.copyButton:focus {
+  outline: 2px solid #4488ff;
+  outline-offset: 2px;
+}
+
+.promptText {
+  font-size: 12px;
+  font-family: monospace;
+  color: #ccc;
+  background: #222;
+  padding: 8px;
+  border-radius: 4px;
+  line-height: 1.5;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.promptText.expanded {
+  max-height: none !important;
+}
+
+.expandButton {
+  align-self: flex-start;
+  padding: 4px 8px;
+  font-size: 11px;
+  background: transparent;
+  border: 1px solid #444;
+  color: #4488ff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.expandButton:hover {
+  background: rgba(68, 136, 255, 0.1);
+  border-color: #4488ff;
+}
+
+.expandButton:focus {
+  outline: 2px solid #4488ff;
+  outline-offset: 2px;
+}
+
+.noPrompt {
+  color: #888;
+  font-size: 13px;
+  padding: 8px;
+  text-align: center;
+  font-style: italic;
+}

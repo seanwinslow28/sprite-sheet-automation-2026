@@ -1,0 +1,52 @@
+/* MetricsBreakdown - Metric rows with pass/fail styling */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+  align-items: baseline;
+  padding: 6px 0;
+  border-bottom: 1px solid #333;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-size: 13px;
+  color: #aaa;
+}
+
+.value {
+  font-size: 14px;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.value.pass {
+  color: #44cc44;
+}
+
+.value.fail {
+  color: #ff4444;
+}
+
+.threshold {
+  font-size: 11px;
+  color: #666;
+}
+
+.noMetrics {
+  color: #888;
+  font-size: 13px;
+  padding: 8px;
+  text-align: center;
+  font-style: italic;
+}

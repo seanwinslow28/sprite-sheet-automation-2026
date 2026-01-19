@@ -1,6 +1,6 @@
 # Story 7.6: Implement Patch API for Corrective Inpainting
 
-Status: ready-for-dev
+Status: review
 
 ---
 
@@ -27,53 +27,53 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create Patch API endpoint** (AC: #1)
-  - [ ] 1.1: Create `POST /api/patch` Express route
-  - [ ] 1.2: Accept frameId, maskBase64, prompt in request body
-  - [ ] 1.3: Load original image from session state
-  - [ ] 1.4: Validate all inputs before API call
+- [x] **Task 1: Create Patch API endpoint** (AC: #1)
+  - [x] 1.1: Create `POST /api/patch` Express route
+  - [x] 1.2: Accept frameId, maskBase64, prompt in request body
+  - [x] 1.3: Load original image from session state
+  - [x] 1.4: Validate all inputs before API call
 
-- [ ] **Task 2: Implement Gemini Inpaint call** (AC: #1, #2)
-  - [ ] 2.1: Create `src/adapters/gemini-inpaint-adapter.ts`
-  - [ ] 2.2: Format request with image + mask + prompt
-  - [ ] 2.3: Use Gemini edit mode with mask parameter
-  - [ ] 2.4: Handle API response and extract image
+- [x] **Task 2: Implement Gemini Inpaint call** (AC: #1, #2)
+  - [x] 2.1: Create `src/adapters/gemini-inpaint-adapter.ts`
+  - [x] 2.2: Format request with image + mask + prompt
+  - [x] 2.3: Use Gemini edit mode with mask parameter
+  - [x] 2.4: Handle API response and extract image
 
-- [ ] **Task 3: Implement prompt formatting** (AC: #2)
-  - [ ] 3.1: Create inpainting prompt template
-  - [ ] 3.2: Prepend standard inpainting instructions
-  - [ ] 3.3: Append user's correction prompt
-  - [ ] 3.4: Add pixel art style consistency reminder
+- [x] **Task 3: Implement prompt formatting** (AC: #2)
+  - [x] 3.1: Create inpainting prompt template
+  - [x] 3.2: Prepend standard inpainting instructions
+  - [x] 3.3: Append user's correction prompt
+  - [x] 3.4: Add pixel art style consistency reminder
 
-- [ ] **Task 4: Implement response processing** (AC: #3)
-  - [ ] 4.1: Extract patched image from API response
-  - [ ] 4.2: Convert to base64 for UI
-  - [ ] 4.3: Save patched image to candidates folder
-  - [ ] 4.4: Update session frame state with new image
+- [x] **Task 4: Implement response processing** (AC: #3)
+  - [x] 4.1: Extract patched image from API response
+  - [x] 4.2: Convert to base64 for UI
+  - [x] 4.3: Save patched image to candidates folder
+  - [x] 4.4: Update session frame state with new image
 
-- [ ] **Task 5: Implement history preservation** (AC: #5)
-  - [ ] 5.1: Save original image path before patch
-  - [ ] 5.2: Create PatchHistoryEntry with original, patched, mask, prompt
-  - [ ] 5.3: Add to directorOverrides.patchHistory array
-  - [ ] 5.4: Support multiple patches per frame
+- [x] **Task 5: Implement history preservation** (AC: #5)
+  - [x] 5.1: Save original image path before patch
+  - [x] 5.2: Create PatchHistoryEntry with original, patched, mask, prompt
+  - [x] 5.3: Add to directorOverrides.patchHistory array
+  - [x] 5.4: Support multiple patches per frame
 
-- [ ] **Task 6: Update override tracking** (AC: #4)
-  - [ ] 6.1: Set isPatched = true on successful patch
-  - [ ] 6.2: Update frame status to APPROVED
-  - [ ] 6.3: Persist session state immediately
-  - [ ] 6.4: Notify UI of update
+- [x] **Task 6: Update override tracking** (AC: #4)
+  - [x] 6.1: Set isPatched = true on successful patch
+  - [x] 6.2: Update frame status to APPROVED
+  - [x] 6.3: Persist session state immediately
+  - [x] 6.4: Notify UI of update
 
-- [ ] **Task 7: Implement error handling** (AC: #6)
-  - [ ] 7.1: Catch API errors gracefully
-  - [ ] 7.2: Return error message to UI
-  - [ ] 7.3: Preserve mask state on failure
-  - [ ] 7.4: Allow retry with modified prompt
+- [x] **Task 7: Implement error handling** (AC: #6)
+  - [x] 7.1: Catch API errors gracefully
+  - [x] 7.2: Return error message to UI
+  - [x] 7.3: Preserve mask state on failure
+  - [x] 7.4: Allow retry with modified prompt
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test successful patch flow
-  - [ ] 8.2: Test history is preserved
-  - [ ] 8.3: Test error handling preserves mask
-  - [ ] 8.4: Test multiple patches accumulate history
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test successful patch flow
+  - [x] 8.2: Test history is preserved
+  - [x] 8.3: Test error handling preserves mask
+  - [x] 8.4: Test multiple patches accumulate history
 
 ---
 
@@ -400,8 +400,20 @@ export async function patchFrame(
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- Created `GeminiInpaintAdapter` class with deferred initialization for testability
+- Used `Result` type from `config-resolver.js` for consistent error handling
+- Prompt format follows AC #2 with TASK/STYLE/DO NOT/DETAIL structure
+- `PatchService` coordinates adapter calls, file saves, and session updates
+- Files saved with timestamp for uniqueness: `{frameId}_patched_{timestamp}.png`
+- Mask saved to audit folder, patched image to candidates folder
+- Patch history accumulates across multiple patches per frame
+- Tests verify input validation, session state updates, history preservation
+- 35 new tests added (17 adapter + 18 service tests)
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/adapters/gemini-inpaint-adapter.ts` (NEW) - Gemini inpaint API adapter
+- `src/core/patch-service.ts` (NEW) - Patch workflow service
+- `test/adapters/gemini-inpaint-adapter.test.ts` (NEW) - 17 tests
+- `test/core/patch-service.test.ts` (NEW) - 18 tests
+- `vitest.config.ts` (NEW) - Root vitest config to separate backend/UI tests

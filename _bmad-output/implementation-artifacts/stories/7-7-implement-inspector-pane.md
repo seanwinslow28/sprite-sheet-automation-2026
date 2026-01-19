@@ -1,6 +1,6 @@
 # Story 7.7: Implement Inspector Pane with Audit Details
 
-Status: ready-for-dev
+Status: review
 
 ---
 
@@ -27,54 +27,54 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create Inspector component structure** (AC: #1-5)
-  - [ ] 1.1: Create `ui/src/components/Inspector/Inspector.tsx`
-  - [ ] 1.2: Create sidebar layout (right side of Director UI)
-  - [ ] 1.3: Add collapsible sections for each data type
-  - [ ] 1.4: Style with dark theme consistent with Director
+- [x] **Task 1: Create Inspector component structure** (AC: #1-5)
+  - [x] 1.1: Create `ui/src/components/Inspector/Inspector.tsx`
+  - [x] 1.2: Create sidebar layout (right side of Director UI)
+  - [x] 1.3: Add collapsible sections for each data type
+  - [x] 1.4: Style with dark theme consistent with Director
 
-- [ ] **Task 2: Implement Audit Score section** (AC: #1)
-  - [ ] 2.1: Create `ScoreDisplay` component
-  - [ ] 2.2: Show composite score as percentage
-  - [ ] 2.3: Add color coding (green ≥0.8, yellow ≥0.6, red <0.6)
-  - [ ] 2.4: Show score bar visualization
+- [x] **Task 2: Implement Audit Score section** (AC: #1)
+  - [x] 2.1: Create `ScoreDisplay` component
+  - [x] 2.2: Show composite score as percentage
+  - [x] 2.3: Add color coding (green ≥0.8, yellow ≥0.6, red <0.6)
+  - [x] 2.4: Show score bar visualization
 
-- [ ] **Task 3: Implement Flags section** (AC: #2, #6)
-  - [ ] 3.1: Create `FlagsList` component
-  - [ ] 3.2: Display each flag as a clickable chip
-  - [ ] 3.3: Color code by severity (hard=red, soft=yellow)
-  - [ ] 3.4: Show flag description on click/hover
+- [x] **Task 3: Implement Flags section** (AC: #2, #6)
+  - [x] 3.1: Create `FlagsList` component
+  - [x] 3.2: Display each flag as a clickable chip
+  - [x] 3.3: Color code by severity (hard=red, soft=yellow)
+  - [x] 3.4: Show flag description on click/hover
 
-- [ ] **Task 4: Implement Metrics Breakdown section** (AC: #3)
-  - [ ] 4.1: Create `MetricsBreakdown` component
-  - [ ] 4.2: Display SSIM with threshold indicator
-  - [ ] 4.3: Display Palette Fidelity percentage
-  - [ ] 4.4: Display Baseline Drift in pixels
-  - [ ] 4.5: Display Orphan Pixel count
+- [x] **Task 4: Implement Metrics Breakdown section** (AC: #3)
+  - [x] 4.1: Create `MetricsBreakdown` component
+  - [x] 4.2: Display SSIM with threshold indicator
+  - [x] 4.3: Display Palette Fidelity percentage
+  - [x] 4.4: Display Baseline Drift in pixels
+  - [x] 4.5: Display Orphan Pixel count
 
-- [ ] **Task 5: Implement Prompt section** (AC: #4)
-  - [ ] 5.1: Create `PromptDisplay` component
-  - [ ] 5.2: Show full prompt text in scrollable area
-  - [ ] 5.3: Add copy-to-clipboard button
-  - [ ] 5.4: Truncate with "Show more" toggle
+- [x] **Task 5: Implement Prompt section** (AC: #4)
+  - [x] 5.1: Create `PromptDisplay` component
+  - [x] 5.2: Show full prompt text in scrollable area
+  - [x] 5.3: Add copy-to-clipboard button
+  - [x] 5.4: Truncate with "Show more" toggle
 
-- [ ] **Task 6: Implement Attempt History section** (AC: #5)
-  - [ ] 6.1: Create `AttemptHistory` component
-  - [ ] 6.2: List all attempts chronologically
-  - [ ] 6.3: Show score and status for each attempt
-  - [ ] 6.4: Allow clicking to view attempt details
+- [x] **Task 6: Implement Attempt History section** (AC: #5)
+  - [x] 6.1: Create `AttemptHistory` component
+  - [x] 6.2: List all attempts chronologically
+  - [x] 6.3: Show score and status for each attempt
+  - [x] 6.4: Allow clicking to view attempt details
 
-- [ ] **Task 7: Create Reason Code reference** (AC: #6)
-  - [ ] 7.1: Create `reasonCodes.ts` with all codes and descriptions
-  - [ ] 7.2: Create tooltip/modal for code details
-  - [ ] 7.3: Include solution suggestions
-  - [ ] 7.4: Link to operator guide
+- [x] **Task 7: Create Reason Code reference** (AC: #6)
+  - [x] 7.1: Create `reasonCodes.ts` with all codes and descriptions
+  - [x] 7.2: Create tooltip/modal for code details
+  - [x] 7.3: Include solution suggestions
+  - [x] 7.4: Link to operator guide
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test Inspector renders with frame data
-  - [ ] 8.2: Test flags are clickable
-  - [ ] 8.3: Test metrics display correctly
-  - [ ] 8.4: Test attempt history navigation
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test Inspector renders with frame data
+  - [x] 8.2: Test flags are clickable
+  - [x] 8.3: Test metrics display correctly
+  - [x] 8.4: Test attempt history navigation
 
 ---
 
@@ -523,18 +523,40 @@ export const REASON_CODES: Record<ReasonCode, ReasonCodeInfo> = {
 
 ### Agent Model Used
 
-**Cursor**
+**Claude Code**
 
-**Rationale:** UI component for data display with multiple sub-components. Cursor excels at creating well-structured React components with proper styling and layout.
+**Rationale:** UI component for data display with multiple sub-components. Claude Code enables rapid TDD implementation with React 19, CSS Modules, and comprehensive testing.
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+- Fixed clipboard mock tests - `navigator.clipboard` is a getter-only property in jsdom, switched from `Object.assign` to `vi.spyOn`
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+1. Created Inspector component with all sub-components per AC #1-6
+2. Implemented ScoreDisplay with color coding and progress bar (AC #1)
+3. Implemented FlagsList with clickable chips and detail popups (AC #2, #6)
+4. Implemented MetricsBreakdown with threshold indicators (AC #3)
+5. Implemented PromptDisplay with copy/expand functionality (AC #4)
+6. Implemented AttemptHistory with clickable entries (AC #5)
+7. Created reasonCodes.ts with all audit flag definitions (AC #6)
+8. All 46 tests passing with full accessibility support
 
 ### File List
 
-*(To be filled during implementation)*
+**New Files:**
+- `ui/src/data/reasonCodes.ts` - Audit flag codes reference
+- `ui/src/components/Inspector/Inspector.tsx` - Main inspector component
+- `ui/src/components/Inspector/Inspector.module.css` - Inspector styles
+- `ui/src/components/Inspector/ScoreDisplay.tsx` - Score display with bar
+- `ui/src/components/Inspector/ScoreDisplay.module.css` - Score styles
+- `ui/src/components/Inspector/FlagsList.tsx` - Clickable flag chips
+- `ui/src/components/Inspector/FlagsList.module.css` - Flags styles
+- `ui/src/components/Inspector/MetricsBreakdown.tsx` - Metrics table
+- `ui/src/components/Inspector/MetricsBreakdown.module.css` - Metrics styles
+- `ui/src/components/Inspector/PromptDisplay.tsx` - Prompt with copy
+- `ui/src/components/Inspector/PromptDisplay.module.css` - Prompt styles
+- `ui/src/components/Inspector/AttemptHistory.tsx` - Attempt list
+- `ui/src/components/Inspector/AttemptHistory.module.css` - Attempt styles
+- `ui/src/components/Inspector/index.ts` - Barrel exports
+- `ui/src/components/Inspector/__tests__/Inspector.test.tsx` - 46 tests

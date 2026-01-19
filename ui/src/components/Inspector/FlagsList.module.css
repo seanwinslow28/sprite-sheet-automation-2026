@@ -1,0 +1,105 @@
+/* FlagsList - Flag chips and detail panel styles */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.flagsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.flag {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: monospace;
+  cursor: pointer;
+  border: 1px solid;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.flag:hover {
+  transform: translateY(-1px);
+}
+
+.flag:focus {
+  outline: 2px solid #4488ff;
+  outline-offset: 2px;
+}
+
+.flag.hard {
+  background: rgba(255, 68, 68, 0.2);
+  border-color: #ff4444;
+  color: #ff6666;
+}
+
+.flag.hard:hover {
+  background: rgba(255, 68, 68, 0.3);
+}
+
+.flag.soft {
+  background: rgba(255, 204, 0, 0.2);
+  border-color: #ffcc00;
+  color: #ffdd00;
+}
+
+.flag.soft:hover {
+  background: rgba(255, 204, 0, 0.3);
+}
+
+.flag.selected {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.noFlags {
+  color: #44cc44;
+  font-size: 13px;
+  padding: 8px;
+  background: rgba(68, 204, 68, 0.1);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.flagDetail {
+  padding: 12px;
+  background: #222;
+  border-radius: 4px;
+  border: 1px solid #333;
+}
+
+.flagCode {
+  margin: 0 0 4px 0;
+  color: #fff;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.name {
+  color: #aaa;
+  margin: 0 0 8px 0;
+  font-size: 13px;
+}
+
+.description {
+  color: #888;
+  font-size: 13px;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.solution {
+  color: #44cc44;
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.solution strong {
+  color: #66dd66;
+}

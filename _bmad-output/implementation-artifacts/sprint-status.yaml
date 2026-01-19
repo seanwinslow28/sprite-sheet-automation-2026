@@ -453,57 +453,75 @@ development_status:
     completion_date: 2026-01-19
     notes: "banana demo command with stub generation (actual Gemini TBD), runDoctor() refactored for reuse. 24 tests passing."
 
-  epic-6-retrospective: optional
+  epic-6-retrospective: done
 
   # ============================================================================
   # EPIC 7: Director Mode (Human-in-the-Loop Interface)
   # ============================================================================
   # Web-based UI for review, nudge, and patch. FRONTEND + BACKEND.
   # ----------------------------------------------------------------------------
-  epic-7: backlog
+  epic-7: in-progress
 
   7-1-implement-director-session-state:
-    status: ready-for-dev
+    status: review
+    completion_date: 2026-01-19
+    notes: "72 tests passing. DirectorSession schema + DirectorSessionManager with full lifecycle."
     agent: claude-code
     rationale: "Session state management with frame lifecycle. State machine complexity."
 
   7-2-implement-timeline-component:
-    status: ready-for-dev
+    status: review
+    completion_date: 2026-01-19
+    notes: "31 UI tests passing. Timeline filmstrip with status colors, keyboard nav, accessibility."
     agent: cursor
     rationale: "VISUAL UI COMPONENT. Filmstrip with color-coded borders. Cursor's real-time visual feedback is ideal."
 
   7-3-implement-stage-component-onion-skinning:
-    status: ready-for-dev
+    status: review
+    completion_date: 2026-01-19
+    notes: "33 UI tests passing. Canvas with onion skinning, zoom controls, baseline guide, keyboard shortcuts."
     agent: cursor
     rationale: "VISUAL UI COMPONENT. Canvas with overlays, zoom levels, transparency. Cursor excels here."
 
   7-4-implement-nudge-tool:
-    status: ready-for-dev
+    status: review
+    completion_date: 2026-01-19
+    notes: "27 UI tests passing. Drag-to-nudge with useDrag hook, delta recording, touch support."
     agent: cursor
     rationale: "INTERACTIVE UI. Drag handling, delta tracking, visual preview. Cursor's real-time feedback."
 
   7-5-implement-mask-pen-tool:
-    status: ready-for-dev
+    status: review
+    completion_date: 2026-01-19
+    notes: "39 UI tests passing. Brush drawing with interpolation, eraser, binary mask export, prompt input."
     agent: cursor
     rationale: "CANVAS DRAWING TOOL. Brush cursor, pixel selection, eraser toggle. Frontend-heavy."
 
   7-6-implement-patch-api:
-    status: ready-for-dev
+    status: review
+    completion_date: 2026-01-19
+    notes: "35 tests passing (17 adapter + 18 service). GeminiInpaintAdapter + PatchService with history preservation."
     agent: claude-code
     rationale: "Backend API connecting to Gemini inpaint endpoint. Error handling, history preservation."
 
   7-7-implement-inspector-pane:
-    status: ready-for-dev
-    agent: cursor
+    status: review
+    completion_date: 2026-01-19
+    notes: "46 UI tests passing. Inspector with ScoreDisplay, FlagsList, MetricsBreakdown, PromptDisplay, AttemptHistory. ReasonCodes reference."
+    agent: claude-code
     rationale: "UI COMPONENT. Audit details display, reason code reference. Visual layout."
 
   7-8-implement-visual-diff-overlays:
-    status: ready-for-dev
-    agent: cursor
+    status: review
+    completion_date: 2026-01-19
+    notes: "50 UI tests passing. DiffOverlay with PaletteDiffOverlay (blinking highlights, legalize) and AlignmentOverlay (baseline comparison, gap label). Color and baseline utilities."
+    agent: claude-code
     rationale: "CANVAS OVERLAYS. Blinking pixels, alignment lines, pixel distance labels. Visual feedback critical."
 
   7-9-implement-commit-and-export-flow:
-    status: ready-for-dev
+    status: review
+    completion_date: 2026-01-19
+    notes: "43 tests passing (18 backend + 25 UI). CommitService with delta application, patched frame handling. CommitButton UI with success overlay."
     agent: claude-code
     rationale: "Multi-step export flow: apply deltas, write files, close server. Orchestration complexity."
 

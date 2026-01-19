@@ -1,0 +1,115 @@
+/* AttemptHistory - Attempt list and detail styles */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.attemptsList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.attemptItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.attemptItem:hover {
+  background: #2a2a2a;
+  border-color: #444;
+}
+
+.attemptItem:focus {
+  outline: 2px solid #4488ff;
+  outline-offset: 2px;
+}
+
+.attemptItem.selected {
+  border-color: #4488ff;
+  background: rgba(68, 136, 255, 0.1);
+}
+
+.attemptNumber {
+  font-family: monospace;
+  font-size: 12px;
+  color: #888;
+  min-width: 24px;
+}
+
+.attemptScore {
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+  flex: 1;
+}
+
+.attemptStatus {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.approved {
+  background: rgba(68, 204, 68, 0.2);
+  color: #44cc44;
+}
+
+.rejected {
+  background: rgba(255, 68, 68, 0.2);
+  color: #ff4444;
+}
+
+.pending {
+  background: rgba(255, 204, 0, 0.2);
+  color: #ffcc00;
+}
+
+.noAttempts {
+  color: #888;
+  font-size: 13px;
+  padding: 8px;
+  text-align: center;
+  font-style: italic;
+}
+
+.attemptDetail {
+  padding: 12px;
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 4px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-bottom: 1px solid #333;
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+}
+
+.detailLabel {
+  font-size: 12px;
+  color: #888;
+}
+
+.detailValue {
+  font-size: 12px;
+  color: #fff;
+  font-family: monospace;
+}

@@ -1,6 +1,6 @@
 # Story 7.1: Implement Director Session State Management
 
-Status: ready-for-dev
+Status: review
 
 ---
 
@@ -30,55 +30,55 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Define DirectorSession schema** (AC: #1, #3)
-  - [ ] 1.1: Create `src/domain/types/director-session.ts`
-  - [ ] 1.2: Define `DirectorSession` interface with all required fields
-  - [ ] 1.3: Define `FrameStatus` enum with all status values
-  - [ ] 1.4: Define `DirectorFrameState` interface
-  - [ ] 1.5: Create Zod schema for validation
+- [x] **Task 1: Define DirectorSession schema** (AC: #1, #3)
+  - [x] 1.1: Create `src/domain/types/director-session.ts`
+  - [x] 1.2: Define `DirectorSession` interface with all required fields
+  - [x] 1.3: Define `FrameStatus` enum with all status values
+  - [x] 1.4: Define `DirectorFrameState` interface
+  - [x] 1.5: Create Zod schema for validation
 
-- [ ] **Task 2: Define DirectorOverrides schema** (AC: #2)
-  - [ ] 2.1: Define `HumanAlignmentDelta` interface (userOverrideX, userOverrideY)
-  - [ ] 2.2: Define `PatchHistory` interface (original, patched, timestamp)
-  - [ ] 2.3: Define `DirectorOverrides` interface combining all overrides
-  - [ ] 2.4: Add validation rules
+- [x] **Task 2: Define DirectorOverrides schema** (AC: #2)
+  - [x] 2.1: Define `HumanAlignmentDelta` interface (userOverrideX, userOverrideY)
+  - [x] 2.2: Define `PatchHistory` interface (original, patched, timestamp)
+  - [x] 2.3: Define `DirectorOverrides` interface combining all overrides
+  - [x] 2.4: Add validation rules
 
-- [ ] **Task 3: Implement session creation** (AC: #1, #2)
-  - [ ] 3.1: Create `src/core/director-session-manager.ts`
-  - [ ] 3.2: Implement `createSession(runId, manifest, frames)` function
-  - [ ] 3.3: Generate unique sessionId using crypto
-  - [ ] 3.4: Initialize frames map from run state
-  - [ ] 3.5: Load audit reports for each frame
+- [x] **Task 3: Implement session creation** (AC: #1, #2)
+  - [x] 3.1: Create `src/core/director-session-manager.ts`
+  - [x] 3.2: Implement `createSession(runId, manifest, frames)` function
+  - [x] 3.3: Generate unique sessionId using crypto
+  - [x] 3.4: Initialize frames map from run state
+  - [x] 3.5: Load audit reports for each frame
 
-- [ ] **Task 4: Implement frame state management** (AC: #2, #3)
-  - [ ] 4.1: Implement `updateFrameStatus(frameId, status)` function
-  - [ ] 4.2: Implement `updateFrameOverrides(frameId, overrides)` function
-  - [ ] 4.3: Implement `getFrameState(frameId)` function
-  - [ ] 4.4: Handle status transitions (validate legal transitions)
+- [x] **Task 4: Implement frame state management** (AC: #2, #3)
+  - [x] 4.1: Implement `updateFrameStatus(frameId, status)` function
+  - [x] 4.2: Implement `updateFrameOverrides(frameId, overrides)` function
+  - [x] 4.3: Implement `getFrameState(frameId)` function
+  - [x] 4.4: Handle status transitions (validate legal transitions)
 
-- [ ] **Task 5: Implement session persistence** (AC: #4, #5, #6)
-  - [ ] 5.1: Implement `saveSession()` with atomic writes
-  - [ ] 5.2: Use temp-then-rename pattern for crash safety
-  - [ ] 5.3: Save after each state change
-  - [ ] 5.4: Include lastModified timestamp
+- [x] **Task 5: Implement session persistence** (AC: #4, #5, #6)
+  - [x] 5.1: Implement `saveSession()` with atomic writes
+  - [x] 5.2: Use temp-then-rename pattern for crash safety
+  - [x] 5.3: Save after each state change
+  - [x] 5.4: Include lastModified timestamp
 
-- [ ] **Task 6: Implement session loading** (AC: #5)
-  - [ ] 6.1: Implement `loadSession(runId)` function
-  - [ ] 6.2: Validate session data against Zod schema
-  - [ ] 6.3: Handle missing/corrupted session file
-  - [ ] 6.4: Restore full state from disk
+- [x] **Task 6: Implement session loading** (AC: #5)
+  - [x] 6.1: Implement `loadSession(runId)` function
+  - [x] 6.2: Validate session data against Zod schema
+  - [x] 6.3: Handle missing/corrupted session file
+  - [x] 6.4: Restore full state from disk
 
-- [ ] **Task 7: Implement session lifecycle** (AC: #1-6)
-  - [ ] 7.1: Implement `initializeOrResumeSession(runId)` entry point
-  - [ ] 7.2: Detect existing session and offer resume
-  - [ ] 7.3: Implement `commitSession()` for final export
-  - [ ] 7.4: Implement `discardSession()` for cancel
+- [x] **Task 7: Implement session lifecycle** (AC: #1-6)
+  - [x] 7.1: Implement `initializeOrResumeSession(runId)` entry point
+  - [x] 7.2: Detect existing session and offer resume
+  - [x] 7.3: Implement `commitSession()` for final export
+  - [x] 7.4: Implement `discardSession()` for cancel
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test session creation with valid manifest
-  - [ ] 8.2: Test frame status transitions
-  - [ ] 8.3: Test persistence and reload
-  - [ ] 8.4: Test session survives simulated browser refresh
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test session creation with valid manifest
+  - [x] 8.2: Test frame status transitions
+  - [x] 8.3: Test persistence and reload
+  - [x] 8.4: Test session survives simulated browser refresh
 
 ---
 
@@ -301,12 +301,44 @@ function jsonToSession(json: object): DirectorSession {
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+- Tests pass: 72 tests (33 schema + 39 manager)
+- Full suite: 896 passed, 6 skipped, 86 todo
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- **Task 1-2 (Schema):** Created comprehensive Zod schemas for DirectorSession, DirectorFrameState, DirectorOverrides, HumanAlignmentDelta, PatchHistoryEntry, and AuditReport. Implemented FrameStatus enum with 5 states and status transition validation via `isValidStatusTransition()`. Helper functions: `createEmptyOverrides()`, `createInitialFrameState()`.
+
+- **Task 3-7 (Manager):** Implemented `DirectorSessionManager` class with full lifecycle management:
+  - Session creation with UUID generation via `crypto.randomUUID()`
+  - Frame initialization with pre-approved frame support
+  - Atomic persistence using `writeJsonAtomic()` temp-then-rename pattern
+  - Session loading with Zod schema validation
+  - Frame status updates with transition validation
+  - Frame override updates including alignment delta
+  - Session lifecycle methods: `commitSession()`, `discardSession()`, `initializeOrResume()`
+  - Helper methods: `getStatusCounts()`, `isComplete()`, `getFramesNeedingAttention()`
+
+- **Task 8 (Tests):** 72 comprehensive tests covering:
+  - Session creation with unique sessionId, runId, moveId, anchorFrameId
+  - Frame state tracking with directorOverrides and alignment delta
+  - Status transition validation (valid and invalid transitions)
+  - Session persistence to director_session.json with atomic writes
+  - Browser refresh simulation (reload test)
+  - Session loading with corrupted/missing file handling
+  - Session lifecycle (resume, commit, discard)
+  - Audit report updates
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/domain/types/director-session.ts` (NEW)
+- `src/core/director-session-manager.ts` (NEW)
+- `test/domain/director-session.test.ts` (NEW)
+- `test/core/director-session-manager.test.ts` (NEW)
+
+---
+
+## Change Log
+
+| Date | Change |
+|------|--------|
+| 2026-01-19 | Story implementation complete - all 8 tasks done, 72 tests passing |

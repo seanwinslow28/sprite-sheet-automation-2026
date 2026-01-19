@@ -1,6 +1,6 @@
 # Story 7.3: Implement Stage Component with Onion Skinning
 
-Status: ready-for-dev
+Status: review
 
 ---
 
@@ -27,58 +27,58 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create Stage component structure** (AC: #1, #5)
-  - [ ] 1.1: Create `ui/src/components/Stage/Stage.tsx`
-  - [ ] 1.2: Create canvas container with checkerboard background
-  - [ ] 1.3: Implement CSS checkerboard pattern
-  - [ ] 1.4: Center frame in viewport
-  - [ ] 1.5: Add padding/margin for visual breathing room
+- [x] **Task 1: Create Stage component structure** (AC: #1, #5)
+  - [x] 1.1: Create `ui/src/components/Stage/Stage.tsx`
+  - [x] 1.2: Create canvas container with checkerboard background
+  - [x] 1.3: Implement CSS checkerboard pattern
+  - [x] 1.4: Center frame in viewport
+  - [x] 1.5: Add padding/margin for visual breathing room
 
-- [ ] **Task 2: Implement frame rendering** (AC: #1)
-  - [ ] 2.1: Create HTML5 Canvas for frame display
-  - [ ] 2.2: Render current frame at specified zoom
-  - [ ] 2.3: Use `image-rendering: pixelated` for crisp pixels
-  - [ ] 2.4: Handle frame loading/error states
+- [x] **Task 2: Implement frame rendering** (AC: #1)
+  - [x] 2.1: Create HTML5 Canvas for frame display
+  - [x] 2.2: Render current frame at specified zoom
+  - [x] 2.3: Use `image-rendering: pixelated` for crisp pixels
+  - [x] 2.4: Handle frame loading/error states
 
-- [ ] **Task 3: Implement zoom controls** (AC: #6)
-  - [ ] 3.1: Create zoom level selector (1x, 2x, 4x, 8x)
-  - [ ] 3.2: Scale canvas based on selected zoom
-  - [ ] 3.3: Add zoom in/out buttons
-  - [ ] 3.4: Support keyboard shortcuts (+/- for zoom)
-  - [ ] 3.5: Support scroll wheel zoom
+- [x] **Task 3: Implement zoom controls** (AC: #6)
+  - [x] 3.1: Create zoom level selector (1x, 2x, 4x, 8x)
+  - [x] 3.2: Scale canvas based on selected zoom
+  - [x] 3.3: Add zoom in/out buttons
+  - [x] 3.4: Support keyboard shortcuts (+/- for zoom)
+  - [x] 3.5: Support scroll wheel zoom
 
-- [ ] **Task 4: Implement onion skinning** (AC: #2, #3)
-  - [ ] 4.1: Create overlay layer for previous frame
-  - [ ] 4.2: Render Frame[i-1] at 30% opacity
-  - [ ] 4.3: Create overlay layer for anchor frame
-  - [ ] 4.4: Render Frame[0] at 15% opacity
-  - [ ] 4.5: Add toggle switches for each overlay
+- [x] **Task 4: Implement onion skinning** (AC: #2, #3)
+  - [x] 4.1: Create overlay layer for previous frame
+  - [x] 4.2: Render Frame[i-1] at 30% opacity
+  - [x] 4.3: Create overlay layer for anchor frame
+  - [x] 4.4: Render Frame[0] at 15% opacity
+  - [x] 4.5: Add toggle switches for each overlay
 
-- [ ] **Task 5: Implement baseline guide** (AC: #4)
-  - [ ] 5.1: Load baselineY from anchor analysis
-  - [ ] 5.2: Draw horizontal line at baselineY
-  - [ ] 5.3: Use distinct color (cyan recommended)
-  - [ ] 5.4: Make guide toggleable
-  - [ ] 5.5: Add label showing pixel value
+- [x] **Task 5: Implement baseline guide** (AC: #4)
+  - [x] 5.1: Load baselineY from anchor analysis
+  - [x] 5.2: Draw horizontal line at baselineY
+  - [x] 5.3: Use distinct color (cyan recommended)
+  - [x] 5.4: Make guide toggleable
+  - [x] 5.5: Add label showing pixel value
 
-- [ ] **Task 6: Implement toolbar controls** (AC: #2, #3, #4, #6)
-  - [ ] 6.1: Create Stage toolbar component
-  - [ ] 6.2: Add onion skin toggle button
-  - [ ] 6.3: Add anchor overlay toggle button
-  - [ ] 6.4: Add baseline toggle button
-  - [ ] 6.5: Add zoom level dropdown
+- [x] **Task 6: Implement toolbar controls** (AC: #2, #3, #4, #6)
+  - [x] 6.1: Create Stage toolbar component
+  - [x] 6.2: Add onion skin toggle button
+  - [x] 6.3: Add anchor overlay toggle button
+  - [x] 6.4: Add baseline toggle button
+  - [x] 6.5: Add zoom level dropdown
 
-- [ ] **Task 7: Connect to session state** (AC: all)
-  - [ ] 7.1: Subscribe to selected frame from Timeline
-  - [ ] 7.2: Load current frame image
-  - [ ] 7.3: Load adjacent frames for onion skinning
-  - [ ] 7.4: Handle frame updates when edited
+- [x] **Task 7: Connect to session state** (AC: all)
+  - [x] 7.1: Subscribe to selected frame from Timeline
+  - [x] 7.2: Load current frame image
+  - [x] 7.3: Load adjacent frames for onion skinning
+  - [x] 7.4: Handle frame updates when edited
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test frame renders at correct zoom level
-  - [ ] 8.2: Test onion skinning toggle
-  - [ ] 8.3: Test baseline guide positioning
-  - [ ] 8.4: Test zoom controls
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test frame renders at correct zoom level
+  - [x] 8.2: Test onion skinning toggle
+  - [x] 8.3: Test baseline guide positioning
+  - [x] 8.4: Test zoom controls
 
 ---
 
@@ -425,12 +425,40 @@ export const StageToolbar: React.FC<StageToolbarProps> = ({
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+- UI tests: 33 passing (Stage component)
+- Total UI tests: 64 passing (Timeline + Stage)
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- **Task 1 (Structure):** Created `Stage.tsx` with flexbox layout, checkerboard background using CSS gradients, centered canvas with padding.
+
+- **Task 2 (Rendering):** HTML5 Canvas with `image-rendering: pixelated` for crisp pixel art, async image loading with base64 data URLs, error handling.
+
+- **Task 3 (Zoom controls):** Zoom level selector (1x, 2x, 4x, 8x), +/- buttons with disabled states at min/max, keyboard shortcuts (+/-), Ctrl+scroll wheel zoom.
+
+- **Task 4 (Onion skinning):** Previous frame at 30% opacity, anchor frame at 15% opacity, toggle switches for each, layered canvas rendering (back to front).
+
+- **Task 5 (Baseline guide):** Cyan (#00FFFF) dashed horizontal line at baselineY, pixel value label, toggleable via button and B key.
+
+- **Task 6 (Toolbar):** `StageToolbar.tsx` with zoom selector, zoom buttons, toggle buttons with active states, keyboard shortcut hints, proper ARIA attributes.
+
+- **Task 7 (Session state):** Frame props from parent, adjacent frame lookups for onion skinning, effect hooks for re-rendering on state changes.
+
+- **Task 8 (Tests):** 33 comprehensive tests covering display, zoom controls, onion skin toggle, anchor overlay toggle, baseline guide toggle, keyboard shortcuts, and canvas rendering.
 
 ### File List
 
-*(To be filled during implementation)*
+- `ui/src/components/Stage/Stage.tsx` (NEW)
+- `ui/src/components/Stage/Stage.module.css` (NEW)
+- `ui/src/components/Stage/StageToolbar.tsx` (NEW)
+- `ui/src/components/Stage/StageToolbar.module.css` (NEW)
+- `ui/src/components/Stage/index.ts` (NEW)
+- `ui/src/components/Stage/__tests__/Stage.test.tsx` (NEW)
+
+---
+
+## Change Log
+
+| Date | Change |
+|------|--------|
+| 2026-01-19 | Story implementation complete - all 8 tasks done, 33 tests passing |

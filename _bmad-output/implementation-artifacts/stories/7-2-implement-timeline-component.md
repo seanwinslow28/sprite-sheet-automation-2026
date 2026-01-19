@@ -1,6 +1,6 @@
 # Story 7.2: Implement Timeline Component with Status Indicators
 
-Status: ready-for-dev
+Status: review
 
 ---
 
@@ -29,55 +29,55 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create Timeline component structure** (AC: #1)
-  - [ ] 1.1: Create `ui/src/components/Timeline/Timeline.tsx`
-  - [ ] 1.2: Create horizontal scrollable container
-  - [ ] 1.3: Implement flex layout for filmstrip
-  - [ ] 1.4: Add scroll buttons for navigation (left/right arrows)
-  - [ ] 1.5: Position at bottom of Director UI
+- [x] **Task 1: Create Timeline component structure** (AC: #1)
+  - [x] 1.1: Create `ui/src/components/Timeline/Timeline.tsx`
+  - [x] 1.2: Create horizontal scrollable container
+  - [x] 1.3: Implement flex layout for filmstrip
+  - [x] 1.4: Add scroll buttons for navigation (left/right arrows)
+  - [x] 1.5: Position at bottom of Director UI
 
-- [ ] **Task 2: Create FrameThumbnail component** (AC: #2, #5)
-  - [ ] 2.1: Create `ui/src/components/Timeline/FrameThumbnail.tsx`
-  - [ ] 2.2: Render 64x64px thumbnail container
-  - [ ] 2.3: Display frame image scaled to fit
-  - [ ] 2.4: Add frame number label overlay
+- [x] **Task 2: Create FrameThumbnail component** (AC: #2, #5)
+  - [x] 2.1: Create `ui/src/components/Timeline/FrameThumbnail.tsx`
+  - [x] 2.2: Render 64x64px thumbnail container
+  - [x] 2.3: Display frame image scaled to fit
+  - [x] 2.4: Add frame number label overlay
 
-- [ ] **Task 3: Implement status color coding** (AC: #2)
-  - [ ] 3.1: Define color constants for each status
-  - [ ] 3.2: Apply 3px border with status color
-  - [ ] 3.3: Add subtle glow effect for emphasis
-  - [ ] 3.4: Ensure colors meet accessibility contrast
+- [x] **Task 3: Implement status color coding** (AC: #2)
+  - [x] 3.1: Define color constants for each status
+  - [x] 3.2: Apply 3px border with status color
+  - [x] 3.3: Add subtle glow effect for emphasis
+  - [x] 3.4: Ensure colors meet accessibility contrast
 
-- [ ] **Task 4: Implement frame selection** (AC: #3, #4)
-  - [ ] 4.1: Add onClick handler to FrameThumbnail
-  - [ ] 4.2: Update selected frame state in parent
-  - [ ] 4.3: Apply distinct highlight style to selected frame
-  - [ ] 4.4: Auto-scroll to selected frame if off-screen
-  - [ ] 4.5: Add keyboard navigation (left/right arrows)
+- [x] **Task 4: Implement frame selection** (AC: #3, #4)
+  - [x] 4.1: Add onClick handler to FrameThumbnail
+  - [x] 4.2: Update selected frame state in parent
+  - [x] 4.3: Apply distinct highlight style to selected frame
+  - [x] 4.4: Auto-scroll to selected frame if off-screen
+  - [x] 4.5: Add keyboard navigation (left/right arrows)
 
-- [ ] **Task 5: Connect to session state** (AC: #1-4)
-  - [ ] 5.1: Subscribe to DirectorSession frames map
-  - [ ] 5.2: Map frame states to thumbnails
-  - [ ] 5.3: Update on frame status changes
-  - [ ] 5.4: Handle empty/loading states
+- [x] **Task 5: Connect to session state** (AC: #1-4)
+  - [x] 5.1: Subscribe to DirectorSession frames map
+  - [x] 5.2: Map frame states to thumbnails
+  - [x] 5.3: Update on frame status changes
+  - [x] 5.4: Handle empty/loading states
 
-- [ ] **Task 6: Implement scroll behavior** (AC: #1)
-  - [ ] 6.1: Add smooth scroll animation
-  - [ ] 6.2: Implement scroll indicators (fade edges)
-  - [ ] 6.3: Support scroll-to-frame programmatically
-  - [ ] 6.4: Handle touch/swipe for mobile
+- [x] **Task 6: Implement scroll behavior** (AC: #1)
+  - [x] 6.1: Add smooth scroll animation
+  - [x] 6.2: Implement scroll indicators (fade edges)
+  - [x] 6.3: Support scroll-to-frame programmatically
+  - [x] 6.4: Handle touch/swipe for mobile
 
-- [ ] **Task 7: Add hover states and tooltips** (AC: all)
-  - [ ] 7.1: Show frame number on hover
-  - [ ] 7.2: Show status text on hover (tooltip)
-  - [ ] 7.3: Show audit score on hover
-  - [ ] 7.4: Slight scale-up on hover
+- [x] **Task 7: Add hover states and tooltips** (AC: all)
+  - [x] 7.1: Show frame number on hover
+  - [x] 7.2: Show status text on hover (tooltip)
+  - [x] 7.3: Show audit score on hover
+  - [x] 7.4: Slight scale-up on hover
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test timeline renders all frames
-  - [ ] 8.2: Test correct color coding for each status
-  - [ ] 8.3: Test frame selection updates parent state
-  - [ ] 8.4: Test keyboard navigation
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test timeline renders all frames
+  - [x] 8.2: Test correct color coding for each status
+  - [x] 8.3: Test frame selection updates parent state
+  - [x] 8.4: Test keyboard navigation
 
 ---
 
@@ -329,12 +329,49 @@ export const FrameThumbnail: React.FC<FrameThumbnailProps> = ({
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+- UI tests: 31 passing
+- Backend tests: 896 passing (no regressions)
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- **Task 1 (Timeline structure):** Created `Timeline.tsx` with horizontal filmstrip, scroll buttons, frame counter, keyboard navigation (Home/End/Arrow keys), and proper ARIA attributes.
+
+- **Task 2 (FrameThumbnail):** Created `FrameThumbnail.tsx` with 64x64px thumbnail container, image rendering with pixelated scaling for pixel art, frame number label, audit score badge, and placeholder for loading state.
+
+- **Task 3 (Status colors):** Implemented status color mapping meeting WCAG AA contrast requirements:
+  - APPROVED: #44cc44 (green)
+  - AUDIT_WARN: #ffcc00 (yellow)
+  - AUDIT_FAIL: #ff4444 (red)
+  - PENDING/GENERATED: #888888 (gray)
+
+- **Task 4 (Frame selection):** Click handlers, keyboard navigation (ArrowLeft/Right, Home, End), auto-scroll on selection change, distinct highlight style with white glow.
+
+- **Task 5 (Session state):** Created `useDirectorSession` hook for API integration, proper frame state mapping from DirectorSession.
+
+- **Task 6 (Scroll behavior):** Smooth scroll animation, fade edges for scroll indicators, `scrollIntoView` for programmatic scrolling.
+
+- **Task 7 (Hover/tooltips):** Title attribute with frame number, status label, and audit score. CSS hover effect with scale(1.08).
+
+- **Task 8 (Tests):** 31 comprehensive tests covering filmstrip layout, status color coding, frame selection, keyboard navigation, scroll buttons, accessibility, and tooltips.
 
 ### File List
 
-*(To be filled during implementation)*
+- `ui/package.json` (MODIFIED - added Vite React app)
+- `ui/vite.config.ts` (MODIFIED - added test config)
+- `ui/src/types/director-session.ts` (NEW)
+- `ui/src/hooks/useDirectorSession.ts` (NEW)
+- `ui/src/components/Timeline/Timeline.tsx` (NEW)
+- `ui/src/components/Timeline/Timeline.module.css` (NEW)
+- `ui/src/components/Timeline/FrameThumbnail.tsx` (NEW)
+- `ui/src/components/Timeline/FrameThumbnail.module.css` (NEW)
+- `ui/src/components/Timeline/index.ts` (NEW)
+- `ui/src/components/Timeline/__tests__/Timeline.test.tsx` (NEW)
+- `ui/src/test/setup.ts` (NEW)
+
+---
+
+## Change Log
+
+| Date | Change |
+|------|--------|
+| 2026-01-19 | Story implementation complete - all 8 tasks done, 31 tests passing |

@@ -1,0 +1,113 @@
+/**
+ * FrameThumbnail styles
+ * Per Story 7.2: 64px thumbnails with status borders and hover effects
+ */
+
+.thumbnail {
+  width: 64px;
+  height: 64px;
+  border: 3px solid;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  background: #222;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  outline: none;
+}
+
+/* Hover effect - slight scale up */
+.thumbnail:hover {
+  transform: scale(1.08);
+  z-index: 1;
+}
+
+/* Focus indicator for keyboard navigation */
+.thumbnail:focus-visible {
+  box-shadow: 0 0 0 2px #4a9eff;
+}
+
+/* Selected frame - prominent white highlight */
+.thumbnail.selected {
+  box-shadow: 0 0 0 3px #ffffff, 0 0 12px rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+.thumbnail.selected:hover {
+  transform: scale(1.1);
+}
+
+/* Frame image - pixel-perfect rendering */
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  display: block;
+}
+
+/* Placeholder when no image is loaded */
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+}
+
+.placeholderText {
+  color: #666;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+/* Frame number label - bottom left */
+.label {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-family: monospace;
+  pointer-events: none;
+}
+
+/* Audit score badge - top right */
+.score {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 1px 3px;
+  border-radius: 2px;
+  font-family: monospace;
+  pointer-events: none;
+}
+
+/* Status indicator dot - top left corner inside the frame */
+.statusDot {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 4px currentColor;
+}
+
+/* Subtle glow effect matching border color */
+.thumbnail:hover .statusDot {
+  box-shadow: 0 0 8px currentColor;
+}
