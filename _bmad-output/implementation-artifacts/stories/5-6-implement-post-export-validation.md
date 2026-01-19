@@ -1,6 +1,6 @@
 # Story 5.6: Implement Post-Export Validation
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -26,54 +26,54 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create post-export validator** (AC: #1-5)
-  - [ ] 1.1: Create `src/core/export/post-export-validator.ts`
-  - [ ] 1.2: Implement `validateExportedAtlas(atlasPath: AtlasPaths, manifest: Manifest): ValidationResult`
-  - [ ] 1.3: Run all validation checks
-  - [ ] 1.4: Return structured result
+- [x] **Task 1: Create post-export validator** (AC: #1-5)
+  - [x] 1.1: Create `src/core/export/post-export-validator.ts`
+  - [x] 1.2: Implement `validateExportedAtlas(atlasPath: AtlasPaths, manifest: Manifest): ValidationResult`
+  - [x] 1.3: Run all validation checks
+  - [x] 1.4: Return structured result
 
-- [ ] **Task 2: Implement JSON structure validation** (AC: #1)
-  - [ ] 2.1: Parse JSON file and catch parse errors
-  - [ ] 2.2: Validate against atlas Zod schema (from Story 5.3)
-  - [ ] 2.3: Check for `frames` object or `textures` array (multipack)
-  - [ ] 2.4: Report: "JSON parse error at line 42: unexpected token"
+- [x] **Task 2: Implement JSON structure validation** (AC: #1)
+  - [x] 2.1: Parse JSON file and catch parse errors
+  - [x] 2.2: Validate against atlas Zod schema (from Story 5.3)
+  - [x] 2.3: Check for `frames` object or `textures` array (multipack)
+  - [x] 2.4: Report: "JSON parse error at line 42: unexpected token"
 
-- [ ] **Task 3: Implement frame data validation** (AC: #2)
-  - [ ] 3.1: Count frames in JSON (handle both single and multipack)
-  - [ ] 3.2: Compare against `manifest.identity.frame_count`
-  - [ ] 3.3: Report missing frame keys
-  - [ ] 3.4: Report extra unexpected frame keys
+- [x] **Task 3: Implement frame data validation** (AC: #2)
+  - [x] 3.1: Count frames in JSON (handle both single and multipack)
+  - [x] 3.2: Compare against `manifest.identity.frame_count`
+  - [x] 3.3: Report missing frame keys
+  - [x] 3.4: Report extra unexpected frame keys
 
-- [ ] **Task 4: Implement PNG integrity validation** (AC: #3)
-  - [ ] 4.1: Load PNG with Sharp
-  - [ ] 4.2: Verify dimensions match `meta.size`
-  - [ ] 4.3: Verify format is PNG with alpha
-  - [ ] 4.4: Report: "PNG dimensions 512x256 don't match meta.size 512x128"
+- [x] **Task 4: Implement PNG integrity validation** (AC: #3)
+  - [x] 4.1: Load PNG with Sharp
+  - [x] 4.2: Verify dimensions match `meta.size`
+  - [x] 4.3: Verify format is PNG with alpha
+  - [x] 4.4: Report: "PNG dimensions 512x256 don't match meta.size 512x128"
 
-- [ ] **Task 5: Implement frame key format validation** (AC: #4)
-  - [ ] 5.1: Extract all frame keys from JSON
-  - [ ] 5.2: Validate each against regex `^[a-z_]+/\d{4}$`
-  - [ ] 5.3: Report invalid keys: "Invalid key 'idle_0001' (expected 'idle/0001')"
-  - [ ] 5.4: Verify keys use correct move ID from manifest
+- [x] **Task 5: Implement frame key format validation** (AC: #4)
+  - [x] 5.1: Extract all frame keys from JSON
+  - [x] 5.2: Validate each against regex `^[a-z_]+/\d{4}$`
+  - [x] 5.3: Report invalid keys: "Invalid key 'idle_0001' (expected 'idle/0001')"
+  - [x] 5.4: Verify keys use correct move ID from manifest
 
-- [ ] **Task 6: Implement cross-reference validation** (AC: #2, #3)
-  - [ ] 6.1: Verify each frame's position is within PNG bounds
-  - [ ] 6.2: Check frame.x + frame.w <= meta.size.w
-  - [ ] 6.3: Check frame.y + frame.h <= meta.size.h
-  - [ ] 6.4: Report: "Frame 'idle/0005' extends beyond atlas bounds"
+- [x] **Task 6: Implement cross-reference validation** (AC: #2, #3)
+  - [x] 6.1: Verify each frame's position is within PNG bounds
+  - [x] 6.2: Check frame.x + frame.w <= meta.size.w
+  - [x] 6.3: Check frame.y + frame.h <= meta.size.h
+  - [x] 6.4: Report: "Frame 'idle/0005' extends beyond atlas bounds"
 
-- [ ] **Task 7: Implement structured result output** (AC: #5)
-  - [ ] 7.1: Create `PostExportValidationResult` interface
-  - [ ] 7.2: Include individual check results
-  - [ ] 7.3: Log to `runs/{run_id}/export_validation.json`
-  - [ ] 7.4: Include pass/fail summary
+- [x] **Task 7: Implement structured result output** (AC: #5)
+  - [x] 7.1: Create `PostExportValidationResult` interface
+  - [x] 7.2: Include individual check results
+  - [x] 7.3: Log to `runs/{run_id}/export_validation.json`
+  - [x] 7.4: Include pass/fail summary
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test valid atlas passes all checks
-  - [ ] 8.2: Test invalid JSON is caught
-  - [ ] 8.3: Test missing frames are detected
-  - [ ] 8.4: Test PNG dimension mismatch is caught
-  - [ ] 8.5: Test invalid frame keys are caught
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test valid atlas passes all checks
+  - [x] 8.2: Test invalid JSON is caught
+  - [x] 8.3: Test missing frames are detected
+  - [x] 8.4: Test PNG dimension mismatch is caught
+  - [x] 8.5: Test invalid frame keys are caught
 
 ---
 
@@ -306,12 +306,23 @@ function validateFrameKeys(
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+- Code review completed 2026-01-19
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- All 8 tasks completed
+- post-export-validator.ts implements full validation suite
+- Checks JSON structure, frame count, frame keys, PNG integrity, bounds
+- Supports both single and multipack formats
+- Structured PostExportValidationResult output
+- Saves validation results to export_validation.json
+- 12 tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/export/post-export-validator.ts` - Post-export validation logic
+- `test/core/export/post-export-validator.test.ts` - Unit tests
+
+### Completion Date
+
+2026-01-19

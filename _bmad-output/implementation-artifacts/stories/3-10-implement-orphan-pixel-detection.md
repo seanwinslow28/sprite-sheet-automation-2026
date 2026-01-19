@@ -1,6 +1,6 @@
 # Story 3.10: Implement Orphan Pixel Detection
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -37,57 +37,57 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create orphan pixel detector** (AC: #1, #2, #3)
-  - [ ] 1.1: Create `src/core/metrics/orphan-pixel-detector.ts`
-  - [ ] 1.2: Implement `detectOrphanPixels(imagePath: string): Result<OrphanPixelResult, SystemError>`
-  - [ ] 1.3: Return `OrphanPixelResult` with: `orphan_count`, `classification`, `orphan_locations`, `passed`
+- [x] **Task 1: Create orphan pixel detector** (AC: #1, #2, #3)
+  - [x] 1.1: Create `src/core/metrics/orphan-pixel-detector.ts`
+  - [x] 1.2: Implement `detectOrphanPixels(imagePath: string): Result<OrphanPixelResult, SystemError>`
+  - [x] 1.3: Return `OrphanPixelResult` with: `orphan_count`, `classification`, `orphan_locations`, `passed`
 
-- [ ] **Task 2: Implement pixel scanning** (AC: #1, #5, #8)
-  - [ ] 2.1: Load image with Sharp: `sharp(imagePath).ensureAlpha().raw().toBuffer({ resolveWithObject: true })`
-  - [ ] 2.2: Get width, height, channels from info object
-  - [ ] 2.3: Skip 1px border (start at x=1, y=1, end at width-2, height-2)
-  - [ ] 2.4: Skip transparent pixels (alpha = 0)
+- [x] **Task 2: Implement pixel scanning** (AC: #1, #5, #8)
+  - [x] 2.1: Load image with Sharp: `sharp(imagePath).ensureAlpha().raw().toBuffer({ resolveWithObject: true })`
+  - [x] 2.2: Get width, height, channels from info object
+  - [x] 2.3: Skip 1px border (start at x=1, y=1, end at width-2, height-2)
+  - [x] 2.4: Skip transparent pixels (alpha = 0)
 
-- [ ] **Task 3: Implement neighbor check** (AC: #2, #9)
-  - [ ] 3.1: For each opaque pixel, get 4 orthogonal neighbors
-  - [ ] 3.2: Compare RGBA values exactly (all 4 channels must match)
-  - [ ] 3.3: Pixel is orphan if NO neighbor has matching color
-  - [ ] 3.4: Track orphan pixel locations for debugging
+- [x] **Task 3: Implement neighbor check** (AC: #2, #9)
+  - [x] 3.1: For each opaque pixel, get 4 orthogonal neighbors
+  - [x] 3.2: Compare RGBA values exactly (all 4 channels must match)
+  - [x] 3.3: Pixel is orphan if NO neighbor has matching color
+  - [x] 3.4: Track orphan pixel locations for debugging
 
-- [ ] **Task 4: Implement classification** (AC: #4)
-  - [ ] 4.1: Count total orphan pixels
-  - [ ] 4.2: Classify based on count:
+- [x] **Task 4: Implement classification** (AC: #4)
+  - [x] 4.1: Count total orphan pixels
+  - [x] 4.2: Classify based on count:
      - 0-5: PASS
      - 6-15: WARNING
      - >15: SOFT_FAIL
-  - [ ] 4.3: Return `SF05_PIXEL_NOISE` code for soft fail
-  - [ ] 4.4: Include classification in result
+  - [x] 4.3: Return `SF05_PIXEL_NOISE` code for soft fail
+  - [x] 4.4: Include classification in result
 
-- [ ] **Task 5: Handle edge cases** (AC: #10)
-  - [ ] 5.1: Handle very small sprites (<10 opaque pixels)
-  - [ ] 5.2: Handle solid color sprites (all same color)
-  - [ ] 5.3: Handle sprite that touches image border
-  - [ ] 5.4: Handle fully transparent image (return 0 orphans)
+- [x] **Task 5: Handle edge cases** (AC: #10)
+  - [x] 5.1: Handle very small sprites (<10 opaque pixels)
+  - [x] 5.2: Handle solid color sprites (all same color)
+  - [x] 5.3: Handle sprite that touches image border
+  - [x] 5.4: Handle fully transparent image (return 0 orphans)
 
-- [ ] **Task 6: Implement logging** (AC: #6)
-  - [ ] 6.1: Log orphan count
-  - [ ] 6.2: Log classification
-  - [ ] 6.3: Log orphan locations (first 10 if many)
-  - [ ] 6.4: Include in frame metrics JSON
+- [x] **Task 6: Implement logging** (AC: #6)
+  - [x] 6.1: Log orphan count
+  - [x] 6.2: Log classification
+  - [x] 6.3: Log orphan locations (first 10 if many)
+  - [x] 6.4: Include in frame metrics JSON
 
-- [ ] **Task 7: Optimize for performance** (AC: #7)
-  - [ ] 7.1: Use typed arrays for pixel data
-  - [ ] 7.2: Calculate pixel index efficiently
-  - [ ] 7.3: Early exit if >15 orphans found (already failed)
-  - [ ] 7.4: Profile and ensure ≤500ms
+- [x] **Task 7: Optimize for performance** (AC: #7)
+  - [x] 7.1: Use typed arrays for pixel data
+  - [x] 7.2: Calculate pixel index efficiently
+  - [x] 7.3: Early exit if >15 orphans found (already failed)
+  - [x] 7.4: Profile and ensure ≤500ms
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test clean sprite returns 0 orphans
-  - [ ] 8.2: Test sprite with intentional orphans
-  - [ ] 8.3: Test classification thresholds
-  - [ ] 8.4: Test border pixels are skipped
-  - [ ] 8.5: Test transparent pixels are excluded
-  - [ ] 8.6: Test performance under 500ms
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test clean sprite returns 0 orphans
+  - [x] 8.2: Test sprite with intentional orphans
+  - [x] 8.3: Test classification thresholds
+  - [x] 8.4: Test border pixels are skipped
+  - [x] 8.5: Test transparent pixels are excluded
+  - [x] 8.6: Test performance under 500ms
 
 ---
 

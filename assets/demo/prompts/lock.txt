@@ -1,0 +1,6 @@
+CRITICAL: Maintain exact character identity. DO NOT change:
+- Character shape and proportions
+- Color palette
+- Outline style
+- Face/eyes design
+Focus only on the subtle breathing animation motion.

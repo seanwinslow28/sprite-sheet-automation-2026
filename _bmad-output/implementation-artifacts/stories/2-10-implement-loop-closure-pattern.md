@@ -1,6 +1,6 @@
 # Story 2.10: Implement Loop Closure Pattern for Cyclic Animations
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -35,39 +35,39 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Extend prompt template engine** (AC: #1, #2)
-  - [ ] 1.1: Add `isLoop` and `isLoopClosure` to `PromptContext`
-  - [ ] 1.2: Create `buildLoopClosurePrompt(basePrompt: string): string`
-  - [ ] 1.3: Inject loop closure context before main prompt
-  - [ ] 1.4: Maintain Semantic Interleaving structure
+- [x] **Task 1: Extend prompt template engine** (AC: #1, #2)
+  - [x] 1.1: Add `isLoop` and `isLoopClosure` to `PromptContext`
+  - [x] 1.2: Create `buildLoopClosurePrompt(basePrompt: string): string`
+  - [x] 1.3: Inject loop closure context before main prompt
+  - [x] 1.4: Maintain Semantic Interleaving structure
 
-- [ ] **Task 2: Implement loop detection** (AC: #1, #6)
-  - [ ] 2.1: Read `identity.is_loop` from manifest (default: false)
-  - [ ] 2.2: Calculate `isLoopClosure = is_loop && (frameIndex === totalFrames - 1)`
-  - [ ] 2.3: Pass flag to prompt template engine
+- [x] **Task 2: Implement loop detection** (AC: #1, #6)
+  - [x] 2.1: Read `identity.is_loop` from manifest (default: false)
+  - [x] 2.2: Calculate `isLoopClosure = is_loop && (frameIndex === totalFrames - 1)`
+  - [x] 2.3: Pass flag to prompt template engine
 
-- [ ] **Task 3: Build loop closure prompt additions** (AC: #2, #3)
-  - [ ] 3.1: Create loop closure prompt template constant
-  - [ ] 3.2: Include all 4 required lines (CONTEXT, OBJECTIVE, CONSTRAINT, PHYSICS)
-  - [ ] 3.3: Reference [IMAGE 1] as motion target
-  - [ ] 3.4: Inject after Semantic Interleaving labels, before main prompt
+- [x] **Task 3: Build loop closure prompt additions** (AC: #2, #3)
+  - [x] 3.1: Create loop closure prompt template constant
+  - [x] 3.2: Include all 4 required lines (CONTEXT, OBJECTIVE, CONSTRAINT, PHYSICS)
+  - [x] 3.3: Reference [IMAGE 1] as motion target
+  - [x] 3.4: Inject after Semantic Interleaving labels, before main prompt
 
-- [ ] **Task 4: Update generator context** (AC: #3)
-  - [ ] 4.1: Mark anchor image as having dual purpose in context
-  - [ ] 4.2: Document anchor role in prompt: "Identity Truth + Motion Target"
-  - [ ] 4.3: Maintain hierarchy rule (Anchor still wins on conflict)
+- [x] **Task 4: Update generator context** (AC: #3)
+  - [x] 4.1: Mark anchor image as having dual purpose in context
+  - [x] 4.2: Document anchor role in prompt: "Identity Truth + Motion Target"
+  - [x] 4.3: Maintain hierarchy rule (Anchor still wins on conflict)
 
-- [ ] **Task 5: Implement logging** (AC: #4)
-  - [ ] 5.1: Log `isLoopClosure: true` when triggered
-  - [ ] 5.2: Log complete modified prompt
-  - [ ] 5.3: Log to `audit_log.jsonl`
+- [x] **Task 5: Implement logging** (AC: #4)
+  - [x] 5.1: Log `isLoopClosure: true` when triggered
+  - [x] 5.2: Log complete modified prompt
+  - [x] 5.3: Log to `audit_log.jsonl`
 
-- [ ] **Task 6: Write tests** (AC: all)
-  - [ ] 6.1: Test loop closure detected on final frame of looping animation
-  - [ ] 6.2: Test loop closure NOT applied on non-looping animation
-  - [ ] 6.3: Test prompt contains all 4 required lines
-  - [ ] 6.4: Test prompt structure maintains Semantic Interleaving
-  - [ ] 6.5: Test middle frames of looping animation don't get closure
+- [x] **Task 6: Write tests** (AC: all)
+  - [x] 6.1: Test loop closure detected on final frame of looping animation
+  - [x] 6.2: Test loop closure NOT applied on non-looping animation
+  - [x] 6.3: Test prompt contains all 4 required lines
+  - [x] 6.4: Test prompt structure maintains Semantic Interleaving
+  - [x] 6.5: Test middle frames of looping animation don't get closure
 
 ---
 
@@ -149,8 +149,13 @@ Generate Frame 7 of 8 for champion_01 idle animation.
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- All acceptance criteria met
+- Loop closure integrated into prompt-template-engine.ts
+- Tests combined with Story 2.4 in `test/core/prompt-template-engine.test.ts`
+- 85% transition constraint for smooth loop restart
+- CONTEXT, OBJECTIVE, CONSTRAINT, PHYSICS all present
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/prompt-template-engine.ts` - Loop closure detection and context injection
+- (Tests in `test/core/prompt-template-engine.test.ts`)

@@ -1,6 +1,6 @@
 # Story 3.8: Implement Soft Metric Aggregation and Scoring
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -37,63 +37,63 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create soft metric aggregator** (AC: #1, #2)
-  - [ ] 1.1: Create `src/core/metrics/soft-metric-aggregator.ts`
-  - [ ] 1.2: Define `AggregationWeights` from project spec
-  - [ ] 1.3: Implement `aggregateSoftMetrics(metrics: IndividualMetrics, weights: AggregationWeights): Result<CompositeScore, SystemError>`
-  - [ ] 1.4: Return `CompositeScore` with: `composite`, `breakdown`, `passed`, `failed_metrics`
+- [x] **Task 1: Create soft metric aggregator** (AC: #1, #2)
+  - [x] 1.1: Create `src/core/metrics/soft-metric-aggregator.ts`
+  - [x] 1.2: Define `AggregationWeights` from project spec
+  - [x] 1.3: Implement `aggregateSoftMetrics(metrics: IndividualMetrics, weights: AggregationWeights): Result<CompositeScore, SystemError>`
+  - [x] 1.4: Return `CompositeScore` with: `composite`, `breakdown`, `passed`, `failed_metrics`
 
-- [ ] **Task 2: Implement weighted scoring** (AC: #1, #2)
-  - [ ] 2.1: Define default weights: `{ stability: 0.35, identity: 0.30, palette: 0.20, style: 0.15 }`
-  - [ ] 2.2: Normalize each input metric to 0.0-1.0 if needed
-  - [ ] 2.3: Calculate weighted sum: `sum(metric * weight)`
-  - [ ] 2.4: Handle missing metrics gracefully (use neutral 0.5 or skip)
+- [x] **Task 2: Implement weighted scoring** (AC: #1, #2)
+  - [x] 2.1: Define default weights: `{ stability: 0.35, identity: 0.30, palette: 0.20, style: 0.15 }`
+  - [x] 2.2: Normalize each input metric to 0.0-1.0 if needed
+  - [x] 2.3: Calculate weighted sum: `sum(metric * weight)`
+  - [x] 2.4: Handle missing metrics gracefully (use neutral 0.5 or skip)
 
-- [ ] **Task 3: Implement threshold evaluation** (AC: #3)
-  - [ ] 3.1: Read `auditor.thresholds.composite_min` (default: 0.70)
-  - [ ] 3.2: If composite < threshold, flag for retry
-  - [ ] 3.3: Identify which metrics contributed most to failure
-  - [ ] 3.4: Return list of failed metric names
+- [x] **Task 3: Implement threshold evaluation** (AC: #3)
+  - [x] 3.1: Read `auditor.thresholds.composite_min` (default: 0.70)
+  - [x] 3.2: If composite < threshold, flag for retry
+  - [x] 3.3: Identify which metrics contributed most to failure
+  - [x] 3.4: Return list of failed metric names
 
-- [ ] **Task 4: Implement MAPD calculation** (AC: #6, #11)
-  - [ ] 4.1: Create `calculateMAPD(currentPath: string, previousPath: string): Promise<number>`
-  - [ ] 4.2: Load both images with Sharp
-  - [ ] 4.3: Find intersection of non-transparent pixels (both alpha > 0)
-  - [ ] 4.4: Calculate mean absolute difference for each channel
-  - [ ] 4.5: Return normalized 0.0-1.0 score
+- [x] **Task 4: Implement MAPD calculation** (AC: #6, #11)
+  - [x] 4.1: Create `calculateMAPD(currentPath: string, previousPath: string): Promise<number>`
+  - [x] 4.2: Load both images with Sharp
+  - [x] 4.3: Find intersection of non-transparent pixels (both alpha > 0)
+  - [x] 4.4: Calculate mean absolute difference for each channel
+  - [x] 4.5: Return normalized 0.0-1.0 score
 
-- [ ] **Task 5: Implement move-type thresholds** (AC: #7, #8, #9, #10)
-  - [ ] 5.1: Define threshold map: `{ idle: 0.02, walk: 0.10, block: 0.05, attack: 'bypass', jump: 'bypass', hit: 'bypass' }`
-  - [ ] 5.2: Read move type from manifest `identity.move_type`
-  - [ ] 5.3: If threshold is 'bypass', skip MAPD entirely
-  - [ ] 5.4: Otherwise, compare MAPD to threshold
+- [x] **Task 5: Implement move-type thresholds** (AC: #7, #8, #9, #10)
+  - [x] 5.1: Define threshold map: `{ idle: 0.02, walk: 0.10, block: 0.05, attack: 'bypass', jump: 'bypass', hit: 'bypass' }`
+  - [x] 5.2: Read move type from manifest `identity.move_type`
+  - [x] 5.3: If threshold is 'bypass', skip MAPD entirely
+  - [x] 5.4: Otherwise, compare MAPD to threshold
 
-- [ ] **Task 6: Implement bypass logging** (AC: #13)
-  - [ ] 6.1: When move type is high-motion, log bypass message
-  - [ ] 6.2: Include move type in log entry
-  - [ ] 6.3: Set MAPD result to null/undefined for bypassed moves
-  - [ ] 6.4: Do not include in composite calculation
+- [x] **Task 6: Implement bypass logging** (AC: #13)
+  - [x] 6.1: When move type is high-motion, log bypass message
+  - [x] 6.2: Include move type in log entry
+  - [x] 6.3: Set MAPD result to null/undefined for bypassed moves
+  - [x] 6.4: Do not include in composite calculation
 
-- [ ] **Task 7: Implement metrics logging** (AC: #4)
-  - [ ] 7.1: Create `audit/frame_{N}_metrics.json` file
-  - [ ] 7.2: Include breakdown: stability, identity, palette, style, temporal
-  - [ ] 7.3: Include composite score
-  - [ ] 7.4: Include pass/fail status and threshold used
-  - [ ] 7.5: Use atomic write pattern
+- [x] **Task 7: Implement metrics logging** (AC: #4)
+  - [x] 7.1: Create `audit/frame_{N}_metrics.json` file
+  - [x] 7.2: Include breakdown: stability, identity, palette, style, temporal
+  - [x] 7.3: Include composite score
+  - [x] 7.4: Include pass/fail status and threshold used
+  - [x] 7.5: Use atomic write pattern
 
-- [ ] **Task 8: Optimize for performance** (AC: #5)
-  - [ ] 8.1: Track total computation time
-  - [ ] 8.2: Log warning if exceeds 10 seconds
-  - [ ] 8.3: Consider parallel computation for independent metrics
-  - [ ] 8.4: Profile and optimize hot paths
+- [x] **Task 8: Optimize for performance** (AC: #5)
+  - [x] 8.1: Track total computation time
+  - [x] 8.2: Log warning if exceeds 10 seconds
+  - [x] 8.3: Consider parallel computation for independent metrics
+  - [x] 8.4: Profile and optimize hot paths
 
-- [ ] **Task 9: Write tests** (AC: all)
-  - [ ] 9.1: Test weighted average calculation
-  - [ ] 9.2: Test threshold triggers retry flag
-  - [ ] 9.3: Test MAPD calculation for similar frames
-  - [ ] 9.4: Test MAPD calculation for different frames
-  - [ ] 9.5: Test move-type bypass for attack/jump
-  - [ ] 9.6: Test metrics file is created correctly
+- [x] **Task 9: Write tests** (AC: all)
+  - [x] 9.1: Test weighted average calculation
+  - [x] 9.2: Test threshold triggers retry flag
+  - [x] 9.3: Test MAPD calculation for similar frames
+  - [x] 9.4: Test MAPD calculation for different frames
+  - [x] 9.5: Test move-type bypass for attack/jump
+  - [x] 9.6: Test metrics file is created correctly
 
 ---
 

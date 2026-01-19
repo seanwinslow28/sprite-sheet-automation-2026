@@ -1,6 +1,6 @@
 # Story 6.1: Implement `pipeline inspect` Command
 
-Status: ready-for-dev
+Status: review
 
 ---
 
@@ -26,54 +26,54 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create inspect command** (AC: #1)
-  - [ ] 1.1: Create `src/commands/pipeline/inspect.ts`
-  - [ ] 1.2: Accept run_id as positional argument
-  - [ ] 1.3: Load state.json from run folder
-  - [ ] 1.4: Display formatted summary
+- [x] **Task 1: Create inspect command** (AC: #1)
+  - [x] 1.1: Create `src/commands/inspect.ts` (flat structure per project convention)
+  - [x] 1.2: Accept run_id as positional argument
+  - [x] 1.3: Load state.json from run folder
+  - [x] 1.4: Display formatted summary
 
-- [ ] **Task 2: Implement run summary display** (AC: #1)
-  - [ ] 2.1: Show run status (in-progress, completed, stopped, failed)
-  - [ ] 2.2: Show frames completed count
-  - [ ] 2.3: Show frames failed count
-  - [ ] 2.4: Calculate and show retry rate
+- [x] **Task 2: Implement run summary display** (AC: #1)
+  - [x] 2.1: Show run status (in-progress, completed, stopped, failed)
+  - [x] 2.2: Show frames completed count
+  - [x] 2.3: Show frames failed count
+  - [x] 2.4: Calculate and show retry rate
 
-- [ ] **Task 3: Implement artifact listing** (AC: #2)
-  - [ ] 3.1: Scan run folder for all files
-  - [ ] 3.2: Group by subfolder (approved/, candidates/, audit/, etc.)
-  - [ ] 3.3: Show file sizes in human-readable format
-  - [ ] 3.4: Show total size per folder
+- [x] **Task 3: Implement artifact listing** (AC: #2)
+  - [x] 3.1: Scan run folder for all files
+  - [x] 3.2: Group by subfolder (approved/, candidates/, audit/, etc.)
+  - [x] 3.3: Show file sizes in human-readable format
+  - [x] 3.4: Show total size per folder
 
-- [ ] **Task 4: Implement recent log display** (AC: #3)
-  - [ ] 4.1: Read audit_log.jsonl
-  - [ ] 4.2: Parse last 5 entries
-  - [ ] 4.3: Format for console display
-  - [ ] 4.4: Include timestamps and event types
+- [x] **Task 4: Implement recent log display** (AC: #3)
+  - [x] 4.1: Read audit_log.jsonl
+  - [x] 4.2: Parse last 5 entries
+  - [x] 4.3: Format for console display
+  - [x] 4.4: Include timestamps and event types
 
-- [ ] **Task 5: Implement --frame flag** (AC: #4)
-  - [ ] 5.1: Accept `--frame <index>` option
-  - [ ] 5.2: Load `audit/frame_{index}_metrics.json`
-  - [ ] 5.3: Display formatted metrics
-  - [ ] 5.4: Show attempt history for that frame
+- [x] **Task 5: Implement --frame flag** (AC: #4)
+  - [x] 5.1: Accept `--frame <index>` option
+  - [x] 5.2: Load `audit/frame_{index}_metrics.json`
+  - [x] 5.3: Display formatted metrics
+  - [x] 5.4: Show attempt history for that frame
 
-- [ ] **Task 6: Implement --diagnostic flag** (AC: #5)
-  - [ ] 6.1: Accept `--diagnostic` option
-  - [ ] 6.2: Load `diagnostic.json` if exists
-  - [ ] 6.3: Display full diagnostic report
-  - [ ] 6.4: If no diagnostic, show message
+- [x] **Task 6: Implement --diagnostic flag** (AC: #5)
+  - [x] 6.1: Accept `--diagnostic` option
+  - [x] 6.2: Load `diagnostic.json` if exists
+  - [x] 6.3: Display full diagnostic report
+  - [x] 6.4: If no diagnostic, show message
 
-- [ ] **Task 7: Implement output formatting** (AC: all)
-  - [ ] 7.1: Use chalk for colors (green/red/yellow)
-  - [ ] 7.2: Use cli-table for tabular data
-  - [ ] 7.3: Format numbers with appropriate precision
-  - [ ] 7.4: Handle terminal width gracefully
+- [x] **Task 7: Implement output formatting** (AC: all)
+  - [x] 7.1: Use chalk for colors (green/red/yellow)
+  - [x] 7.2: Use tree-style listing for files (├──/└──)
+  - [x] 7.3: Format numbers with appropriate precision
+  - [x] 7.4: Handle terminal width gracefully
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test summary display with mock run
-  - [ ] 8.2: Test artifact listing
-  - [ ] 8.3: Test --frame flag
-  - [ ] 8.4: Test --diagnostic flag
-  - [ ] 8.5: Test missing run_id error
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test summary display with mock run
+  - [x] 8.2: Test artifact listing
+  - [x] 8.3: Test --frame flag
+  - [x] 8.4: Test --diagnostic flag
+  - [x] 8.5: Test missing run_id error
 
 ---
 
@@ -240,18 +240,35 @@ async function inspectRun(cmd: InspectCommand): Promise<void> {
 
 ### Agent Model Used
 
-**Codex-CLI**
+**Claude-Code** (changed from planned Codex-CLI)
 
 **Rationale:** CLI command with flags (--frame, --diagnostic). Well-defined output formats. File reading and formatting logic. No complex decision trees.
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+- 2026-01-19: Implemented all 8 tasks in single session
+- Build: `npm run build` - success
+- Tests: 16/16 passing, full suite 619/619 passing
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- Created `src/commands/inspect.ts` with all AC features
+- Reused existing `formatDiagnosticForConsole` from `diagnostic-generator.ts`
+- Uses `loadState` from `state-manager.ts` for state loading
+- Uses chalk for terminal colors (already in dependencies)
+- Tree-style file listing (├──/└──) instead of cli-table for cleaner output
+- Supports `--json` flag for programmatic output
+- Note: Used flat command structure (`src/commands/inspect.ts`) per existing project convention, not nested `pipeline/` folder
 
 ### File List
 
-*(To be filled during implementation)*
+**New Files:**
+- `src/commands/inspect.ts` - Main inspect command implementation (450 lines)
+- `test/commands/inspect.test.ts` - Test suite (16 tests)
+
+**Modified Files:**
+- `src/bin.ts` - Added registerInspectCommand, removed placeholder
+
+### Change Log
+
+- 2026-01-19: Story 6.1 implemented - `banana inspect <run_id>` command with all 5 AC features

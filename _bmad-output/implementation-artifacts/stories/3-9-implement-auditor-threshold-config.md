@@ -1,6 +1,6 @@
 # Story 3.9: Implement Auditor Threshold Configuration
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -26,44 +26,44 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Define threshold schema** (AC: #2, #5)
-  - [ ] 1.1: Add `AuditorThresholdsSchema` to `src/domain/schemas/manifest.ts`
-  - [ ] 1.2: Define Zod schema for each threshold with type and range constraints
-  - [ ] 1.3: All fields optional (for default fallback)
-  - [ ] 1.4: Validate ranges: min 0.0, max 1.0 for percentages; positive integers for pixels
+- [x] **Task 1: Define threshold schema** (AC: #2, #5)
+  - [x] 1.1: Add `AuditorThresholdsSchema` to `src/domain/schemas/manifest.ts`
+  - [x] 1.2: Define Zod schema for each threshold with type and range constraints
+  - [x] 1.3: All fields optional (for default fallback)
+  - [x] 1.4: Validate ranges: min 0.0, max 1.0 for percentages; positive integers for pixels
 
-- [ ] **Task 2: Define default values** (AC: #3)
-  - [ ] 2.1: Create `src/domain/defaults/auditor-defaults.ts`
-  - [ ] 2.2: Define `DEFAULT_AUDITOR_THRESHOLDS` constant
-  - [ ] 2.3: Document rationale for each default value
-  - [ ] 2.4: Export for use in other modules
+- [x] **Task 2: Define default values** (AC: #3)
+  - [x] 2.1: Create `src/domain/defaults/auditor-defaults.ts`
+  - [x] 2.2: Define `DEFAULT_AUDITOR_THRESHOLDS` constant
+  - [x] 2.3: Document rationale for each default value
+  - [x] 2.4: Export for use in other modules
 
-- [ ] **Task 3: Implement threshold resolver** (AC: #1, #3)
-  - [ ] 3.1: Create `src/core/auditor-config.ts`
-  - [ ] 3.2: Implement `resolveThresholds(manifestThresholds?: Partial<AuditorThresholds>): AuditorThresholds`
-  - [ ] 3.3: Merge manifest values with defaults
-  - [ ] 3.4: Return complete threshold object
+- [x] **Task 3: Implement threshold resolver** (AC: #1, #3)
+  - [x] 3.1: Create `src/core/auditor-config.ts`
+  - [x] 3.2: Implement `resolveThresholds(manifestThresholds?: Partial<AuditorThresholds>): AuditorThresholds`
+  - [x] 3.3: Merge manifest values with defaults
+  - [x] 3.4: Return complete threshold object
 
-- [ ] **Task 4: Implement validation** (AC: #5)
-  - [ ] 4.1: Validate identity_min is between 0.0 and 1.0
-  - [ ] 4.2: Validate palette_min is between 0.0 and 1.0
-  - [ ] 4.3: Validate alpha_artifact_max is between 0.0 and 1.0
-  - [ ] 4.4: Validate baseline_drift_max is positive integer (0-100)
-  - [ ] 4.5: Validate composite_min is between 0.0 and 1.0
-  - [ ] 4.6: Return validation errors with field path
+- [x] **Task 4: Implement validation** (AC: #5)
+  - [x] 4.1: Validate identity_min is between 0.0 and 1.0
+  - [x] 4.2: Validate palette_min is between 0.0 and 1.0
+  - [x] 4.3: Validate alpha_artifact_max is between 0.0 and 1.0
+  - [x] 4.4: Validate baseline_drift_max is positive integer (0-100)
+  - [x] 4.5: Validate composite_min is between 0.0 and 1.0
+  - [x] 4.6: Return validation errors with field path
 
-- [ ] **Task 5: Implement logging** (AC: #4)
-  - [ ] 5.1: Log effective thresholds at run start
-  - [ ] 5.2: Include source of each value (manifest or default)
-  - [ ] 5.3: Format as structured JSON for Pino
-  - [ ] 5.4: Include in `manifest.lock.json`
+- [x] **Task 5: Implement logging** (AC: #4)
+  - [x] 5.1: Log effective thresholds at run start
+  - [x] 5.2: Include source of each value (manifest or default)
+  - [x] 5.3: Format as structured JSON for Pino
+  - [x] 5.4: Include in `manifest.lock.json`
 
-- [ ] **Task 6: Write tests** (AC: all)
-  - [ ] 6.1: Test reading thresholds from manifest
-  - [ ] 6.2: Test default fallback for missing thresholds
-  - [ ] 6.3: Test partial manifest overrides
-  - [ ] 6.4: Test validation rejects invalid values
-  - [ ] 6.5: Test logging output format
+- [x] **Task 6: Write tests** (AC: all)
+  - [x] 6.1: Test reading thresholds from manifest
+  - [x] 6.2: Test default fallback for missing thresholds
+  - [x] 6.3: Test partial manifest overrides
+  - [x] 6.4: Test validation rejects invalid values
+  - [x] 6.5: Test logging output format
 
 ---
 

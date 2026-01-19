@@ -11,6 +11,14 @@ import { dirname, join } from 'path';
 import { registerDoctorCommand } from './commands/doctor.js';
 import { registerSchemaCommand } from './commands/schema.js';
 import { registerSpikeCommand } from './commands/spike.js';
+import { registerRunCommand } from './commands/run.js';
+import { registerValidateCommand } from './commands/validate.js';
+import { registerPromoteCommand } from './commands/promote.js';
+import { registerInspectCommand } from './commands/inspect.js';
+import { registerCleanCommand } from './commands/clean.js';
+import { registerNewManifestCommand } from './commands/new-manifest.js';
+import { registerGuideCommand } from './commands/guide.js';
+import { registerDemoCommand } from './commands/demo.js';
 import { logger } from './utils/logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -28,6 +36,14 @@ program
 registerDoctorCommand(program);
 registerSchemaCommand(program);
 registerSpikeCommand(program);
+registerRunCommand(program);
+registerValidateCommand(program);
+registerPromoteCommand(program);
+registerInspectCommand(program);
+registerCleanCommand(program);
+registerNewManifestCommand(program);
+registerGuideCommand(program);
+registerDemoCommand(program);
 
 // Placeholder commands - to be implemented in subsequent stories
 program
@@ -51,11 +67,5 @@ program
         logger.info({ command: 'export' }, 'export command - to be implemented');
     });
 
-program
-    .command('inspect')
-    .description('Inspect run artifacts and logs')
-    .action(() => {
-        logger.info({ command: 'inspect' }, 'inspect command - to be implemented');
-    });
-
 program.parse();
+

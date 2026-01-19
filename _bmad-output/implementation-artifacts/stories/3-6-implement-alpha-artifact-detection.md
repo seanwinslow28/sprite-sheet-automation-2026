@@ -1,6 +1,6 @@
 # Story 3.6: Implement Alpha Artifact Detection (Halo/Fringe)
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -26,52 +26,52 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create alpha artifact detector** (AC: #1, #2)
-  - [ ] 1.1: Create `src/core/metrics/alpha-artifact-detector.ts`
-  - [ ] 1.2: Implement `detectAlphaArtifacts(imagePath: string): Result<AlphaArtifactResult, SystemError>`
-  - [ ] 1.3: Return `AlphaArtifactResult` with: `severity_score`, `edge_pixels`, `problem_pixels`, `artifact_types`
+- [x] **Task 1: Create alpha artifact detector** (AC: #1, #2)
+  - [x] 1.1: Create `src/core/metrics/alpha-artifact-detector.ts`
+  - [x] 1.2: Implement `detectAlphaArtifacts(imagePath: string): Result<AlphaArtifactResult, SystemError>`
+  - [x] 1.3: Return `AlphaArtifactResult` with: `severity_score`, `edge_pixels`, `problem_pixels`, `artifact_types`
 
-- [ ] **Task 2: Identify edge pixels** (AC: #1)
-  - [ ] 2.1: Load image with Sharp and get raw RGBA buffer
-  - [ ] 2.2: For each opaque pixel (alpha > 0), check if any neighbor is transparent (alpha = 0)
-  - [ ] 2.3: Build list of edge pixels with their alpha values
-  - [ ] 2.4: Use 4-neighbor connectivity (up, down, left, right)
+- [x] **Task 2: Identify edge pixels** (AC: #1)
+  - [x] 2.1: Load image with Sharp and get raw RGBA buffer
+  - [x] 2.2: For each opaque pixel (alpha > 0), check if any neighbor is transparent (alpha = 0)
+  - [x] 2.3: Build list of edge pixels with their alpha values
+  - [x] 2.4: Use 4-neighbor connectivity (up, down, left, right)
 
-- [ ] **Task 3: Detect halo artifacts** (AC: #1, #2)
-  - [ ] 3.1: Identify edge pixels with partial alpha (1-254)
-  - [ ] 3.2: Check if edge pixel color is significantly different from nearest fully opaque pixel
-  - [ ] 3.3: "Halo" = light-colored semi-transparent pixels next to darker sprite
-  - [ ] 3.4: Calculate halo severity as: `halo_pixels / edge_pixels`
+- [x] **Task 3: Detect halo artifacts** (AC: #1, #2)
+  - [x] 3.1: Identify edge pixels with partial alpha (1-254)
+  - [x] 3.2: Check if edge pixel color is significantly different from nearest fully opaque pixel
+  - [x] 3.3: "Halo" = light-colored semi-transparent pixels next to darker sprite
+  - [x] 3.4: Calculate halo severity as: `halo_pixels / edge_pixels`
 
-- [ ] **Task 4: Detect fringe artifacts** (AC: #1, #2)
-  - [ ] 4.1: Identify edge pixels with colors bleeding from chroma key
-  - [ ] 4.2: Check for green, magenta, or cyan tinting on edges
-  - [ ] 4.3: "Fringe" = edge pixels with color distance < 50 from chroma colors
-  - [ ] 4.4: Calculate fringe severity as: `fringe_pixels / edge_pixels`
+- [x] **Task 4: Detect fringe artifacts** (AC: #1, #2)
+  - [x] 4.1: Identify edge pixels with colors bleeding from chroma key
+  - [x] 4.2: Check for green, magenta, or cyan tinting on edges
+  - [x] 4.3: "Fringe" = edge pixels with color distance < 50 from chroma colors
+  - [x] 4.4: Calculate fringe severity as: `fringe_pixels / edge_pixels`
 
-- [ ] **Task 5: Calculate composite severity score** (AC: #2)
-  - [ ] 5.1: Combine halo and fringe into single score
-  - [ ] 5.2: Weight: halo 0.6, fringe 0.4
-  - [ ] 5.3: Normalize to 0.0-1.0 range
-  - [ ] 5.4: Classify: clean (<0.1), minor (0.1-0.3), moderate (0.3-0.6), severe (>0.6)
+- [x] **Task 5: Calculate composite severity score** (AC: #2)
+  - [x] 5.1: Combine halo and fringe into single score
+  - [x] 5.2: Weight: halo 0.6, fringe 0.4
+  - [x] 5.3: Normalize to 0.0-1.0 range
+  - [x] 5.4: Classify: clean (<0.1), minor (0.1-0.3), moderate (0.3-0.6), severe (>0.6)
 
-- [ ] **Task 6: Implement threshold evaluation** (AC: #3, #4)
-  - [ ] 6.1: Read `auditor.thresholds.alpha_artifact_max` (default: 0.20)
-  - [ ] 6.2: If severity > threshold, return `SF03_ALPHA_HALO` soft fail
-  - [ ] 6.3: Include artifact breakdown in failure details
+- [x] **Task 6: Implement threshold evaluation** (AC: #3, #4)
+  - [x] 6.1: Read `auditor.thresholds.alpha_artifact_max` (default: 0.20)
+  - [x] 6.2: If severity > threshold, return `SF03_ALPHA_HALO` soft fail
+  - [x] 6.3: Include artifact breakdown in failure details
 
-- [ ] **Task 7: Implement logging** (AC: #5)
-  - [ ] 7.1: Log severity score and classification
-  - [ ] 7.2: Log edge pixel count
-  - [ ] 7.3: Log halo/fringe breakdown
-  - [ ] 7.4: Include in frame metrics JSON
+- [x] **Task 7: Implement logging** (AC: #5)
+  - [x] 7.1: Log severity score and classification
+  - [x] 7.2: Log edge pixel count
+  - [x] 7.3: Log halo/fringe breakdown
+  - [x] 7.4: Include in frame metrics JSON
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test clean sprite returns severity 0.0
-  - [ ] 8.2: Test sprite with halo returns elevated severity
-  - [ ] 8.3: Test sprite with fringe returns elevated severity
-  - [ ] 8.4: Test threshold triggers soft fail
-  - [ ] 8.5: Test fully opaque sprite (no edge artifacts)
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test clean sprite returns severity 0.0
+  - [x] 8.2: Test sprite with halo returns elevated severity
+  - [x] 8.3: Test sprite with fringe returns elevated severity
+  - [x] 8.4: Test threshold triggers soft fail
+  - [x] 8.5: Test fully opaque sprite (no edge artifacts)
 
 ---
 

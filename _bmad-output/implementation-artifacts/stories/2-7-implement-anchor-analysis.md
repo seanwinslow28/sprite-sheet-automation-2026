@@ -1,6 +1,6 @@
 # Story 2.7: Implement Anchor Analysis for Target Baseline Extraction
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -25,47 +25,47 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create anchor analyzer** (AC: #1, #2)
-  - [ ] 1.1: Create `src/core/anchor-analyzer.ts`
-  - [ ] 1.2: Implement `analyzeAnchor(imagePath: string, config: CanvasConfig): Result<AnchorAnalysis, SystemError>`
-  - [ ] 1.3: Define `AnchorAnalysis` interface with baselineY, rootX, visibleBounds, rootZoneBounds
+- [x] **Task 1: Create anchor analyzer** (AC: #1, #2)
+  - [x] 1.1: Create `src/core/anchor-analyzer.ts`
+  - [x] 1.2: Implement `analyzeAnchor(imagePath: string, config: CanvasConfig): Result<AnchorAnalysis, SystemError>`
+  - [x] 1.3: Define `AnchorAnalysis` interface with baselineY, rootX, visibleBounds, rootZoneBounds
 
-- [ ] **Task 2: Load and process anchor image** (AC: #4)
-  - [ ] 2.1: Load image using Sharp
-  - [ ] 2.2: Extract raw pixel data with alpha channel
-  - [ ] 2.3: Apply alphaThreshold (128) to determine opacity
-  - [ ] 2.4: Build binary mask of opaque pixels
+- [x] **Task 2: Load and process anchor image** (AC: #4)
+  - [x] 2.1: Load image using Sharp
+  - [x] 2.2: Extract raw pixel data with alpha channel
+  - [x] 2.3: Apply alphaThreshold (128) to determine opacity
+  - [x] 2.4: Build binary mask of opaque pixels
 
-- [ ] **Task 3: Calculate visible bounds** (AC: #1)
-  - [ ] 3.1: Scan image to find topY (first opaque row)
-  - [ ] 3.2: Scan image to find bottomY (last opaque row) → this is baselineY
-  - [ ] 3.3: Scan image to find leftX, rightX bounds
-  - [ ] 3.4: Calculate visibleHeight = bottomY - topY
+- [x] **Task 3: Calculate visible bounds** (AC: #1)
+  - [x] 3.1: Scan image to find topY (first opaque row)
+  - [x] 3.2: Scan image to find bottomY (last opaque row) → this is baselineY
+  - [x] 3.3: Scan image to find leftX, rightX bounds
+  - [x] 3.4: Calculate visibleHeight = bottomY - topY
 
-- [ ] **Task 4: Calculate root zone centroid** (AC: #2)
-  - [ ] 4.1: Calculate rootZoneHeight = visibleHeight * root_zone_ratio (default 0.15)
-  - [ ] 4.2: Define root zone as pixels from (bottomY - rootZoneHeight) to bottomY
-  - [ ] 4.3: Find all opaque pixels in root zone
-  - [ ] 4.4: Calculate X-centroid of root zone pixels → rootX
+- [x] **Task 4: Calculate root zone centroid** (AC: #2)
+  - [x] 4.1: Calculate rootZoneHeight = visibleHeight * root_zone_ratio (default 0.15)
+  - [x] 4.2: Define root zone as pixels from (bottomY - rootZoneHeight) to bottomY
+  - [x] 4.3: Find all opaque pixels in root zone
+  - [x] 4.4: Calculate X-centroid of root zone pixels → rootX
 
-- [ ] **Task 5: Handle edge cases** (AC: #5)
-  - [ ] 5.1: Check if image has any opaque pixels
-  - [ ] 5.2: Throw `ANCHOR_FULLY_TRANSPARENT` error if empty
-  - [ ] 5.3: Handle images with very small visible area
-  - [ ] 5.4: Handle images where root zone has no pixels
+- [x] **Task 5: Handle edge cases** (AC: #5)
+  - [x] 5.1: Check if image has any opaque pixels
+  - [x] 5.2: Throw `ANCHOR_FULLY_TRANSPARENT` error if empty
+  - [x] 5.3: Handle images with very small visible area
+  - [x] 5.4: Handle images where root zone has no pixels
 
-- [ ] **Task 6: Persist analysis results** (AC: #3, #6)
-  - [ ] 6.1: Create `anchor_analysis.json` in run directory
-  - [ ] 6.2: Use atomic write pattern
-  - [ ] 6.3: Log extracted values via Pino
-  - [ ] 6.4: Include analysis timestamp
+- [x] **Task 6: Persist analysis results** (AC: #3, #6)
+  - [x] 6.1: Create `anchor_analysis.json` in run directory
+  - [x] 6.2: Use atomic write pattern
+  - [x] 6.3: Log extracted values via Pino
+  - [x] 6.4: Include analysis timestamp
 
-- [ ] **Task 7: Write tests** (AC: all)
-  - [ ] 7.1: Test with sample anchor image
-  - [ ] 7.2: Test baselineY extraction accuracy
-  - [ ] 7.3: Test rootX centroid calculation
-  - [ ] 7.4: Test empty image error handling
-  - [ ] 7.5: Test alpha threshold filtering
+- [x] **Task 7: Write tests** (AC: all)
+  - [x] 7.1: Test with sample anchor image
+  - [x] 7.2: Test baselineY extraction accuracy
+  - [x] 7.3: Test rootX centroid calculation
+  - [x] 7.4: Test empty image error handling
+  - [x] 7.5: Test alpha threshold filtering
 
 ---
 
@@ -171,8 +171,13 @@ Status: ready-for-dev
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- All acceptance criteria met
+- 8/8 tests passing in `test/core/anchor-analyzer.test.ts` (added in code review)
+- Alpha threshold 128 for shadow filtering
+- Root zone ratio 15% of visible height (configurable)
+- Root zone based on VISIBLE height, not canvas height (Deep Think Lock)
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/anchor-analyzer.ts` - Anchor analysis with baselineY/rootX extraction
+- `test/core/anchor-analyzer.test.ts` - Anchor analyzer tests

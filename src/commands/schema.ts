@@ -27,11 +27,10 @@ export function registerSchemaCommand(program: Command): void {
             } else {
                 // Output JSON Schema
                 const jsonSchema = zodToJsonSchema(manifestSchema, {
-                    name: 'Manifest',
                     $refStrategy: 'none',
-                });
+                }) as Record<string, unknown>;
 
-                // Add metadata
+                // Add metadata - jsonSchema already has properties at top level
                 const schema = {
                     $schema: 'http://json-schema.org/draft-07/schema#',
                     title: 'Sprite Animation Manifest Schema',

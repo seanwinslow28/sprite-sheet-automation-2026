@@ -1,6 +1,6 @@
 # Story 3.4: Implement SSIM Identity Metric
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -27,55 +27,55 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create SSIM calculator module** (AC: #1, #2)
-  - [ ] 1.1: Create `src/core/metrics/ssim-calculator.ts`
-  - [ ] 1.2: Implement `calculateSSIM(candidatePath: string, anchorPath: string): Result<SSIMResult, SystemError>`
-  - [ ] 1.3: Return `SSIMResult` with: `score`, `channel_scores`, `computation_time_ms`
-  - [ ] 1.4: Handle images of different sizes (resize to match if needed)
+- [x] **Task 1: Create SSIM calculator module** (AC: #1, #2)
+  - [x] 1.1: Create `src/core/metrics/ssim-calculator.ts`
+  - [x] 1.2: Implement `calculateSSIM(candidatePath: string, anchorPath: string): Result<SSIMResult, SystemError>`
+  - [x] 1.3: Return `SSIMResult` with: `score`, `channel_scores`, `computation_time_ms`
+  - [x] 1.4: Handle images of different sizes (resize to match if needed)
 
-- [ ] **Task 2: Implement SSIM algorithm** (AC: #1)
-  - [ ] 2.1: Load both images with Sharp
-  - [ ] 2.2: Convert to grayscale for luminance comparison
-  - [ ] 2.3: Calculate mean, variance, covariance using sliding window
-  - [ ] 2.4: Apply SSIM formula: `(2*μx*μy + C1)(2*σxy + C2) / ((μx² + μy² + C1)(σx² + σy² + C2))`
-  - [ ] 2.5: Use constants: C1 = (0.01 * 255)², C2 = (0.03 * 255)²
+- [x] **Task 2: Implement SSIM algorithm** (AC: #1)
+  - [x] 2.1: Load both images with Sharp
+  - [x] 2.2: Convert to grayscale for luminance comparison
+  - [x] 2.3: Calculate mean, variance, covariance using sliding window
+  - [x] 2.4: Apply SSIM formula: `(2*μx*μy + C1)(2*σxy + C2) / ((μx² + μy² + C1)(σx² + σy² + C2))`
+  - [x] 2.5: Use constants: C1 = (0.01 * 255)², C2 = (0.03 * 255)²
 
-- [ ] **Task 3: Implement per-channel comparison** (AC: #2)
-  - [ ] 3.1: Calculate SSIM for R, G, B channels separately
-  - [ ] 3.2: Calculate SSIM for alpha channel
-  - [ ] 3.3: Compute weighted average: RGB 0.8, Alpha 0.2
-  - [ ] 3.4: Return both composite and per-channel scores
+- [x] **Task 3: Implement per-channel comparison** (AC: #2)
+  - [x] 3.1: Calculate SSIM for R, G, B channels separately
+  - [x] 3.2: Calculate SSIM for alpha channel
+  - [x] 3.3: Compute weighted average: RGB 0.8, Alpha 0.2
+  - [x] 3.4: Return both composite and per-channel scores
 
-- [ ] **Task 4: Implement threshold evaluation** (AC: #3, #4)
-  - [ ] 4.1: Read `auditor.thresholds.identity_min` from manifest (default: 0.85)
-  - [ ] 4.2: Compare SSIM score to threshold
-  - [ ] 4.3: If below threshold, return `SF01_IDENTITY_DRIFT` soft fail code
-  - [ ] 4.4: Include score delta in failure details
+- [x] **Task 4: Implement threshold evaluation** (AC: #3, #4)
+  - [x] 4.1: Read `auditor.thresholds.identity_min` from manifest (default: 0.85)
+  - [x] 4.2: Compare SSIM score to threshold
+  - [x] 4.3: If below threshold, return `SF01_IDENTITY_DRIFT` soft fail code
+  - [x] 4.4: Include score delta in failure details
 
-- [ ] **Task 5: Implement mask-aware comparison** (AC: #1)
-  - [ ] 5.1: Only compare pixels where both images are opaque (alpha > 0)
-  - [ ] 5.2: Skip transparent regions in SSIM calculation
-  - [ ] 5.3: Calculate effective comparison area percentage
-  - [ ] 5.4: Warn if comparison area is <50% of image
+- [x] **Task 5: Implement mask-aware comparison** (AC: #1)
+  - [x] 5.1: Only compare pixels where both images are opaque (alpha > 0)
+  - [x] 5.2: Skip transparent regions in SSIM calculation
+  - [x] 5.3: Calculate effective comparison area percentage
+  - [x] 5.4: Warn if comparison area is <50% of image
 
-- [ ] **Task 6: Implement logging** (AC: #5)
-  - [ ] 6.1: Log SSIM score to `audit_log.jsonl`
-  - [ ] 6.2: Log per-channel breakdown
-  - [ ] 6.3: Log comparison area percentage
-  - [ ] 6.4: Include in frame metrics JSON
+- [x] **Task 6: Implement logging** (AC: #5)
+  - [x] 6.1: Log SSIM score to `audit_log.jsonl`
+  - [x] 6.2: Log per-channel breakdown
+  - [x] 6.3: Log comparison area percentage
+  - [x] 6.4: Include in frame metrics JSON
 
-- [ ] **Task 7: Optimize for performance** (AC: #6)
-  - [ ] 7.1: Use 8×8 or 11×11 sliding window (configurable)
-  - [ ] 7.2: Consider downsampling for faster computation (optional)
-  - [ ] 7.3: Use typed arrays for pixel operations
-  - [ ] 7.4: Profile and optimize hot paths
+- [x] **Task 7: Optimize for performance** (AC: #6)
+  - [x] 7.1: Use 8×8 or 11×11 sliding window (configurable)
+  - [x] 7.2: Consider downsampling for faster computation (optional)
+  - [x] 7.3: Use typed arrays for pixel operations
+  - [x] 7.4: Profile and optimize hot paths
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test identical images return SSIM ≈ 1.0
-  - [ ] 8.2: Test completely different images return SSIM < 0.5
-  - [ ] 8.3: Test threshold evaluation triggers soft fail
-  - [ ] 8.4: Test mask-aware comparison excludes transparent pixels
-  - [ ] 8.5: Test computation time is under 3 seconds
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test identical images return SSIM ≈ 1.0
+  - [x] 8.2: Test completely different images return SSIM < 0.5
+  - [x] 8.3: Test threshold evaluation triggers soft fail
+  - [x] 8.4: Test mask-aware comparison excludes transparent pixels
+  - [x] 8.5: Test computation time is under 3 seconds
 
 ---
 

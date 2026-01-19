@@ -1,0 +1,4 @@
+Generate frame {{frame_index}} of {{total_frames}} for the idle animation.
+Maintain perfect character identity from the anchor reference.
+Add subtle breathing motion appropriate for this frame position.
+Keep all proportions and colors exactly matching the reference.

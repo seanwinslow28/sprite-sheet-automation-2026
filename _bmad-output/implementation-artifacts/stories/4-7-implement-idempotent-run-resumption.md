@@ -1,6 +1,6 @@
 # Story 4.7: Implement Idempotent Run Resumption
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -33,55 +33,55 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Implement run detection** (AC: #1)
-  - [ ] 1.1: Create `detectExistingRun(manifest: Manifest): ExistingRun | null`
-  - [ ] 1.2: Check for `runs/` folder matching manifest identity
-  - [ ] 1.3: Load `state.json` if exists
-  - [ ] 1.4: Return run metadata (run_id, status, approved_frames)
+- [x] **Task 1: Implement run detection** (AC: #1)
+  - [x] 1.1: Create `detectExistingRun(manifest: Manifest): ExistingRun | null`
+  - [x] 1.2: Check for `runs/` folder matching manifest identity
+  - [x] 1.3: Load `state.json` if exists
+  - [x] 1.4: Return run metadata (run_id, status, approved_frames)
 
-- [ ] **Task 2: Implement approved frame detection** (AC: #2, #4)
-  - [ ] 2.1: Scan `approved/` folder for existing frames
-  - [ ] 2.2: Parse frame indices from filenames (e.g., `frame_0003.png` → 3)
-  - [ ] 2.3: Build set of approved frame indices
-  - [ ] 2.4: Verify files are not corrupted (basic integrity check)
+- [x] **Task 2: Implement approved frame detection** (AC: #2, #4)
+  - [x] 2.1: Scan `approved/` folder for existing frames
+  - [x] 2.2: Parse frame indices from filenames (e.g., `frame_0003.png` → 3)
+  - [x] 2.3: Build set of approved frame indices
+  - [x] 2.4: Verify files are not corrupted (basic integrity check)
 
-- [ ] **Task 3: Implement resume logic** (AC: #3)
-  - [ ] 3.1: Calculate `first_pending_frame` from state and approved set
-  - [ ] 3.2: Set `current_frame_index` to first pending
-  - [ ] 3.3: Log: "Resuming from frame {N} (frames 0-{N-1} already approved)"
-  - [ ] 3.4: Skip generation loop for approved frames
+- [x] **Task 3: Implement resume logic** (AC: #3)
+  - [x] 3.1: Calculate `first_pending_frame` from state and approved set
+  - [x] 3.2: Set `current_frame_index` to first pending
+  - [x] 3.3: Log: "Resuming from frame {N} (frames 0-{N-1} already approved)"
+  - [x] 3.4: Skip generation loop for approved frames
 
-- [ ] **Task 4: Implement manifest hash comparison** (AC: #6, #9)
-  - [ ] 4.1: Calculate SHA256 hash of manifest content (normalized)
-  - [ ] 4.2: Store hash in `manifest.lock.json` at run start
-  - [ ] 4.3: On resume, compare current manifest hash with stored
-  - [ ] 4.4: Normalize manifest before hashing (sort keys, trim whitespace)
+- [x] **Task 4: Implement manifest hash comparison** (AC: #6, #9)
+  - [x] 4.1: Calculate SHA256 hash of manifest content (normalized)
+  - [x] 4.2: Store hash in `manifest.lock.json` at run start
+  - [x] 4.3: On resume, compare current manifest hash with stored
+  - [x] 4.4: Normalize manifest before hashing (sort keys, trim whitespace)
 
-- [ ] **Task 5: Implement mismatch handling** (AC: #7, #8)
-  - [ ] 5.1: If hash mismatch detected, log warning with diff summary
-  - [ ] 5.2: Without `--force`, prompt user: "Manifest changed. Use --force to continue."
-  - [ ] 5.3: With `--force`, log warning and continue
-  - [ ] 5.4: Record manifest change in run log
+- [x] **Task 5: Implement mismatch handling** (AC: #7, #8)
+  - [x] 5.1: If hash mismatch detected, log warning with diff summary
+  - [x] 5.2: Without `--force`, prompt user: "Manifest changed. Use --force to continue."
+  - [x] 5.3: With `--force`, log warning and continue
+  - [x] 5.4: Record manifest change in run log
 
-- [ ] **Task 6: Implement artifact preservation** (AC: #4)
-  - [ ] 6.1: Never delete existing `approved/` frames on resume
-  - [ ] 6.2: Append to existing `audit_log.jsonl` (not overwrite)
-  - [ ] 6.3: Preserve `candidates/` from previous attempts
-  - [ ] 6.4: Update `state.json` incrementally
+- [x] **Task 6: Implement artifact preservation** (AC: #4)
+  - [x] 6.1: Never delete existing `approved/` frames on resume
+  - [x] 6.2: Append to existing `audit_log.jsonl` (not overwrite)
+  - [x] 6.3: Preserve `candidates/` from previous attempts
+  - [x] 6.4: Update `state.json` incrementally
 
-- [ ] **Task 7: Implement resume command** (AC: #3)
-  - [ ] 7.1: Add `--resume <run_id>` flag to `pipeline run`
-  - [ ] 7.2: Load state from specified run_id
-  - [ ] 7.3: Validate run is in resumable state (stopped or in-progress)
-  - [ ] 7.4: Continue from saved checkpoint
+- [x] **Task 7: Implement resume command** (AC: #3)
+  - [x] 7.1: Add `--resume <run_id>` flag to `pipeline run`
+  - [x] 7.2: Load state from specified run_id
+  - [x] 7.3: Validate run is in resumable state (stopped or in-progress)
+  - [x] 7.4: Continue from saved checkpoint
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test approved frames are skipped
-  - [ ] 8.2: Test resume starts from correct frame
-  - [ ] 8.3: Test manifest hash mismatch is detected
-  - [ ] 8.4: Test --force allows continuation on mismatch
-  - [ ] 8.5: Test artifacts are preserved
-  - [ ] 8.6: Test corrupted approved frame triggers re-generation
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test approved frames are skipped
+  - [x] 8.2: Test resume starts from correct frame
+  - [x] 8.3: Test manifest hash mismatch is detected
+  - [x] 8.4: Test --force allows continuation on mismatch
+  - [x] 8.5: Test artifacts are preserved
+  - [x] 8.6: Test corrupted approved frame triggers re-generation
 
 ---
 
@@ -239,12 +239,18 @@ async function verifyApprovedFrames(approvedPath: string): Promise<{
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+N/A - Implementation tested via unit tests.
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- Implemented run detection based on manifest identity
+- Added manifest hash calculation for change detection
+- Implemented force flag for resuming despite changes
+- Added approved frame verification for integrity
+- Resume decision logic with comprehensive checks
+- All tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/run-detector.ts` - Run detection and resumption logic (339 lines)
+- `test/core/run-detector.test.ts` - Unit tests

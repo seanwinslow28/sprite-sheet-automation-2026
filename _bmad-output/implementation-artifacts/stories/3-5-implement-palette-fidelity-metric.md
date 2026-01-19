@@ -1,6 +1,6 @@
 # Story 3.5: Implement Palette Fidelity Metric
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -26,48 +26,48 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create palette fidelity calculator** (AC: #1, #2)
-  - [ ] 1.1: Create `src/core/metrics/palette-fidelity.ts`
-  - [ ] 1.2: Implement `calculatePaletteFidelity(candidatePath: string, palette: string[]): Result<PaletteFidelityResult, SystemError>`
-  - [ ] 1.3: Return `PaletteFidelityResult` with: `fidelity_percentage`, `matched_pixels`, `unmatched_pixels`, `off_palette_colors`
-  - [ ] 1.4: Support palette from manifest `inputs.palette[]`
+- [x] **Task 1: Create palette fidelity calculator** (AC: #1, #2)
+  - [x] 1.1: Create `src/core/metrics/palette-fidelity.ts`
+  - [x] 1.2: Implement `calculatePaletteFidelity(candidatePath: string, palette: string[]): Result<PaletteFidelityResult, SystemError>`
+  - [x] 1.3: Return `PaletteFidelityResult` with: `fidelity_percentage`, `matched_pixels`, `unmatched_pixels`, `off_palette_colors`
+  - [x] 1.4: Support palette from manifest `inputs.palette[]`
 
-- [ ] **Task 2: Implement color extraction** (AC: #1)
-  - [ ] 2.1: Load candidate image with Sharp
-  - [ ] 2.2: Get raw RGBA pixel buffer
-  - [ ] 2.3: Filter out transparent pixels (alpha < 128)
-  - [ ] 2.4: Build histogram of unique colors
+- [x] **Task 2: Implement color extraction** (AC: #1)
+  - [x] 2.1: Load candidate image with Sharp
+  - [x] 2.2: Get raw RGBA pixel buffer
+  - [x] 2.3: Filter out transparent pixels (alpha < 128)
+  - [x] 2.4: Build histogram of unique colors
 
-- [ ] **Task 3: Implement palette matching** (AC: #2)
-  - [ ] 3.1: Parse palette colors from hex strings
-  - [ ] 3.2: For each opaque pixel, find nearest palette color
-  - [ ] 3.3: Calculate color distance using Euclidean RGB
-  - [ ] 3.4: Pixel is "matched" if distance < tolerance (default: 30)
+- [x] **Task 3: Implement palette matching** (AC: #2)
+  - [x] 3.1: Parse palette colors from hex strings
+  - [x] 3.2: For each opaque pixel, find nearest palette color
+  - [x] 3.3: Calculate color distance using Euclidean RGB
+  - [x] 3.4: Pixel is "matched" if distance < tolerance (default: 30)
 
-- [ ] **Task 4: Calculate fidelity score** (AC: #2)
-  - [ ] 4.1: Count matched vs unmatched opaque pixels
-  - [ ] 4.2: Calculate percentage: `matched / (matched + unmatched) * 100`
-  - [ ] 4.3: Identify top 5 most common off-palette colors
-  - [ ] 4.4: Calculate coverage of each palette color
+- [x] **Task 4: Calculate fidelity score** (AC: #2)
+  - [x] 4.1: Count matched vs unmatched opaque pixels
+  - [x] 4.2: Calculate percentage: `matched / (matched + unmatched) * 100`
+  - [x] 4.3: Identify top 5 most common off-palette colors
+  - [x] 4.4: Calculate coverage of each palette color
 
-- [ ] **Task 5: Implement threshold evaluation** (AC: #3, #4)
-  - [ ] 5.1: Read `auditor.thresholds.palette_min` (default: 0.90)
-  - [ ] 5.2: Convert fidelity percentage to 0.0-1.0
-  - [ ] 5.3: If below threshold, return `SF02_PALETTE_DRIFT` soft fail
-  - [ ] 5.4: Include off-palette colors in failure details
+- [x] **Task 5: Implement threshold evaluation** (AC: #3, #4)
+  - [x] 5.1: Read `auditor.thresholds.palette_min` (default: 0.90)
+  - [x] 5.2: Convert fidelity percentage to 0.0-1.0
+  - [x] 5.3: If below threshold, return `SF02_PALETTE_DRIFT` soft fail
+  - [x] 5.4: Include off-palette colors in failure details
 
-- [ ] **Task 6: Implement logging** (AC: #5)
-  - [ ] 6.1: Log fidelity percentage
-  - [ ] 6.2: Log off-palette color count
-  - [ ] 6.3: Log most common off-palette colors
-  - [ ] 6.4: Include in frame metrics JSON
+- [x] **Task 6: Implement logging** (AC: #5)
+  - [x] 6.1: Log fidelity percentage
+  - [x] 6.2: Log off-palette color count
+  - [x] 6.3: Log most common off-palette colors
+  - [x] 6.4: Include in frame metrics JSON
 
-- [ ] **Task 7: Write tests** (AC: all)
-  - [ ] 7.1: Test 100% palette match returns 1.0
-  - [ ] 7.2: Test off-palette colors reduce score
-  - [ ] 7.3: Test threshold triggers soft fail
-  - [ ] 7.4: Test transparent pixels are excluded
-  - [ ] 7.5: Test tolerance matching works correctly
+- [x] **Task 7: Write tests** (AC: all)
+  - [x] 7.1: Test 100% palette match returns 1.0
+  - [x] 7.2: Test off-palette colors reduce score
+  - [x] 7.3: Test threshold triggers soft fail
+  - [x] 7.4: Test transparent pixels are excluded
+  - [x] 7.5: Test tolerance matching works correctly
 
 ---
 

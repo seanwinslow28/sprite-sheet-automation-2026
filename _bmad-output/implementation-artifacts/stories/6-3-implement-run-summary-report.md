@@ -1,6 +1,6 @@
 # Story 6.3: Implement Run Summary Report
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -29,53 +29,53 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Define summary schema** (AC: #1-7)
-  - [ ] 1.1: Create `RunSummary` interface
-  - [ ] 1.2: Include all required statistics
-  - [ ] 1.3: Create Zod schema for validation
-  - [ ] 1.4: Document each field
+- [x] **Task 1: Define summary schema** (AC: #1-7)
+  - [x] 1.1: Create `RunSummary` interface
+  - [x] 1.2: Include all required statistics
+  - [x] 1.3: Create Zod schema for validation
+  - [x] 1.4: Document each field
 
-- [ ] **Task 2: Implement frame statistics** (AC: #2)
-  - [ ] 2.1: Count total frames from manifest
-  - [ ] 2.2: Count approved frames
-  - [ ] 2.3: Count failed frames
-  - [ ] 2.4: Count rejected frames (identity collapse)
+- [x] **Task 2: Implement frame statistics** (AC: #2)
+  - [x] 2.1: Count total frames from manifest
+  - [x] 2.2: Count approved frames
+  - [x] 2.3: Count failed frames
+  - [x] 2.4: Count rejected frames (identity collapse)
 
-- [ ] **Task 3: Implement rate calculations** (AC: #3, #4)
-  - [ ] 3.1: Calculate retry rate: `frames_with_retries / total_frames`
-  - [ ] 3.2: Calculate reject rate: `rejected_frames / total_frames`
-  - [ ] 3.3: Include both as percentages and decimals
-  - [ ] 3.4: Handle edge cases (0 frames)
+- [x] **Task 3: Implement rate calculations** (AC: #3, #4)
+  - [x] 3.1: Calculate retry rate: `frames_with_retries / total_frames`
+  - [x] 3.2: Calculate reject rate: `rejected_frames / total_frames`
+  - [x] 3.3: Include both as percentages and decimals
+  - [x] 3.4: Handle edge cases (0 frames)
 
-- [ ] **Task 4: Implement failure code aggregation** (AC: #5)
-  - [ ] 4.1: Collect all failure codes from all attempts
-  - [ ] 4.2: Count occurrences of each code
-  - [ ] 4.3: Sort by frequency descending
-  - [ ] 4.4: Return top 3 with counts
+- [x] **Task 4: Implement failure code aggregation** (AC: #5)
+  - [x] 4.1: Collect all failure codes from all attempts
+  - [x] 4.2: Count occurrences of each code
+  - [x] 4.3: Sort by frequency descending
+  - [x] 4.4: Return top 3 with counts
 
-- [ ] **Task 5: Implement timing statistics** (AC: #6, #7)
-  - [ ] 5.1: Calculate total duration from start to end
-  - [ ] 5.2: Calculate average time per frame
-  - [ ] 5.3: Calculate average time per attempt
-  - [ ] 5.4: Include breakdown by phase (generation, audit, export)
+- [x] **Task 5: Implement timing statistics** (AC: #6, #7)
+  - [x] 5.1: Calculate total duration from start to end
+  - [x] 5.2: Calculate average time per frame
+  - [x] 5.3: Calculate average time per attempt
+  - [x] 5.4: Include breakdown by phase (generation, audit, export)
 
-- [ ] **Task 6: Implement summary writer** (AC: #1, #8)
-  - [ ] 6.1: Create `writeSummary(runId: string, state: RunState): Promise<void>`
-  - [ ] 6.2: Aggregate all statistics
-  - [ ] 6.3: Write as pretty-printed JSON
-  - [ ] 6.4: Use atomic write pattern
+- [x] **Task 6: Implement summary writer** (AC: #1, #8)
+  - [x] 6.1: Create `writeSummary(runId: string, state: RunState): Promise<void>`
+  - [x] 6.2: Aggregate all statistics
+  - [x] 6.3: Write as pretty-printed JSON
+  - [x] 6.4: Use atomic write pattern
 
-- [ ] **Task 7: Integrate with run completion** (AC: #1)
-  - [ ] 7.1: Call summary writer when run completes
-  - [ ] 7.2: Call summary writer when run stops
-  - [ ] 7.3: Call summary writer when run fails
-  - [ ] 7.4: Include appropriate final status
+- [x] **Task 7: Integrate with run completion** (AC: #1)
+  - [x] 7.1: Call summary writer when run completes
+  - [x] 7.2: Call summary writer when run stops
+  - [x] 7.3: Call summary writer when run fails
+  - [x] 7.4: Include appropriate final status
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test summary generated on completion
-  - [ ] 8.2: Test statistics are accurate
-  - [ ] 8.3: Test top 3 failure codes
-  - [ ] 8.4: Test timing calculations
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test summary generated on completion
+  - [x] 8.2: Test statistics are accurate
+  - [x] 8.3: Test top 3 failure codes
+  - [x] 8.4: Test timing calculations
 
 ---
 
@@ -342,8 +342,20 @@ function calculateTopFailures(
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- Created `src/domain/types/run-summary.ts` with comprehensive Zod schemas for all summary sections
+- Created `src/core/reporting/summary-generator.ts` with full statistics calculation functions
+- Implements frame statistics (total, attempted, approved, failed, rejected, pending)
+- Implements rate statistics (completion, retry, reject, success rates)
+- Implements attempt statistics (total, average, min, max per frame)
+- Implements top failure code aggregation with percentages and example frames
+- Implements timing statistics with breakdown (generation, audit, export, other)
+- Supports detailed attempt tracking via RunStateWithAttempts for accurate failure code analysis
+- Falls back to last_error from basic state when detailed attempts unavailable
+- Uses atomic write pattern via writeJsonAtomic for safe file persistence
+- All 32 tests pass covering frame stats, rates, attempts, failures, timing, and I/O
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/domain/types/run-summary.ts` (new)
+- `src/core/reporting/summary-generator.ts` (new)
+- `test/core/reporting/summary-generator.test.ts` (new)

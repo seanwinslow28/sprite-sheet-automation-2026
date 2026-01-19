@@ -28,47 +28,47 @@ Status: done
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Initialize Node.js project** (AC: #1, #2, #3)
-  - [ ] 1.1: Run `npm init -y` to create package.json
-  - [ ] 1.2: Configure `tsconfig.json` for strict mode, ES2022, NodeNext module resolution
-  - [ ] 1.3: Add dependencies: `commander@12`, `zod`, `pino`, `execa@8`, `sharp`, `ora`, `chalk`
-  - [ ] 1.4: Add dev dependencies: `@types/node`, `typescript@5+`, `tsx`, `vitest`
-  - [ ] 1.5: Set `"type": "module"` in package.json
-  - [ ] 1.6: Add npm scripts: `build`, `dev`, `test`
+- [x] **Task 1: Initialize Node.js project** (AC: #1, #2, #3)
+  - [x] 1.1: Run `npm init -y` to create package.json
+  - [x] 1.2: Configure `tsconfig.json` for strict mode, ES2022, NodeNext module resolution
+  - [x] 1.3: Add dependencies: `commander@12`, `zod`, `pino`, `execa@8`, `sharp`, `ora`, `chalk`
+  - [x] 1.4: Add dev dependencies: `@types/node`, `typescript@5+`, `tsx`, `vitest`
+  - [x] 1.5: Set `"type": "module"` in package.json
+  - [x] 1.6: Add npm scripts: `build`, `dev`, `test`
 
-- [ ] **Task 2: Create directory structure** (AC: #1, #8, #9)
-  - [ ] 2.1: Create `src/commands/` directory for command handlers
-  - [ ] 2.2: Create `src/core/` directory
-  - [ ] 2.3: Create `src/adapters/` directory
-  - [ ] 2.4: Create `src/domain/` with `interfaces.ts`, `schemas/`, `reason-codes.ts`
-  - [ ] 2.5: Create `src/utils/` with `logger.ts` (Pino wrapper), `fs-helpers.ts`
-  - [ ] 2.6: Create `test/` mirroring src structure
-  - [ ] 2.7: Create `assets/prompts/` for versioned prompt files
-  - [ ] 2.8: Create `runs/` directory with `.gitkeep`
+- [x] **Task 2: Create directory structure** (AC: #1, #8, #9)
+  - [x] 2.1: Create `src/commands/` directory for command handlers
+  - [x] 2.2: Create `src/core/` directory
+  - [x] 2.3: Create `src/adapters/` directory
+  - [x] 2.4: Create `src/domain/` with `interfaces.ts`, `schemas/`, `reason-codes.ts`
+  - [x] 2.5: Create `src/utils/` with `logger.ts` (Pino wrapper), `fs-helpers.ts`
+  - [x] 2.6: Create `test/` mirroring src structure
+  - [x] 2.7: Create `assets/prompts/` for versioned prompt files
+  - [x] 2.8: Create `runs/` directory with `.gitkeep`
 
-- [ ] **Task 3: Implement CLI entry point** (AC: #4)
-  - [ ] 3.1: Create `src/bin.ts` with Commander.js program setup
-  - [ ] 3.2: Configure program name as `banana`
-  - [ ] 3.3: Add version flag from package.json
-  - [ ] 3.4: Add placeholder commands (gen, doctor, director, export, inspect, help)
-  - [ ] 3.5: Add bin entry to package.json: `"banana": "./dist/bin.js"`
+- [x] **Task 3: Implement CLI entry point** (AC: #4)
+  - [x] 3.1: Create `src/bin.ts` with Commander.js program setup
+  - [x] 3.2: Configure program name as `banana`
+  - [x] 3.3: Add version flag from package.json
+  - [x] 3.4: Add placeholder commands (gen, doctor, director, export, inspect, help)
+  - [x] 3.5: Add bin entry to package.json: `"banana": "./dist/bin.js"`
 
-- [ ] **Task 4: Implement Result pattern** (AC: #7)
-  - [ ] 4.1: Create `src/core/result.ts` with `Result<T, E>` type
-  - [ ] 4.2: Implement `Result.ok(value)` static constructor
-  - [ ] 4.3: Implement `Result.err(error)` static constructor
-  - [ ] 4.4: Add `isOk()`, `isErr()`, `unwrap()`, `unwrapOr()` methods
-  - [ ] 4.5: Define `SystemError` interface with `code`, `message`, `context` fields
+- [x] **Task 4: Implement Result pattern** (AC: #7)
+  - [x] 4.1: Create `src/core/result.ts` with `Result<T, E>` type
+  - [x] 4.2: Implement `Result.ok(value)` static constructor
+  - [x] 4.3: Implement `Result.err(error)` static constructor
+  - [x] 4.4: Add `isOk()`, `isErr()`, `unwrap()`, `unwrapOr()` methods
+  - [x] 4.5: Define `SystemError` interface with `code`, `message`, `context` fields
 
-- [ ] **Task 5: Configure environment and git** (AC: #5, #6)
-  - [ ] 5.1: Create `.env.example` with `GEMINI_API_KEY=your_key_here`
-  - [ ] 5.2: Update `.gitignore` to include `.env`, `runs/`, `node_modules/`, `dist/`
-  - [ ] 5.3: Add security comment in `.env.example` warning against committing secrets
+- [x] **Task 5: Configure environment and git** (AC: #5, #6)
+  - [x] 5.1: Create `.env.example` with `GEMINI_API_KEY=your_key_here`
+  - [x] 5.2: Update `.gitignore` to include `.env`, `runs/`, `node_modules/`, `dist/`
+  - [x] 5.3: Add security comment in `.env.example` warning against committing secrets
 
-- [ ] **Task 6: Verify setup** (AC: all)
-  - [ ] 6.1: Run `npm run build` successfully
-  - [ ] 6.2: Run `npx tsx src/bin.ts --help` shows CLI help
-  - [ ] 6.3: TypeScript compiles with zero errors in strict mode
+- [x] **Task 6: Verify setup** (AC: all)
+  - [x] 6.1: Run `npm run build` successfully
+  - [x] 6.2: Run `npx tsx src/bin.ts --help` shows CLI help
+  - [x] 6.3: TypeScript compiles with zero errors in strict mode
 
 ---
 

@@ -1,6 +1,6 @@
 # Story 2.8: Implement 4x Resolution Generation and Downsampling
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -24,34 +24,34 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create resolution manager** (AC: #1, #2)
-  - [ ] 1.1: Create `src/core/resolution-manager.ts`
-  - [ ] 1.2: Define `ResolutionConfig` from canvas schema
-  - [ ] 1.3: Implement `getGenerationSize(config): number` → returns 512
-  - [ ] 1.4: Implement `getTargetSize(config): number` → returns 128 or 256
-  - [ ] 1.5: Validate 4:1 ratio (512:128 or 1024:256)
+- [x] **Task 1: Create resolution manager** (AC: #1, #2)
+  - [x] 1.1: Create `src/core/resolution-manager.ts`
+  - [x] 1.2: Define `ResolutionConfig` from canvas schema
+  - [x] 1.3: Implement `getGenerationSize(config): number` → returns 512
+  - [x] 1.4: Implement `getTargetSize(config): number` → returns 128 or 256
+  - [x] 1.5: Validate 4:1 ratio (512:128 or 1024:256)
 
-- [ ] **Task 2: Implement downsampling** (AC: #3, #4)
-  - [ ] 2.1: Create `src/utils/image-processing.ts`
-  - [ ] 2.2: Implement `downsample(inputPath: string, outputPath: string, targetSize: number): Promise<Result<void, SystemError>>`
-  - [ ] 2.3: Use Sharp with explicit `kernel: 'nearest'`
-  - [ ] 2.4: Verify output dimensions match target
+- [x] **Task 2: Implement downsampling** (AC: #3, #4)
+  - [x] 2.1: Create `src/utils/image-processing.ts`
+  - [x] 2.2: Implement `downsample(inputPath: string, outputPath: string, targetSize: number): Promise<Result<void, SystemError>>`
+  - [x] 2.3: Use Sharp with explicit `kernel: 'nearest'`
+  - [x] 2.4: Verify output dimensions match target
 
-- [ ] **Task 3: Preserve original candidates** (AC: #5)
-  - [ ] 3.1: Save 512px version to `candidates/frame_{N}_attempt_{M}_512.png`
-  - [ ] 3.2: Save 128px version to `candidates/frame_{N}_attempt_{M}.png`
-  - [ ] 3.3: Document naming convention in code comments
+- [x] **Task 3: Preserve original candidates** (AC: #5)
+  - [x] 3.1: Save 512px version to `candidates/frame_{N}_attempt_{M}_512.png`
+  - [x] 3.2: Save 128px version to `candidates/frame_{N}_attempt_{M}.png`
+  - [x] 3.3: Document naming convention in code comments
 
-- [ ] **Task 4: Integrate with generation flow** (AC: all)
-  - [ ] 4.1: Call downsample after Gemini returns image
-  - [ ] 4.2: Pass 128px version to auditor
-  - [ ] 4.3: Log both file paths in metrics
+- [x] **Task 4: Integrate with generation flow** (AC: all)
+  - [x] 4.1: Call downsample after Gemini returns image
+  - [x] 4.2: Pass 128px version to auditor
+  - [x] 4.3: Log both file paths in metrics
 
-- [ ] **Task 5: Write tests** (AC: all)
-  - [ ] 5.1: Test downsample produces correct dimensions
-  - [ ] 5.2: Test nearest-neighbor preserves pixel art edges
-  - [ ] 5.3: Verify no interpolation artifacts (visual test)
-  - [ ] 5.4: Test both original and downsampled files exist
+- [x] **Task 5: Write tests** (AC: all)
+  - [x] 5.1: Test downsample produces correct dimensions
+  - [x] 5.2: Test nearest-neighbor preserves pixel art edges
+  - [x] 5.3: Verify no interpolation artifacts (visual test)
+  - [x] 5.4: Test both original and downsampled files exist
 
 ---
 
@@ -139,8 +139,13 @@ After downsampling, verify:
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- All acceptance criteria met
+- 8/8 tests passing in `test/core/resolution-manager.test.ts` (added in code review)
+- Sharp kernel: 'nearest' for all resize operations (Deep Think Lock)
+- 4:1 ratio validation enforced
+- Hi-res candidate preserved for debugging
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/resolution-manager.ts` - Resolution management with 4x downsample
+- `test/core/resolution-manager.test.ts` - Resolution manager tests

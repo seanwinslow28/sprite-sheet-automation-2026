@@ -4,6 +4,7 @@
  */
 
 import { z } from 'zod';
+import { canvasSchema, type Canvas, type Alignment } from './canvas.js';
 
 // Identity schema - run identification
 export const identitySchema = z.object({
@@ -11,6 +12,7 @@ export const identitySchema = z.object({
     move: z.string().describe('Move name (e.g., "idle", "walk", "attack")'),
     version: z.string().describe('Manifest version (e.g., "1.0.0")'),
     frame_count: z.number().int().positive().describe('Total frames in animation'),
+    is_loop: z.boolean().default(false).describe('Whether animation loops (affects final frame generation)'),
 });
 
 // Inputs schema - reference images
@@ -52,10 +54,11 @@ export const retrySchema = z.object({
     stop_conditions: z.record(z.any()).describe('When to halt'),
 });
 
-// Export schema - TexturePacker configuration
+// Export schema - TexturePacker configuration (Story 5.9)
 export const exportSchema = z.object({
-    packer_flags: z.string().describe('TexturePacker CLI flags'),
-    atlas_format: z.string().describe('Output format (phaser-hash)'),
+    packer_flags: z.array(z.string()).optional().default([]).describe('Optional custom TexturePacker CLI flags'),
+    atlas_format: z.enum(['phaser']).optional().default('phaser').describe('Atlas output format (only "phaser" for MVP)'),
+    output_path: z.string().optional().describe('Optional custom output location for promoted assets'),
 });
 
 // Complete manifest schema
@@ -63,9 +66,10 @@ export const manifestSchema = z.object({
     identity: identitySchema.describe('Run identification'),
     inputs: inputsSchema.describe('Reference images'),
     generator: generatorSchema.describe('AI backend configuration'),
+    canvas: canvasSchema.describe('Resolution and alignment configuration'),
     auditor: auditorSchema.describe('Quality gates and metrics'),
     retry: retrySchema.describe('Retry strategy'),
-    export: exportSchema.describe('Export configuration'),
+    export: exportSchema.optional().default({}).describe('Export configuration (optional, has defaults)'),
 });
 
 // Inferred TypeScript type
@@ -77,3 +81,6 @@ export type PromptTemplates = z.infer<typeof promptTemplatesSchema>;
 export type Auditor = z.infer<typeof auditorSchema>;
 export type Retry = z.infer<typeof retrySchema>;
 export type Export = z.infer<typeof exportSchema>;
+
+// Re-export canvas types
+export { canvasSchema, type Canvas, type Alignment };

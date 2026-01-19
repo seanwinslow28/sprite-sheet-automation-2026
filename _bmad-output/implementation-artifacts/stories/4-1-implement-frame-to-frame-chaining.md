@@ -1,6 +1,6 @@
 # Story 4.1: Implement Frame-to-Frame Chaining (Edit-from-Previous)
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -32,54 +32,54 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Extend Generator Adapter for chaining** (AC: #1, #2)
-  - [ ] 1.1: Add `previousApprovedFrame?: string` to `GenerateFrameParams`
-  - [ ] 1.2: Modify `generateFrame()` to accept optional previous frame path
-  - [ ] 1.3: When `frameIndex === 0`, always use anchor as edit base
-  - [ ] 1.4: When `frameIndex > 0` and previous frame exists, use previous frame
+- [x] **Task 1: Extend Generator Adapter for chaining** (AC: #1, #2)
+  - [x] 1.1: Add `previousApprovedFrame?: string` to `GenerateFrameParams`
+  - [x] 1.2: Modify `generateFrame()` to accept optional previous frame path
+  - [x] 1.3: When `frameIndex === 0`, always use anchor as edit base
+  - [x] 1.4: When `frameIndex > 0` and previous frame exists, use previous frame
 
-- [ ] **Task 2: Implement frame reference selection** (AC: #2, #5)
-  - [ ] 2.1: Create `selectReferenceFrame(frameIndex: number, state: RunState): string`
-  - [ ] 2.2: Return anchor path for Frame 0
-  - [ ] 2.3: Return previous approved frame path for Frame N > 0
-  - [ ] 2.4: If previous frame doesn't exist (gap), fall back to anchor
+- [x] **Task 2: Implement frame reference selection** (AC: #2, #5)
+  - [x] 2.1: Create `selectReferenceFrame(frameIndex: number, state: RunState): string`
+  - [x] 2.2: Return anchor path for Frame 0
+  - [x] 2.3: Return previous approved frame path for Frame N > 0
+  - [x] 2.4: If previous frame doesn't exist (gap), fall back to anchor
 
-- [ ] **Task 3: Update Semantic Interleaving for chaining** (AC: #2)
-  - [ ] 3.1: Modify `Part[]` construction in generator adapter
-  - [ ] 3.2: [IMAGE 2] uses previous frame (not anchor) when chaining
-  - [ ] 3.3: Maintain hierarchy: "[IMAGE 1] (Anchor) wins over [IMAGE 2] (Previous)"
-  - [ ] 3.4: Log which reference strategy is being used
+- [x] **Task 3: Update Semantic Interleaving for chaining** (AC: #2)
+  - [x] 3.1: Modify `Part[]` construction in generator adapter
+  - [x] 3.2: [IMAGE 2] uses previous frame (not anchor) when chaining
+  - [x] 3.3: Maintain hierarchy: "[IMAGE 1] (Anchor) wins over [IMAGE 2] (Previous)"
+  - [x] 3.4: Log which reference strategy is being used
 
-- [ ] **Task 4: Implement prompt template selection** (AC: #3)
-  - [ ] 4.1: Frame 0: Use `generator.prompts.master`
-  - [ ] 4.2: Frame 1+: Use `generator.prompts.variation`
-  - [ ] 4.3: Interpolate `{frame_index}` and `{total_frames}` in variation prompt
-  - [ ] 4.4: Include frame position context: "Frame 3 of 8"
+- [x] **Task 4: Implement prompt template selection** (AC: #3)
+  - [x] 4.1: Frame 0: Use `generator.prompts.master`
+  - [x] 4.2: Frame 1+: Use `generator.prompts.variation`
+  - [x] 4.3: Interpolate `{frame_index}` and `{total_frames}` in variation prompt
+  - [x] 4.4: Include frame position context: "Frame 3 of 8"
 
-- [ ] **Task 5: Implement chaining state tracking** (AC: #6, #7)
-  - [ ] 5.1: Track `approved_frames: string[]` in `state.json`
-  - [ ] 5.2: After approval, add frame path to approved list
-  - [ ] 5.3: Provide getter: `getApprovedFrame(frameIndex: number): string | undefined`
-  - [ ] 5.4: Handle gaps in approved sequence
+- [x] **Task 5: Implement chaining state tracking** (AC: #6, #7)
+  - [x] 5.1: Track `approved_frames: string[]` in `state.json`
+  - [x] 5.2: After approval, add frame path to approved list
+  - [x] 5.3: Provide getter: `getApprovedFrame(frameIndex: number): string | undefined`
+  - [x] 5.4: Handle gaps in approved sequence
 
-- [ ] **Task 6: Implement logging for chain decisions** (AC: #4)
-  - [ ] 6.1: Log "Frame N: Chaining from previous approved frame"
-  - [ ] 6.2: Log "Frame 0: Using anchor as edit base"
-  - [ ] 6.3: Log "Frame N: Re-anchoring due to drift/gap"
-  - [ ] 6.4: Include paths in structured log
+- [x] **Task 6: Implement logging for chain decisions** (AC: #4)
+  - [x] 6.1: Log "Frame N: Chaining from previous approved frame"
+  - [x] 6.2: Log "Frame 0: Using anchor as edit base"
+  - [x] 6.3: Log "Frame N: Re-anchoring due to drift/gap"
+  - [x] 6.4: Include paths in structured log
 
-- [ ] **Task 7: Implement re-anchor fallback** (AC: #5, #8)
-  - [ ] 7.1: Accept `forceReAnchor: boolean` parameter
-  - [ ] 7.2: When true, skip previous frame and use anchor
-  - [ ] 7.3: Log reason for re-anchor decision
-  - [ ] 7.4: Integrate with retry ladder (Story 4.3)
+- [x] **Task 7: Implement re-anchor fallback** (AC: #5, #8)
+  - [x] 7.1: Accept `forceReAnchor: boolean` parameter
+  - [x] 7.2: When true, skip previous frame and use anchor
+  - [x] 7.3: Log reason for re-anchor decision
+  - [x] 7.4: Integrate with retry ladder (Story 4.3)
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test Frame 0 always uses anchor
-  - [ ] 8.2: Test Frame 1 uses Frame 0's approved path
-  - [ ] 8.3: Test Frame N uses Frame N-1's approved path
-  - [ ] 8.4: Test fallback when previous frame missing
-  - [ ] 8.5: Test force re-anchor overrides chaining
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test Frame 0 always uses anchor
+  - [x] 8.2: Test Frame 1 uses Frame 0's approved path
+  - [x] 8.3: Test Frame N uses Frame N-1's approved path
+  - [x] 8.4: Test fallback when previous frame missing
+  - [x] 8.5: Test force re-anchor overrides chaining
 
 ---
 
@@ -177,12 +177,16 @@ When constructing `Part[]` array:
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+N/A - Implementation tested via unit tests.
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- Implemented frame reference selection with anchor fallback
+- Added support for force re-anchor on drift recovery
+- Integrated with retry ladder for automatic re-anchor decisions
+- All 17 tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/frame-chain-resolver.ts` - Frame chaining logic (172 lines)
+- `test/core/frame-chain-resolver.test.ts` - Unit tests (17 tests)

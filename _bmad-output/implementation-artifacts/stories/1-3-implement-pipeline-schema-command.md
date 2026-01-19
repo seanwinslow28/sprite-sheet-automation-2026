@@ -28,41 +28,41 @@ Status: done
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create schema command** (AC: #1)
-  - [ ] 1.1: Create `src/commands/schema.ts` using Commander.js command handler
-  - [ ] 1.2: Add `--format` flag: `json` (default) or `yaml`
-  - [ ] 1.3: Add `--example` flag to output example manifest instead of schema
-  - [ ] 1.4: Use Zod's `zodToJsonSchema` or equivalent to generate JSON Schema from Zod types
+- [x] **Task 1: Create schema command** (AC: #1)
+  - [x] 1.1: Create `src/commands/schema.ts` using Commander.js command handler
+  - [x] 1.2: Add `--format` flag: `json` (default) or `yaml`
+  - [x] 1.3: Add `--example` flag to output example manifest instead of schema
+  - [x] 1.4: Use Zod's `zodToJsonSchema` or equivalent to generate JSON Schema from Zod types
 
-- [ ] **Task 2: Define complete manifest Zod schema** (AC: #2-7)
-  - [ ] 2.1: Create `src/domain/schemas/manifest.ts` with full schema definition
-  - [ ] 2.2: Define `identitySchema`: character, move, version, frame_count
-  - [ ] 2.3: Define `inputsSchema`: anchor (required), style_refs[], pose_refs[], guides[]
-  - [ ] 2.4: Define `generatorSchema`: backend, model, mode, seed_policy, max_attempts_per_frame, prompts
-  - [ ] 2.5: Define `promptTemplatesSchema`: master, variation, lock, negative
-  - [ ] 2.6: Define `auditorSchema`: hard_gates, soft_metrics, weights
-  - [ ] 2.7: Define `retrySchema`: ladder[], stop_conditions
-  - [ ] 2.8: Define `exportSchema`: packer_flags, atlas_format
-  - [ ] 2.9: Add `.describe()` to every field for documentation generation
+- [x] **Task 2: Define complete manifest Zod schema** (AC: #2-7)
+  - [x] 2.1: Create `src/domain/schemas/manifest.ts` with full schema definition
+  - [x] 2.2: Define `identitySchema`: character, move, version, frame_count
+  - [x] 2.3: Define `inputsSchema`: anchor (required), style_refs[], pose_refs[], guides[]
+  - [x] 2.4: Define `generatorSchema`: backend, model, mode, seed_policy, max_attempts_per_frame, prompts
+  - [x] 2.5: Define `promptTemplatesSchema`: master, variation, lock, negative
+  - [x] 2.6: Define `auditorSchema`: hard_gates, soft_metrics, weights
+  - [x] 2.7: Define `retrySchema`: ladder[], stop_conditions
+  - [x] 2.8: Define `exportSchema`: packer_flags, atlas_format
+  - [x] 2.9: Add `.describe()` to every field for documentation generation
 
-- [ ] **Task 3: Create example manifest** (AC: #8, #9)
-  - [ ] 3.1: Create `assets/examples/sample-manifest.yaml`
-  - [ ] 3.2: Include all 4 prompt template types with realistic content
-  - [ ] 3.3: Include comments explaining each section
-  - [ ] 3.4: Ensure example passes schema validation
-  - [ ] 3.5: Create validation test that loads and validates example
+- [x] **Task 3: Create example manifest** (AC: #8, #9)
+  - [x] 3.1: Create `assets/examples/sample-manifest.yaml`
+  - [x] 3.2: Include all 4 prompt template types with realistic content
+  - [x] 3.3: Include comments explaining each section
+  - [x] 3.4: Ensure example passes schema validation
+  - [x] 3.5: Create validation test that loads and validates example
 
-- [ ] **Task 4: Implement schema output formatting** (AC: #1)
-  - [ ] 4.1: Convert Zod schema to JSON Schema format
-  - [ ] 4.2: Add proper `$schema`, `title`, `description` metadata
-  - [ ] 4.3: Pretty-print JSON with 2-space indentation
-  - [ ] 4.4: Support YAML output via js-yaml if `--format yaml`
+- [x] **Task 4: Implement schema output formatting** (AC: #1)
+  - [x] 4.1: Convert Zod schema to JSON Schema format
+  - [x] 4.2: Add proper `$schema`, `title`, `description` metadata
+  - [x] 4.3: Pretty-print JSON with 2-space indentation
+  - [x] 4.4: Support YAML output via js-yaml if `--format yaml`
 
-- [ ] **Task 5: Write tests** (AC: all)
-  - [ ] 5.1: Test schema command outputs valid JSON Schema
-  - [ ] 5.2: Test example flag outputs valid manifest
-  - [ ] 5.3: Test example manifest validates against schema
-  - [ ] 5.4: Test all field descriptions are present
+- [x] **Task 5: Write tests** (AC: all)
+  - [x] 5.1: Test schema command outputs valid JSON Schema
+  - [x] 5.2: Test example flag outputs valid manifest
+  - [x] 5.3: Test example manifest validates against schema
+  - [x] 5.4: Test all field descriptions are present
 
 ---
 
@@ -163,6 +163,30 @@ None - implementation was straightforward
 - **Tests**: Added unit tests in `test/commands/schema.test.ts` (Fix #1)
 - **Status**: PASSED adversarial review
 
+### Post-Implementation Bug Fix (2026-01-18)
+
+**Issue:** Test `should output JSON schema by default` was failing after Epic 2 implementation.
+
+**Root Cause:** When using `zodToJsonSchema` with `name: 'Manifest'` option, the output wraps the schema in a `definitions` object with a `$ref` pointer, resulting in:
+```json
+{
+  "$ref": "#/definitions/Manifest",
+  "definitions": { "Manifest": { "properties": {...} } }
+}
+```
+
+The test expected `json.properties.identity` to be defined at the top level, but properties were nested under `definitions.Manifest.properties`.
+
+**Fix:** Removed `name: 'Manifest'` from the `zodToJsonSchema` options in `src/commands/schema.ts`. Without the name, the schema produces properties at the top level:
+```json
+{
+  "type": "object",
+  "properties": { "identity": {...}, ... }
+}
+```
+
+**File Changed:** `src/commands/schema.ts` (line 29-30)
+
 ### File List
 
 - src/commands/schema.ts - Schema command with --example flag
@@ -171,3 +195,4 @@ None - implementation was straightforward
 - test/commands/schema.test.ts - Unit tests for schema output
 - Updated src/bin.ts - Registered schema command
 - package.json - Added zod-to-json-schema dependency
+

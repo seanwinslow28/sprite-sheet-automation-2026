@@ -1,6 +1,6 @@
 # Story 2.11: Implement Phase-Based Pose Library
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -40,56 +40,56 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Define pose types** (AC: #5, #6, #8)
-  - [ ] 1.1: Create `src/domain/poses.ts`
-  - [ ] 1.2: Define `PosePhase` interface with description, tension
-  - [ ] 1.3: Define `MovePoseMap` type: `Record<number, PosePhase>`
-  - [ ] 1.4: Define `PoseLibrary` type: `Record<string, MovePoseMap>`
+- [x] **Task 1: Define pose types** (AC: #5, #6, #8)
+  - [x] 1.1: Create `src/domain/poses.ts`
+  - [x] 1.2: Define `PosePhase` interface with description, tension
+  - [x] 1.3: Define `MovePoseMap` type: `Record<number, PosePhase>`
+  - [x] 1.4: Define `PoseLibrary` type: `Record<string, MovePoseMap>`
 
-- [ ] **Task 2: Implement pose lookup** (AC: #2, #4)
-  - [ ] 2.1: Implement `getPoseForFrame(moveId: string, frameIndex: number): PosePhase | null`
-  - [ ] 2.2: Return null for frame 0 (anchor pose - implicit)
-  - [ ] 2.3: Return fallback pose if move not found
-  - [ ] 2.4: Return fallback pose if frame index not defined
+- [x] **Task 2: Implement pose lookup** (AC: #2, #4)
+  - [x] 2.1: Implement `getPoseForFrame(moveId: string, frameIndex: number): PosePhase | null`
+  - [x] 2.2: Return null for frame 0 (anchor pose - implicit)
+  - [x] 2.3: Return fallback pose if move not found
+  - [x] 2.4: Return fallback pose if frame index not defined
 
-- [ ] **Task 3: Define idle_standard poses** (AC: #9, #11)
-  - [ ] 3.1: Frame 0: null (Anchor pose)
-  - [ ] 3.2: Frame 1: "Slight exhale, shoulders drop 1px" (relaxed)
-  - [ ] 3.3: Frame 2: "Full exhale, minimal compression" (relaxed)
-  - [ ] 3.4: Frame 3: "Begin inhale, chest rises" (relaxed)
-  - [ ] 3.5: Frame 4: "Mid inhale, upward energy" (relaxed)
-  - [ ] 3.6: Frame 5: "Full inhale, maximum expansion" (relaxed)
-  - [ ] 3.7: Frame 6: "Hold, stable peak" (relaxed)
-  - [ ] 3.8: Frame 7: "Exhale begins, return to Frame 0 energy" (relaxed)
+- [x] **Task 3: Define idle_standard poses** (AC: #9, #11)
+  - [x] 3.1: Frame 0: null (Anchor pose)
+  - [x] 3.2: Frame 1: "Slight exhale, shoulders drop 1px" (relaxed)
+  - [x] 3.3: Frame 2: "Full exhale, minimal compression" (relaxed)
+  - [x] 3.4: Frame 3: "Begin inhale, chest rises" (relaxed)
+  - [x] 3.5: Frame 4: "Mid inhale, upward energy" (relaxed)
+  - [x] 3.6: Frame 5: "Full inhale, maximum expansion" (relaxed)
+  - [x] 3.7: Frame 6: "Hold, stable peak" (relaxed)
+  - [x] 3.8: Frame 7: "Exhale begins, return to Frame 0 energy" (relaxed)
 
-- [ ] **Task 4: Define walk_forward poses** (AC: #10, #11)
-  - [ ] 4.1: Frame 0: null (Contact - right foot forward)
-  - [ ] 4.2: Frame 1: "Recoil - weight shifts onto right foot, left foot lifts" (tense)
-  - [ ] 4.3: Frame 2: "Passing - left leg swings forward, body at midpoint" (relaxed)
-  - [ ] 4.4: Frame 3: "High Point - left leg at maximum forward extension" (tense)
-  - [ ] 4.5: Frame 4: "Contact - left foot strikes ground" (tense)
-  - [ ] 4.6: Frame 5: "Recoil - weight shifts onto left foot, right foot lifts" (tense)
-  - [ ] 4.7: Frame 6: "Passing - right leg swings forward, body at midpoint" (relaxed)
-  - [ ] 4.8: Frame 7: "High Point - right leg at maximum forward extension" (tense)
+- [x] **Task 4: Define walk_forward poses** (AC: #10, #11)
+  - [x] 4.1: Frame 0: null (Contact - right foot forward)
+  - [x] 4.2: Frame 1: "Recoil - weight shifts onto right foot, left foot lifts" (tense)
+  - [x] 4.3: Frame 2: "Passing - left leg swings forward, body at midpoint" (relaxed)
+  - [x] 4.4: Frame 3: "High Point - left leg at maximum forward extension" (tense)
+  - [x] 4.5: Frame 4: "Contact - left foot strikes ground" (tense)
+  - [x] 4.6: Frame 5: "Recoil - weight shifts onto left foot, right foot lifts" (tense)
+  - [x] 4.7: Frame 6: "Passing - right leg swings forward, body at midpoint" (relaxed)
+  - [x] 4.8: Frame 7: "High Point - right leg at maximum forward extension" (tense)
 
-- [ ] **Task 5: Implement prompt injection** (AC: #3)
-  - [ ] 5.1: Modify prompt template engine to call `getPoseForFrame()`
-  - [ ] 5.2: If pose exists, add `POSE ACTION: {description}` to prompt
-  - [ ] 5.3: Add `TENSION: {tension}` hint for style modulation
-  - [ ] 5.4: Log pose injection to audit
+- [x] **Task 5: Implement prompt injection** (AC: #3)
+  - [x] 5.1: Modify prompt template engine to call `getPoseForFrame()`
+  - [x] 5.2: If pose exists, add `POSE ACTION: {description}` to prompt
+  - [x] 5.3: Add `TENSION: {tension}` hint for style modulation
+  - [x] 5.4: Log pose injection to audit
 
-- [ ] **Task 6: Implement fallback** (AC: #4, #7)
-  - [ ] 6.1: Create default fallback pose: "Maintain style and consistent volume."
-  - [ ] 6.2: Use fallback for undefined frames
-  - [ ] 6.3: Use fallback for undefined moves
-  - [ ] 6.4: Frame 0 always returns null (no injection needed)
+- [x] **Task 6: Implement fallback** (AC: #4, #7)
+  - [x] 6.1: Create default fallback pose: "Maintain style and consistent volume."
+  - [x] 6.2: Use fallback for undefined frames
+  - [x] 6.3: Use fallback for undefined moves
+  - [x] 6.4: Frame 0 always returns null (no injection needed)
 
-- [ ] **Task 7: Write tests** (AC: all)
-  - [ ] 7.1: Test idle poses return correct descriptions
-  - [ ] 7.2: Test walk poses return correct descriptions
-  - [ ] 7.3: Test frame 0 returns null
-  - [ ] 7.4: Test unknown move returns fallback
-  - [ ] 7.5: Test unknown frame returns fallback
+- [x] **Task 7: Write tests** (AC: all)
+  - [x] 7.1: Test idle poses return correct descriptions
+  - [x] 7.2: Test walk poses return correct descriptions
+  - [x] 7.3: Test frame 0 returns null
+  - [x] 7.4: Test unknown move returns fallback
+  - [x] 7.5: Test unknown frame returns fallback
 
 ---
 
@@ -190,8 +190,14 @@ Generate Frame 2 of 8 for champion_01 walk_forward animation.
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- All acceptance criteria met
+- MOVES_LIBRARY contains idle, walk, run, attack pose phases
+- Kinematic phases use biomechanical terms (Contact, Recoil, Passing, High Point)
+- Tension values (relaxed, tense, explosive) for style modulation
+- Fallback: "Maintain style and consistent volume."
+- Tests combined with Story 2.4 in `test/core/prompt-template-engine.test.ts`
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/domain/poses.ts` - Phase-based pose library with MOVES_LIBRARY
+- `src/core/prompt-template-engine.ts` - Pose lookup integration

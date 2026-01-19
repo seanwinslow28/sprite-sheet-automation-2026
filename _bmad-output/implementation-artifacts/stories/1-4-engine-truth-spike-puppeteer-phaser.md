@@ -28,64 +28,64 @@ Status: done
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create test fixtures** (AC: #9)
-  - [ ] 1.1: Create `test-fixtures/` directory structure
-  - [ ] 1.2: Create sample sprite frames with variable sizes (e.g., 120x128, 128x128, 135x130)
-  - [ ] 1.3: Use TexturePacker to create `test-atlas.png` and `test-atlas.json`
-  - [ ] 1.4: Ensure JSON uses Phaser Hash format with proper frame keys
-  - [ ] 1.5: Include at least 4 frames for animation testing
+- [x] **Task 1: Create test fixtures** (AC: #9)
+  - [x] 1.1: Create `test-fixtures/` directory structure
+  - [x] 1.2: Create sample sprite frames with variable sizes (e.g., 120x128, 128x128, 135x130)
+  - [x] 1.3: Use TexturePacker to create `test-atlas.png` and `test-atlas.json`
+  - [x] 1.4: Ensure JSON uses Phaser Hash format with proper frame keys
+  - [x] 1.5: Include at least 4 frames for animation testing
 
-- [ ] **Task 2: Create spike command** (AC: #1, #6, #7)
-  - [ ] 2.1: Create `src/commands/spike.ts` using Commander.js command handler
-  - [ ] 2.2: Set up result reporting with PASS/FAIL status
-  - [ ] 2.3: Implement error capture and formatting
-  - [ ] 2.4: Use Result<T, E> pattern for all operations
+- [x] **Task 2: Create spike command** (AC: #1, #6, #7)
+  - [x] 2.1: Create `src/commands/spike.ts` using Commander.js command handler
+  - [x] 2.2: Set up result reporting with PASS/FAIL status
+  - [x] 2.3: Implement error capture and formatting
+  - [x] 2.4: Use Result<T, E> pattern for all operations
 
-- [ ] **Task 3: Implement Puppeteer harness** (AC: #1, #5, #8)
-  - [ ] 3.1: Create `src/adapters/puppeteer-harness.ts`
-  - [ ] 3.2: Configure Puppeteer Core with headless Chrome
-  - [ ] 3.3: Enable WebGL with appropriate Chrome flags: `--use-gl=swiftshader`
-  - [ ] 3.4: Set up console log capture to array
-  - [ ] 3.5: Implement page error capture
-  - [ ] 3.6: Create `runs/spike/` directory with atomic writes
+- [x] **Task 3: Implement Puppeteer harness** (AC: #1, #5, #8)
+  - [x] 3.1: Create `src/adapters/puppeteer-harness.ts`
+  - [x] 3.2: Configure Puppeteer Core with headless Chrome
+  - [x] 3.3: Enable WebGL with appropriate Chrome flags: `--use-gl=swiftshader`
+  - [x] 3.4: Set up console log capture to array
+  - [x] 3.5: Implement page error capture
+  - [x] 3.6: Create `runs/spike/` directory with atomic writes
 
-- [ ] **Task 4: Create Phaser test scene** (AC: #2, #3)
-  - [ ] 4.1: Create `test-fixtures/phaser-test-scene.html`
-  - [ ] 4.2: Include Phaser 3 from CDN or local bundle
-  - [ ] 4.3: Implement minimal scene that:
+- [x] **Task 4: Create Phaser test scene** (AC: #2, #3)
+  - [x] 4.1: Create `test-fixtures/phaser-test-scene.html`
+  - [x] 4.2: Include Phaser 3 from CDN or local bundle
+  - [x] 4.3: Implement minimal scene that:
     - Loads atlas via `this.load.atlas('test', 'test-atlas.png', 'test-atlas.json')`
     - Creates sprite from atlas
     - Plays animation for 3+ frames
     - Logs frame keys to console as JSON
     - Signals completion via `window.__SPIKE_COMPLETE__`
-  - [ ] 4.4: Handle load errors gracefully with clear messages
+  - [x] 4.4: Handle load errors gracefully with clear messages
 
-- [ ] **Task 5: Implement screenshot capture** (AC: #4, #8)
-  - [ ] 5.1: Wait for animation completion signal
-  - [ ] 5.2: Capture screenshot using `page.screenshot()`
-  - [ ] 5.3: Write to `runs/spike/screenshot.png` atomically
-  - [ ] 5.4: Log screenshot path to results
+- [x] **Task 5: Implement screenshot capture** (AC: #4, #8)
+  - [x] 5.1: Wait for animation completion signal
+  - [x] 5.2: Capture screenshot using `page.screenshot()`
+  - [x] 5.3: Write to `runs/spike/screenshot.png` atomically
+  - [x] 5.4: Log screenshot path to results
 
-- [ ] **Task 6: Implement console log persistence** (AC: #5, #8)
-  - [ ] 6.1: Collect all console messages during test
-  - [ ] 6.2: Format as newline-delimited log file
-  - [ ] 6.3: Write to `runs/spike/console.log` atomically
-  - [ ] 6.4: Include timestamps for each message
+- [x] **Task 6: Implement console log persistence** (AC: #5, #8)
+  - [x] 6.1: Collect all console messages during test
+  - [x] 6.2: Format as newline-delimited log file
+  - [x] 6.3: Write to `runs/spike/console.log` atomically
+  - [x] 6.4: Include timestamps for each message
 
-- [ ] **Task 7: Implement result evaluation** (AC: #6, #7)
-  - [ ] 7.1: Check for JavaScript errors in console
-  - [ ] 7.2: Verify animation played expected frame count
-  - [ ] 7.3: Return structured result with:
+- [x] **Task 7: Implement result evaluation** (AC: #6, #7)
+  - [x] 7.1: Check for JavaScript errors in console
+  - [x] 7.2: Verify animation played expected frame count
+  - [x] 7.3: Return structured result with:
     - status: PASS | FAIL
     - frames_played: number
     - errors: string[]
     - artifacts: { screenshot, console_log }
-  - [ ] 7.4: Map failures to appropriate SYS_xx codes
+  - [x] 7.4: Map failures to appropriate SYS_xx codes
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Integration test with real Puppeteer (marks as slow)
-  - [ ] 8.2: Unit test result evaluation logic
-  - [ ] 8.3: Test artifact persistence survives test failure
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Integration test with real Puppeteer (marks as slow)
+  - [x] 8.2: Unit test result evaluation logic
+  - [x] 8.3: Test artifact persistence survives test failure
 
 ---
 

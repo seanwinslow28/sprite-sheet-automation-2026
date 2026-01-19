@@ -28,49 +28,49 @@ Status: done
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create doctor command** (AC: #5, #9)
-  - [ ] 1.1: Create `src/commands/doctor.ts` using Commander.js command handler
-  - [ ] 1.2: Set up Pino logger instance for structured JSON output
-  - [ ] 1.3: Define check result interface: `{ name: string, status: 'PASS' | 'FAIL', message: string, fix?: string }`
-  - [ ] 1.4: Implement summary output with pass/fail counts
+- [x] **Task 1: Create doctor command** (AC: #5, #9)
+  - [x] 1.1: Create `src/commands/doctor.ts` using Commander.js command handler
+  - [x] 1.2: Set up Pino logger instance for structured JSON output
+  - [x] 1.3: Define check result interface: `{ name: string, status: 'PASS' | 'FAIL', message: string, fix?: string }`
+  - [x] 1.4: Implement summary output with pass/fail counts
 
-- [ ] **Task 2: Implement Node.js version check** (AC: #1)
-  - [ ] 2.1: Read `process.version` and parse semver
-  - [ ] 2.2: Validate major version >= 20
-  - [ ] 2.3: Return actionable message if version is too old: "Upgrade to Node.js 20+ LTS"
+- [x] **Task 2: Implement Node.js version check** (AC: #1)
+  - [x] 2.1: Read `process.version` and parse semver
+  - [x] 2.2: Validate major version >= 20
+  - [x] 2.3: Return actionable message if version is too old: "Upgrade to Node.js 20+ LTS"
 
-- [ ] **Task 3: Implement TexturePacker checks** (AC: #2, #7, #8)
-  - [ ] 3.1: Use Execa to run `TexturePacker --version`
-  - [ ] 3.2: Parse version output and log to results
-  - [ ] 3.3: Map process failure to `DEP_TEXTUREPACKER_NOT_FOUND` code
-  - [ ] 3.4: Create minimal test pack operation with temp directory
-  - [ ] 3.5: Detect license errors in pack output (distinguishes trial vs pro license)
-  - [ ] 3.6: Clean up temp files after license check
+- [x] **Task 3: Implement TexturePacker checks** (AC: #2, #7, #8)
+  - [x] 3.1: Use Execa to run `TexturePacker --version`
+  - [x] 3.2: Parse version output and log to results
+  - [x] 3.3: Map process failure to `DEP_TEXTUREPACKER_NOT_FOUND` code
+  - [x] 3.4: Create minimal test pack operation with temp directory
+  - [x] 3.5: Detect license errors in pack output (distinguishes trial vs pro license)
+  - [x] 3.6: Clean up temp files after license check
 
-- [ ] **Task 4: Implement Chrome/Puppeteer check** (AC: #3)
-  - [ ] 4.1: Use Puppeteer Core to detect Chrome executable path
-  - [ ] 4.2: Attempt headless browser launch with minimal page
-  - [ ] 4.3: Verify WebGL context is available
-  - [ ] 4.4: Close browser and report result
-  - [ ] 4.5: Map failures to `DEP_CHROME_NOT_FOUND` or `DEP_WEBGL_UNAVAILABLE`
+- [x] **Task 4: Implement Chrome/Puppeteer check** (AC: #3)
+  - [x] 4.1: Use Puppeteer Core to detect Chrome executable path
+  - [x] 4.2: Attempt headless browser launch with minimal page
+  - [x] 4.3: Verify WebGL context is available
+  - [x] 4.4: Close browser and report result
+  - [x] 4.5: Map failures to `DEP_CHROME_NOT_FOUND` or `DEP_WEBGL_UNAVAILABLE`
 
-- [ ] **Task 5: Implement environment file check** (AC: #4)
-  - [ ] 5.1: Check `.env` file exists in project root
-  - [ ] 5.2: Parse file and verify required keys exist: `GEMINI_API_KEY`
-  - [ ] 5.3: NEVER log key values - only check presence
-  - [ ] 5.4: Suggest `.env.example` as template if missing
+- [x] **Task 5: Implement environment file check** (AC: #4)
+  - [x] 5.1: Check `.env` file exists in project root
+  - [x] 5.2: Parse file and verify required keys exist: `GEMINI_API_KEY`
+  - [x] 5.3: NEVER log key values - only check presence
+  - [x] 5.4: Suggest `.env.example` as template if missing
 
-- [ ] **Task 6: Implement Gemini API check** (AC: #6)
-  - [ ] 6.1: Load API key from environment (without logging)
-  - [ ] 6.2: Make minimal API call to verify connectivity
-  - [ ] 6.3: Check model availability and lifecycle status
-  - [ ] 6.4: Log model version info if available
-  - [ ] 6.5: Handle rate limiting gracefully (don't count as failure)
+- [x] **Task 6: Implement Gemini API check** (AC: #6)
+  - [x] 6.1: Load API key from environment (without logging)
+  - [x] 6.2: Make minimal API call to verify connectivity
+  - [x] 6.3: Check model availability and lifecycle status
+  - [x] 6.4: Log model version info if available
+  - [x] 6.5: Handle rate limiting gracefully (don't count as failure)
 
-- [ ] **Task 7: Write tests** (AC: all)
-  - [ ] 7.1: Unit test each checker in isolation with mocked dependencies
-  - [ ] 7.2: Integration test full doctor command with fixtures
-  - [ ] 7.3: Test failure scenarios return correct DEP_xx codes
+- [x] **Task 7: Write tests** (AC: all)
+  - [x] 7.1: Unit test each checker in isolation with mocked dependencies
+  - [x] 7.2: Integration test full doctor command with fixtures
+  - [x] 7.3: Test failure scenarios return correct DEP_xx codes
 
 ---
 

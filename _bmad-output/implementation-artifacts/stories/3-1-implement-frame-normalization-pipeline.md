@@ -1,6 +1,6 @@
 # Story 3.1: Implement Frame Normalization Pipeline
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -36,44 +36,44 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create normalizer module** (AC: #1-8)
-  - [ ] 1.1: Create `src/core/frame-normalizer.ts`
-  - [ ] 1.2: Define `NormalizerConfig` interface from manifest canvas settings
-  - [ ] 1.3: Implement `normalizeFrame(inputPath: string, config: NormalizerConfig, anchorAnalysis: AnchorAnalysis): Result<NormalizedFrame, SystemError>`
-  - [ ] 1.4: Return `NormalizedFrame` with: `inputPath`, `outputPath`, `processingSteps[]`, `durationMs`
+- [x] **Task 1: Create normalizer module** (AC: #1-8)
+  - [x] 1.1: Create `src/core/frame-normalizer.ts`
+  - [x] 1.2: Define `NormalizerConfig` interface from manifest canvas settings
+  - [x] 1.3: Implement `normalizeFrame(inputPath: string, config: NormalizerConfig, anchorAnalysis: AnchorAnalysis): Result<NormalizedFrame, SystemError>`
+  - [x] 1.4: Return `NormalizedFrame` with: `inputPath`, `outputPath`, `processingSteps[]`, `durationMs`
 
-- [ ] **Task 2: Implement processing pipeline** (AC: #1, #2, #3, #8)
-  - [ ] 2.1: Call Contact Patch Aligner (Story 2.9) as first step
-  - [ ] 2.2: Call downsampler (Story 2.8) as second step
-  - [ ] 2.3: Apply transparency enforcement (Story 3.2) as third step
-  - [ ] 2.4: Apply final canvas sizing as fourth step
-  - [ ] 2.5: Log each step with timing
+- [x] **Task 2: Implement processing pipeline** (AC: #1, #2, #3, #8)
+  - [x] 2.1: Call Contact Patch Aligner (Story 2.9) as first step
+  - [x] 2.2: Call downsampler (Story 2.8) as second step
+  - [x] 2.3: Apply transparency enforcement (Story 3.2) as third step
+  - [x] 2.4: Apply final canvas sizing as fourth step
+  - [x] 2.5: Log each step with timing
 
-- [ ] **Task 3: Implement canvas sizing** (AC: #3, #4)
-  - [ ] 3.1: Read target size from `canvas.target_size` manifest field
-  - [ ] 3.2: Crop if frame exceeds target dimensions
-  - [ ] 3.3: Pad with transparent pixels if frame is smaller
-  - [ ] 3.4: Use Sharp `extend()` for padding with `{ background: { r: 0, g: 0, b: 0, alpha: 0 } }`
-  - [ ] 3.5: Use Sharp `extract()` for cropping
+- [x] **Task 3: Implement canvas sizing** (AC: #3, #4)
+  - [x] 3.1: Read target size from `canvas.target_size` manifest field
+  - [x] 3.2: Crop if frame exceeds target dimensions
+  - [x] 3.3: Pad with transparent pixels if frame is smaller
+  - [x] 3.4: Use Sharp `extend()` for padding with `{ background: { r: 0, g: 0, b: 0, alpha: 0 } }`
+  - [x] 3.5: Use Sharp `extract()` for cropping
 
-- [ ] **Task 4: Implement output handling** (AC: #5)
-  - [ ] 4.1: Generate output path: `{inputBasename}_norm.png`
-  - [ ] 4.2: Save to `candidates/` folder
-  - [ ] 4.3: Preserve original 512px file for debugging
-  - [ ] 4.4: Use atomic write pattern for normalized output
+- [x] **Task 4: Implement output handling** (AC: #5)
+  - [x] 4.1: Generate output path: `{inputBasename}_norm.png`
+  - [x] 4.2: Save to `candidates/` folder
+  - [x] 4.3: Preserve original 512px file for debugging
+  - [x] 4.4: Use atomic write pattern for normalized output
 
-- [ ] **Task 5: Implement performance tracking** (AC: #6)
-  - [ ] 5.1: Track start time at function entry
-  - [ ] 5.2: Track duration for each processing step
-  - [ ] 5.3: Log warning if total duration exceeds 2 seconds
-  - [ ] 5.4: Include timing in `NormalizedFrame` result
+- [x] **Task 5: Implement performance tracking** (AC: #6)
+  - [x] 5.1: Track start time at function entry
+  - [x] 5.2: Track duration for each processing step
+  - [x] 5.3: Log warning if total duration exceeds 2 seconds
+  - [x] 5.4: Include timing in `NormalizedFrame` result
 
-- [ ] **Task 6: Write tests** (AC: all)
-  - [ ] 6.1: Test processing order is enforced
-  - [ ] 6.2: Test output dimensions match target_size
-  - [ ] 6.3: Test _norm suffix is applied correctly
-  - [ ] 6.4: Test performance warning is logged for slow processing
-  - [ ] 6.5: Test original file is preserved
+- [x] **Task 6: Write tests** (AC: all)
+  - [x] 6.1: Test processing order is enforced
+  - [x] 6.2: Test output dimensions match target_size
+  - [x] 6.3: Test _norm suffix is applied correctly
+  - [x] 6.4: Test performance warning is logged for slow processing
+  - [x] 6.5: Test original file is preserved
 
 ---
 

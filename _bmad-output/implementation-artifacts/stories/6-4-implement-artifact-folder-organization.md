@@ -1,6 +1,6 @@
 # Story 6.4: Implement Artifact Folder Organization
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -26,53 +26,53 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Define folder structure constants** (AC: #1-4)
-  - [ ] 1.1: Create `RUN_FOLDERS` constant with all folder names
-  - [ ] 1.2: Define folder purposes in comments
-  - [ ] 1.3: Ensure consistency across codebase
-  - [ ] 1.4: Export from `src/domain/constants.ts`
+- [x] **Task 1: Define folder structure constants** (AC: #1-4)
+  - [x] 1.1: Create `RUN_FOLDERS` constant with all folder names
+  - [x] 1.2: Define folder purposes in comments
+  - [x] 1.3: Ensure consistency across codebase
+  - [x] 1.4: Export from `src/domain/constants/run-folders.ts`
 
-- [ ] **Task 2: Implement folder creation** (AC: #1-4)
-  - [ ] 2.1: Create all required folders at run start
-  - [ ] 2.2: Create `approved/`, `rejected/`, `candidates/`, `audit/`, `logs/`, `export/`, `validation/`
-  - [ ] 2.3: Use recursive mkdir for safety
-  - [ ] 2.4: Verify folder creation before proceeding
+- [x] **Task 2: Implement folder creation** (AC: #1-4)
+  - [x] 2.1: Create all required folders at run start
+  - [x] 2.2: Create `approved/`, `rejected/`, `candidates/`, `audit/`, `logs/`, `export/`, `validation/`
+  - [x] 2.3: Use recursive mkdir for safety
+  - [x] 2.4: Verify folder creation before proceeding
 
-- [ ] **Task 3: Implement approved frame handling** (AC: #1)
-  - [ ] 3.1: Copy frame to `approved/` when passing audit
-  - [ ] 3.2: Use naming: `frame_XXXX.png` (4-digit zero-padded)
-  - [ ] 3.3: Verify copy succeeded
-  - [ ] 3.4: Log approval with path
+- [x] **Task 3: Implement approved frame handling** (AC: #1)
+  - [x] 3.1: Copy frame to `approved/` when passing audit
+  - [x] 3.2: Use naming: `frame_XXXX.png` (4-digit zero-padded)
+  - [x] 3.3: Verify copy succeeded
+  - [x] 3.4: Log approval with path
 
-- [ ] **Task 4: Implement rejected frame handling** (AC: #2)
-  - [ ] 4.1: Move frame to `rejected/` on hard fail
-  - [ ] 4.2: Include reason in filename: `frame_XXXX_HF01_DIMENSION_MISMATCH.png`
-  - [ ] 4.3: Preserve original candidate in `candidates/`
-  - [ ] 4.4: Log rejection with reason
+- [x] **Task 4: Implement rejected frame handling** (AC: #2)
+  - [x] 4.1: Move frame to `rejected/` on hard fail
+  - [x] 4.2: Include reason in filename: `frame_XXXX_HF01_DIMENSION_MISMATCH.png`
+  - [x] 4.3: Preserve original candidate in `candidates/`
+  - [x] 4.4: Log rejection with reason
 
-- [ ] **Task 5: Implement candidate tracking** (AC: #3)
-  - [ ] 5.1: Save all generation attempts to `candidates/`
-  - [ ] 5.2: Use naming: `frame_XXXX_attempt_YY.png`
-  - [ ] 5.3: Include normalized versions with `_norm` suffix
-  - [ ] 5.4: Never delete candidates (debugging)
+- [x] **Task 5: Implement candidate tracking** (AC: #3)
+  - [x] 5.1: Save all generation attempts to `candidates/`
+  - [x] 5.2: Use naming: `frame_XXXX_attempt_YY.png`
+  - [x] 5.3: Include normalized versions with `_norm` suffix
+  - [x] 5.4: Never delete candidates (debugging)
 
-- [ ] **Task 6: Implement runs README** (AC: #5)
-  - [ ] 6.1: Create `runs/README.md` template
-  - [ ] 6.2: Document folder structure
-  - [ ] 6.3: Document file naming conventions
-  - [ ] 6.4: Copy README to each new run folder
+- [x] **Task 6: Implement runs README** (AC: #5)
+  - [x] 6.1: Create `runs/README.md` template
+  - [x] 6.2: Document folder structure
+  - [x] 6.3: Document file naming conventions
+  - [x] 6.4: Copy README to each new run folder
 
-- [ ] **Task 7: Implement cleanup utilities** (AC: all)
-  - [ ] 7.1: Create `cleanupOldRuns(maxAge: number)` function
-  - [ ] 7.2: Add `pipeline clean` command
-  - [ ] 7.3: Never auto-delete runs without confirmation
-  - [ ] 7.4: Preserve approved frames separately option
+- [x] **Task 7: Implement cleanup utilities** (AC: all)
+  - [x] 7.1: Create `cleanupOldRuns(maxAge: number)` function
+  - [x] 7.2: Add `pipeline clean` command
+  - [x] 7.3: Never auto-delete runs without confirmation
+  - [x] 7.4: Preserve approved frames separately option
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test folder structure created correctly
-  - [ ] 8.2: Test approved frames go to approved/
-  - [ ] 8.3: Test rejected frames include reason in name
-  - [ ] 8.4: Test README is created
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test folder structure created correctly
+  - [x] 8.2: Test approved frames go to approved/
+  - [x] 8.3: Test rejected frames include reason in name
+  - [x] 8.4: Test README is created
 
 ---
 
@@ -268,8 +268,19 @@ This folder contains artifacts from a single pipeline run.
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- Created `src/domain/constants/run-folders.ts` with RUN_FOLDERS, RUN_FILES, ALL_RUN_FOLDERS constants
+- Extended `src/core/run-folder-manager.ts` with rejected frame handling, README generation, cleanup utilities
+- Extended RunPaths interface to include rejected, validation folders and all standard file paths
+- Added `saveRejectedFrame()` with metadata JSON for debugging failed frames
+- Added `writeRunReadme()` with comprehensive run folder documentation
+- Added `cleanupOldRuns()` with maxAge, preserveApproved, dryRun options
+- Created `src/commands/clean.ts` with CLI command for cleanup (dry-run by default)
+- All 26 folder structure tests pass
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/domain/constants/run-folders.ts` (new)
+- `src/core/run-folder-manager.ts` (modified)
+- `src/commands/clean.ts` (new)
+- `src/bin.ts` (modified - registered clean command)
+- `test/core/folder-structure.test.ts` (new)

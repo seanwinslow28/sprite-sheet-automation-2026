@@ -1,6 +1,6 @@
 # Story 5.3: Implement Phaser-Compatible Atlas Output
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -32,55 +32,55 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Define atlas output paths** (AC: #1, #2, #5)
-  - [ ] 1.1: Create `generateAtlasPath(runId: string, character: string, move: string): AtlasPaths`
-  - [ ] 1.2: Return `{ png: '...export/{char}_{move}.png', json: '...export/{char}_{move}.json' }`
-  - [ ] 1.3: Ensure export folder exists
-  - [ ] 1.4: Handle special characters in names (sanitize)
+- [x] **Task 1: Define atlas output paths** (AC: #1, #2, #5)
+  - [x] 1.1: Create `generateAtlasPath(runId: string, character: string, move: string): AtlasPaths`
+  - [x] 1.2: Return `{ png: '...export/{char}_{move}.png', json: '...export/{char}_{move}.json' }`
+  - [x] 1.3: Ensure export folder exists
+  - [x] 1.4: Handle special characters in names (sanitize)
 
-- [ ] **Task 2: Implement atlas export orchestration** (AC: #1, #2, #5)
-  - [ ] 2.1: Create `exportAtlas(runId: string, manifest: Manifest): Promise<Result<AtlasOutput, SystemError>>`
-  - [ ] 2.2: Prepare frames (Story 5.1)
-  - [ ] 2.3: Call TexturePacker (Story 5.2)
-  - [ ] 2.4: Validate output exists
+- [x] **Task 2: Implement atlas export orchestration** (AC: #1, #2, #5)
+  - [x] 2.1: Create `exportAtlas(runId: string, manifest: Manifest): Promise<Result<AtlasOutput, SystemError>>`
+  - [x] 2.2: Prepare frames (Story 5.1)
+  - [x] 2.3: Call TexturePacker (Story 5.2)
+  - [x] 2.4: Validate output exists
 
-- [ ] **Task 3: Validate JSON structure** (AC: #3, #4, #6, #7, #8)
-  - [ ] 3.1: Create `validateAtlasJson(jsonPath: string): ValidationResult`
-  - [ ] 3.2: Parse JSON and check structure
-  - [ ] 3.3: Verify `frames` object exists
-  - [ ] 3.4: Verify `meta` object exists
-  - [ ] 3.5: Validate frame key format matches regex
+- [x] **Task 3: Validate JSON structure** (AC: #3, #4, #6, #7, #8)
+  - [x] 3.1: Create `validateAtlasJson(jsonPath: string): ValidationResult`
+  - [x] 3.2: Parse JSON and check structure
+  - [x] 3.3: Verify `frames` object exists
+  - [x] 3.4: Verify `meta` object exists
+  - [x] 3.5: Validate frame key format matches regex
 
-- [ ] **Task 4: Validate PNG output** (AC: #1)
-  - [ ] 4.1: Create `validateAtlasPng(pngPath: string): ValidationResult`
-  - [ ] 4.2: Verify file exists and is readable
-  - [ ] 4.3: Verify dimensions match meta.size
-  - [ ] 4.4: Verify format is PNG with alpha
+- [x] **Task 4: Validate PNG output** (AC: #1)
+  - [x] 4.1: Create `validateAtlasPng(pngPath: string): ValidationResult`
+  - [x] 4.2: Verify file exists and is readable
+  - [x] 4.3: Verify dimensions match meta.size
+  - [x] 4.4: Verify format is PNG with alpha
 
-- [ ] **Task 5: Implement frame key validation** (AC: #6)
-  - [ ] 5.1: Extract all frame keys from JSON
-  - [ ] 5.2: Validate each matches pattern: `^[a-z_]+/\d{4}$`
-  - [ ] 5.3: Verify key count matches expected frame count
-  - [ ] 5.4: Return list of invalid keys if any
+- [x] **Task 5: Implement frame key validation** (AC: #6)
+  - [x] 5.1: Extract all frame keys from JSON
+  - [x] 5.2: Validate each matches pattern: `^[a-z_]+/\d{4}$`
+  - [x] 5.3: Verify key count matches expected frame count
+  - [x] 5.4: Return list of invalid keys if any
 
-- [ ] **Task 6: Implement frame data validation** (AC: #7)
-  - [ ] 6.1: For each frame, verify required fields exist
-  - [ ] 6.2: Verify `frame` has `x`, `y`, `w`, `h`
-  - [ ] 6.3: Verify `rotated` is false (we disable rotation)
-  - [ ] 6.4: Verify dimensions are positive
+- [x] **Task 6: Implement frame data validation** (AC: #7)
+  - [x] 6.1: For each frame, verify required fields exist
+  - [x] 6.2: Verify `frame` has `x`, `y`, `w`, `h`
+  - [x] 6.3: Verify `rotated` is false (we disable rotation)
+  - [x] 6.4: Verify dimensions are positive
 
-- [ ] **Task 7: Implement meta validation** (AC: #8)
-  - [ ] 7.1: Verify `meta.image` matches PNG filename
-  - [ ] 7.2: Verify `meta.format` is "RGBA8888"
-  - [ ] 7.3: Verify `meta.size` has `w` and `h`
-  - [ ] 7.4: Verify `meta.scale` is "1"
+- [x] **Task 7: Implement meta validation** (AC: #8)
+  - [x] 7.1: Verify `meta.image` matches PNG filename
+  - [x] 7.2: Verify `meta.format` is "RGBA8888"
+  - [x] 7.3: Verify `meta.size` has `w` and `h`
+  - [x] 7.4: Verify `meta.scale` is "1"
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test atlas output paths are correct
-  - [ ] 8.2: Test JSON validation passes for valid atlas
-  - [ ] 8.3: Test JSON validation fails for missing frames
-  - [ ] 8.4: Test PNG validation passes for valid image
-  - [ ] 8.5: Test frame key format validation
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test atlas output paths are correct
+  - [x] 8.2: Test JSON validation passes for valid atlas
+  - [x] 8.3: Test JSON validation fails for missing frames
+  - [x] 8.4: Test PNG validation passes for valid image
+  - [x] 8.5: Test frame key format validation
 
 ---
 
@@ -261,12 +261,22 @@ async function exportAtlas(
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+- Code review completed 2026-01-19
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- All 8 tasks completed
+- atlas-exporter.ts orchestrates full export flow
+- atlas-validator.ts validates JSON and PNG
+- Zod schemas in atlas.ts for JSON structure
+- Tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/export/atlas-exporter.ts` - Export orchestration
+- `src/core/export/atlas-validator.ts` - Atlas JSON/PNG validation
+- `src/domain/schemas/atlas.ts` - Zod schemas for atlas JSON
+
+### Completion Date
+
+2026-01-19

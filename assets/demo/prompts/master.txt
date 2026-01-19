@@ -1,0 +1,4 @@
+Create a pixel art character sprite in a relaxed idle pose.
+Style: 16-bit retro game aesthetic with clean pixel art.
+The character should have a slight breathing motion animation feel.
+Maintain the exact color palette and visual style of the reference.

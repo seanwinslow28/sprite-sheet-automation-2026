@@ -1,6 +1,6 @@
 # Story 2.4: Implement Prompt Template System
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -24,45 +24,45 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create prompt template engine** (AC: #1, #2, #3, #4)
-  - [ ] 1.1: Create `src/core/prompt-template-engine.ts`
-  - [ ] 1.2: Define `PromptContext` interface with frameIndex, totalFrames, attemptIndex, retryAction
-  - [ ] 1.3: Implement `selectTemplate(context: PromptContext, prompts: PromptTemplates): string`
-  - [ ] 1.4: Implement template selection logic based on context
+- [x] **Task 1: Create prompt template engine** (AC: #1, #2, #3, #4)
+  - [x] 1.1: Create `src/core/prompt-template-engine.ts`
+  - [x] 1.2: Define `PromptContext` interface with frameIndex, totalFrames, attemptIndex, retryAction
+  - [x] 1.3: Implement `selectTemplate(context: PromptContext, prompts: PromptTemplates): string`
+  - [x] 1.4: Implement template selection logic based on context
 
-- [ ] **Task 2: Implement template selection logic** (AC: #1, #2, #3)
-  - [ ] 2.1: If `frameIndex === 0 && attemptIndex === 1` → return `master`
-  - [ ] 2.2: If `frameIndex > 0 && attemptIndex === 1` → return `variation`
-  - [ ] 2.3: If `retryAction === 'identity_rescue'` → return `lock`
-  - [ ] 2.4: If `retryAction === 'tighten_prompt'` → return `lock` with additional constraints
-  - [ ] 2.5: Default fallback to `variation` template
+- [x] **Task 2: Implement template selection logic** (AC: #1, #2, #3)
+  - [x] 2.1: If `frameIndex === 0 && attemptIndex === 1` → return `master`
+  - [x] 2.2: If `frameIndex > 0 && attemptIndex === 1` → return `variation`
+  - [x] 2.3: If `retryAction === 'identity_rescue'` → return `lock`
+  - [x] 2.4: If `retryAction === 'tighten_prompt'` → return `lock` with additional constraints
+  - [x] 2.5: Default fallback to `variation` template
 
-- [ ] **Task 3: Implement variable interpolation** (AC: #2)
-  - [ ] 3.1: Create `interpolateTemplate(template: string, vars: Record<string, string | number>): string`
-  - [ ] 3.2: Replace `{frame_index}` with current frame number
-  - [ ] 3.3: Replace `{total_frames}` with total frame count
-  - [ ] 3.4: Replace `{attempt_index}` with current attempt number
-  - [ ] 3.5: Replace `{character_id}` with character identifier
-  - [ ] 3.6: Replace `{move_id}` with move name
-  - [ ] 3.7: Warn on unresolved placeholders
+- [x] **Task 3: Implement variable interpolation** (AC: #2)
+  - [x] 3.1: Create `interpolateTemplate(template: string, vars: Record<string, string | number>): string`
+  - [x] 3.2: Replace `{frame_index}` with current frame number
+  - [x] 3.3: Replace `{total_frames}` with total frame count
+  - [x] 3.4: Replace `{attempt_index}` with current attempt number
+  - [x] 3.5: Replace `{character_id}` with character identifier
+  - [x] 3.6: Replace `{move_id}` with move name
+  - [x] 3.7: Warn on unresolved placeholders
 
-- [ ] **Task 4: Implement negative prompt handling** (AC: #4)
-  - [ ] 4.1: Create `buildFinalPrompt(mainPrompt: string, negativePrompt: string): string`
-  - [ ] 4.2: Append negative prompt with clear separator
-  - [ ] 4.3: Format: `{main_prompt}\n\nAVOID: {negative_prompt}`
+- [x] **Task 4: Implement negative prompt handling** (AC: #4)
+  - [x] 4.1: Create `buildFinalPrompt(mainPrompt: string, negativePrompt: string): string`
+  - [x] 4.2: Append negative prompt with clear separator
+  - [x] 4.3: Format: `{main_prompt}\n\nAVOID: {negative_prompt}`
 
-- [ ] **Task 5: Implement prompt logging** (AC: #5)
-  - [ ] 5.1: Log template name used
-  - [ ] 5.2: Log raw template before interpolation
-  - [ ] 5.3: Log resolved prompt after interpolation
-  - [ ] 5.4: Log to structured JSON in `runs/{run_id}/logs/prompts.jsonl`
+- [x] **Task 5: Implement prompt logging** (AC: #5)
+  - [x] 5.1: Log template name used
+  - [x] 5.2: Log raw template before interpolation
+  - [x] 5.3: Log resolved prompt after interpolation
+  - [x] 5.4: Log to structured JSON in `runs/{run_id}/logs/prompts.jsonl`
 
-- [ ] **Task 6: Write tests** (AC: all)
-  - [ ] 6.1: Test master template selected for frame 0
-  - [ ] 6.2: Test variation template selected for frame N
-  - [ ] 6.3: Test lock template selected on identity rescue
-  - [ ] 6.4: Test variable interpolation
-  - [ ] 6.5: Test negative prompt appending
+- [x] **Task 6: Write tests** (AC: all)
+  - [x] 6.1: Test master template selected for frame 0
+  - [x] 6.2: Test variation template selected for frame N
+  - [x] 6.3: Test lock template selected on identity rescue
+  - [x] 6.4: Test variable interpolation
+  - [x] 6.5: Test negative prompt appending
 
 ---
 
@@ -148,8 +148,13 @@ blurry, anti-aliased, smooth gradients, 3D rendering, photograph, realistic, wat
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- All acceptance criteria met
+- 21/21 tests passing in `test/core/prompt-template-engine.test.ts` (includes Stories 2.10, 2.11 tests)
+- Template selection decision tree fully implemented
+- Variable interpolation with {frame_index}, {total_frames}, etc.
+- Negative prompt appending with AVOID: prefix
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/prompt-template-engine.ts` - Template engine with selection and interpolation
+- `test/core/prompt-template-engine.test.ts` - Template engine tests

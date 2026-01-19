@@ -1,6 +1,6 @@
 # Story 5.8: Implement Release-Ready Gating
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -31,54 +31,54 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Define release status enum** (AC: #1, #4, #7)
-  - [ ] 1.1: Create `ReleaseStatus` type: `release-ready`, `validation-failed`, `debug-only`
-  - [ ] 1.2: Add to state.json schema
-  - [ ] 1.3: Default to `validation-failed` until proven otherwise
-  - [ ] 1.4: Document status meanings
+- [x] **Task 1: Define release status enum** (AC: #1, #4, #7)
+  - [x] 1.1: Create `ReleaseStatus` type: `release-ready`, `validation-failed`, `debug-only`
+  - [x] 1.2: Add to state.json schema
+  - [x] 1.3: Default to `validation-failed` until proven otherwise
+  - [x] 1.4: Document status meanings
 
-- [ ] **Task 2: Implement gating logic** (AC: #1, #4)
-  - [ ] 2.1: Create `evaluateReleaseReadiness(validationResults: ValidationSummary): ReleaseStatus`
-  - [ ] 2.2: If all tests pass → `release-ready`
-  - [ ] 2.3: If any test fails → `validation-failed`
-  - [ ] 2.4: Log status determination
+- [x] **Task 2: Implement gating logic** (AC: #1, #4)
+  - [x] 2.1: Create `evaluateReleaseReadiness(validationResults: ValidationSummary): ReleaseStatus`
+  - [x] 2.2: If all tests pass → `release-ready`
+  - [x] 2.3: If any test fails → `validation-failed`
+  - [x] 2.4: Log status determination
 
-- [ ] **Task 3: Implement failure logging** (AC: #2)
-  - [ ] 3.1: On validation failure, log specific failed tests
-  - [ ] 3.2: Include failure reasons from each test
-  - [ ] 3.3: Suggest remediation steps
-  - [ ] 3.4: Log to both console and run artifacts
+- [x] **Task 3: Implement failure logging** (AC: #2)
+  - [x] 3.1: On validation failure, log specific failed tests
+  - [x] 3.2: Include failure reasons from each test
+  - [x] 3.3: Suggest remediation steps
+  - [x] 3.4: Log to both console and run artifacts
 
-- [ ] **Task 4: Implement asset retention** (AC: #3)
-  - [ ] 4.1: Keep atlas in `export/` regardless of validation outcome
-  - [ ] 4.2: Do NOT delete assets on failure
-  - [ ] 4.3: Mark assets with validation status in metadata
-  - [ ] 4.4: Allow re-validation without re-export
+- [x] **Task 4: Implement asset retention** (AC: #3)
+  - [x] 4.1: Keep atlas in `export/` regardless of validation outcome
+  - [x] 4.2: Do NOT delete assets on failure
+  - [x] 4.3: Mark assets with validation status in metadata
+  - [x] 4.4: Allow re-validation without re-export
 
-- [ ] **Task 5: Implement promotion logic** (AC: #5)
-  - [ ] 5.1: Create `promoteToRelease(runId: string, outputPath: string): Promise<void>`
-  - [ ] 5.2: Copy atlas files to final output location
-  - [ ] 5.3: Only allow promotion if status is `release-ready`
-  - [ ] 5.4: Update state to track promotion
+- [x] **Task 5: Implement promotion logic** (AC: #5)
+  - [x] 5.1: Create `promoteToRelease(runId: string, outputPath: string): Promise<void>`
+  - [x] 5.2: Copy atlas files to final output location
+  - [x] 5.3: Only allow promotion if status is `release-ready`
+  - [x] 5.4: Update state to track promotion
 
-- [ ] **Task 6: Implement override flag** (AC: #6, #7)
-  - [ ] 6.1: Add `--allow-validation-fail` flag to CLI
-  - [ ] 6.2: When flag set, allow export despite failures
-  - [ ] 6.3: Set status to `debug-only`
-  - [ ] 6.4: Log warning: "⚠️ Assets exported with validation failures - DEBUG ONLY"
+- [x] **Task 6: Implement override flag** (AC: #6, #7)
+  - [x] 6.1: Add `--allow-validation-fail` flag to CLI
+  - [x] 6.2: When flag set, allow export despite failures
+  - [x] 6.3: Set status to `debug-only`
+  - [x] 6.4: Log warning: "⚠️ Assets exported with validation failures - DEBUG ONLY"
 
-- [ ] **Task 7: Integrate with pipeline flow** (AC: all)
-  - [ ] 7.1: After micro-tests, evaluate release readiness
-  - [ ] 7.2: Update state.json with release_status
-  - [ ] 7.3: Report final status to CLI output
-  - [ ] 7.4: Block promotion unless release-ready (or override)
+- [x] **Task 7: Integrate with pipeline flow** (AC: all)
+  - [x] 7.1: After micro-tests, evaluate release readiness
+  - [x] 7.2: Update state.json with release_status
+  - [x] 7.3: Report final status to CLI output
+  - [x] 7.4: Block promotion unless release-ready (or override)
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test release-ready on all tests pass
-  - [ ] 8.2: Test validation-failed on any test fail
-  - [ ] 8.3: Test override flag sets debug-only
-  - [ ] 8.4: Test promotion blocked without release-ready
-  - [ ] 8.5: Test assets retained on failure
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test release-ready on all tests pass
+  - [x] 8.2: Test validation-failed on any test fail
+  - [x] 8.3: Test override flag sets debug-only
+  - [x] 8.4: Test promotion blocked without release-ready
+  - [x] 8.5: Test assets retained on failure
 
 ---
 
@@ -315,12 +315,24 @@ Assets exported to: runs/abc123/export/
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+- Code review completed 2026-01-19
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- All 8 tasks completed
+- release-gating.ts implements ReleaseStatus type and gating logic
+- evaluateReleaseReadiness, promoteToRelease functions
+- getRemediationSuggestions for failure guidance
+- promote command CLI for asset promotion
+- ReleaseInfo interface for state tracking
+- 10 tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/export/release-gating.ts` - Release gating and promotion logic
+- `src/commands/promote.ts` - CLI promote command
+- `test/core/export/release-gating.test.ts` - Unit tests
+
+### Completion Date
+
+2026-01-19

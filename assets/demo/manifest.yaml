@@ -1,0 +1,70 @@
+# Demo Manifest - Sample Pipeline Run
+# This manifest is used by 'banana demo' to verify the pipeline works
+
+identity:
+  character: "DEMO"
+  move: "idle_demo"
+  version: "v1"
+  frame_count: 2  # Minimal for quick demo
+  is_loop: true
+
+inputs:
+  anchor: "assets/demo/anchor.png"
+  style_refs: []
+  pose_refs: []
+  guides: []
+
+generator:
+  backend: "gemini"
+  model: "gemini-2.0-flash-exp"
+  mode: "edit"
+  seed_policy: "fixed_then_random"
+  max_attempts_per_frame: 3  # Fewer attempts for demo
+  prompts:
+    master: "assets/demo/prompts/master.txt"
+    variation: "assets/demo/prompts/variation.txt"
+    lock: "assets/demo/prompts/lock.txt"
+    negative: "assets/demo/prompts/negative.txt"
+
+canvas:
+  generation_size: 512
+  target_size: 128
+  downsample_method: "nearest"
+  alignment:
+    method: "contact_patch"
+    vertical_lock: true
+    root_zone_ratio: 0.15
+    max_shift_x: 32
+
+auditor:
+  hard_gates:
+    HF01_DIMENSION_MISMATCH: 0
+    HF02_FULLY_TRANSPARENT: 0
+    HF03_IMAGE_CORRUPTED: 0
+    HF04_WRONG_COLOR_DEPTH: 0
+    HF05_FILE_SIZE_INVALID: 0
+  soft_metrics:
+    SF01_IDENTITY_DRIFT: 0.70     # Relaxed for demo
+    SF02_PALETTE_DRIFT: 0.65
+    SF03_ALPHA_HALO: 0.15
+    SF04_BASELINE_DRIFT: 5
+    SF05_PIXEL_NOISE: 20
+  weights:
+    stability: 0.35
+    identity: 0.30
+    palette: 0.20
+    style: 0.15
+
+retry:
+  ladder:
+    - "retry_same"
+    - "tighten_negative"
+    - "identity_rescue"
+  stop_conditions:
+    max_retry_rate: 0.80   # Very relaxed for demo
+    max_reject_rate: 0.60
+    max_consecutive_fails: 3
+
+export:
+  atlas_format: "phaser"
+  packer_flags: []

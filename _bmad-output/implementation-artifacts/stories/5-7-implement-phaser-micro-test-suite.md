@@ -1,6 +1,6 @@
 # Story 5.7: Implement Phaser Micro-Test Suite (TEST-02, TEST-03, TEST-04)
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -28,64 +28,64 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create Phaser test harness** (AC: #4)
-  - [ ] 1.1: Create `src/core/validation/phaser-test-harness.ts`
-  - [ ] 1.2: Initialize Puppeteer with WebGL support
-  - [ ] 1.3: Serve static HTML page with Phaser loaded
-  - [ ] 1.4: Establish communication channel (console.log JSON parsing)
+- [x] **Task 1: Create Phaser test harness** (AC: #4)
+  - [x] 1.1: Create `src/core/validation/phaser-test-harness.ts`
+  - [x] 1.2: Initialize Puppeteer with WebGL support
+  - [x] 1.3: Serve static HTML page with Phaser loaded
+  - [x] 1.4: Establish communication channel (console.log JSON parsing)
 
-- [ ] **Task 2: Implement TEST-02 (Pivot Auto-Apply)** (AC: #1)
-  - [ ] 2.1: Create test scene that loads atlas
-  - [ ] 2.2: Create sprite and set origin to (0.5, 1) (feet)
-  - [ ] 2.3: Animate through all frames
-  - [ ] 2.4: For each frame, capture sprite's getBounds()
-  - [ ] 2.5: Verify bottom edge stays consistent (within 1px tolerance)
-  - [ ] 2.6: PASS if consistent, FAIL if jitter detected
+- [x] **Task 2: Implement TEST-02 (Pivot Auto-Apply)** (AC: #1)
+  - [x] 2.1: Create test scene that loads atlas
+  - [x] 2.2: Create sprite and set origin to (0.5, 1) (feet)
+  - [x] 2.3: Animate through all frames
+  - [x] 2.4: For each frame, capture sprite's getBounds()
+  - [x] 2.5: Verify bottom edge stays consistent (within 1px tolerance)
+  - [x] 2.6: PASS if consistent, FAIL if jitter detected
 
-- [ ] **Task 3: Implement TEST-03 (Trim Mode Jitter)** (AC: #2)
-  - [ ] 3.1: Create test scene with animation at 1fps
-  - [ ] 3.2: Step through each frame manually
-  - [ ] 3.3: Capture screen position of sprite center
-  - [ ] 3.4: Compare positions across frames
-  - [ ] 3.5: PASS if positions stable, FAIL if >2px variance
+- [x] **Task 3: Implement TEST-03 (Trim Mode Jitter)** (AC: #2)
+  - [x] 3.1: Create test scene with animation at 1fps
+  - [x] 3.2: Step through each frame manually
+  - [x] 3.3: Capture screen position of sprite center
+  - [x] 3.4: Compare positions across frames
+  - [x] 3.5: PASS if positions stable, FAIL if >2px variance
 
-- [ ] **Task 4: Implement TEST-04 (Suffix Convention)** (AC: #3)
-  - [ ] 4.1: Load atlas with `this.load.atlas()`
-  - [ ] 4.2: Use `generateFrameNames()` with zeroPad: 4
-  - [ ] 4.3: Create animation from generated names
-  - [ ] 4.4: Verify all frames resolve (no missing frames)
-  - [ ] 4.5: PASS if animation plays, FAIL if frames missing
+- [x] **Task 4: Implement TEST-04 (Suffix Convention)** (AC: #3)
+  - [x] 4.1: Load atlas with `this.load.atlas()`
+  - [x] 4.2: Use `generateFrameNames()` with zeroPad: 4
+  - [x] 4.3: Create animation from generated names
+  - [x] 4.4: Verify all frames resolve (no missing frames)
+  - [x] 4.5: PASS if animation plays, FAIL if frames missing
 
-- [ ] **Task 5: Implement screenshot capture** (AC: #6)
-  - [ ] 5.1: After each test, capture screenshot
-  - [ ] 5.2: Save to `runs/{run_id}/validation/test-02-pivot.png`
-  - [ ] 5.3: For jitter tests, capture frame-by-frame sequence
-  - [ ] 5.4: Include timestamp in filename
+- [x] **Task 5: Implement screenshot capture** (AC: #6)
+  - [x] 5.1: After each test, capture screenshot
+  - [x] 5.2: Save to `runs/{run_id}/validation/test-02-pivot.png`
+  - [x] 5.3: For jitter tests, capture frame-by-frame sequence
+  - [x] 5.4: Include timestamp in filename
 
-- [ ] **Task 6: Implement test result parsing** (AC: #5)
-  - [ ] 6.1: Define test result JSON format
-  - [ ] 6.2: Parse console.log output from Phaser
-  - [ ] 6.3: Extract PASS/FAIL and details
-  - [ ] 6.4: Handle test timeouts and crashes
+- [x] **Task 6: Implement test result parsing** (AC: #5)
+  - [x] 6.1: Define test result JSON format
+  - [x] 6.2: Parse console.log output from Phaser
+  - [x] 6.3: Extract PASS/FAIL and details
+  - [x] 6.4: Handle test timeouts and crashes
 
-- [ ] **Task 7: Implement log storage** (AC: #7)
-  - [ ] 7.1: Create `runs/{run_id}/validation/` folder
-  - [ ] 7.2: Save test results to `test-results.json`
-  - [ ] 7.3: Save console logs to `console.log`
-  - [ ] 7.4: Save screenshots with descriptive names
+- [x] **Task 7: Implement log storage** (AC: #7)
+  - [x] 7.1: Create `runs/{run_id}/validation/` folder
+  - [x] 7.2: Save test results to `test-results.json`
+  - [x] 7.3: Save console logs to `console.log`
+  - [x] 7.4: Save screenshots with descriptive names
 
-- [ ] **Task 8: Create CLI command** (AC: #4, #5)
-  - [ ] 8.1: Add `pipeline validate <run_id>` command
-  - [ ] 8.2: Run all three micro-tests
-  - [ ] 8.3: Report summary to console
-  - [ ] 8.4: Return exit code based on results
+- [x] **Task 8: Create CLI command** (AC: #4, #5)
+  - [x] 8.1: Add `pipeline validate <run_id>` command
+  - [x] 8.2: Run all three micro-tests
+  - [x] 8.3: Report summary to console
+  - [x] 8.4: Return exit code based on results
 
-- [ ] **Task 9: Write tests** (AC: all)
-  - [ ] 9.1: Test with known-good atlas (should PASS)
-  - [ ] 9.2: Test with bad pivot atlas (should FAIL TEST-02)
-  - [ ] 9.3: Test with missing frames atlas (should FAIL TEST-04)
-  - [ ] 9.4: Test screenshot capture works
-  - [ ] 9.5: Test timeout handling
+- [x] **Task 9: Write tests** (AC: all)
+  - [x] 9.1: Test with known-good atlas (should PASS)
+  - [x] 9.2: Test with bad pivot atlas (should FAIL TEST-02)
+  - [x] 9.3: Test with missing frames atlas (should FAIL TEST-04)
+  - [x] 9.4: Test screenshot capture works
+  - [x] 9.5: Test timeout handling
 
 ---
 
@@ -322,12 +322,24 @@ Results saved to: runs/abc123/validation/test-results.json
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+- Code review completed 2026-01-19
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- All 9 tasks completed
+- phaser-test-harness.ts implements full Puppeteer integration
+- TEST-02 (Pivot), TEST-03 (Jitter), TEST-04 (Suffix) implemented
+- validate command CLI with --allow-validation-fail flag
+- Screenshot capture and result logging
+- ValidationTestResult and ValidationSummary types
+- 15 tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/validation/phaser-test-harness.ts` - Puppeteer harness with micro-tests
+- `src/commands/validate.ts` - CLI validate command
+- `test/core/validation/phaser-test-harness.test.ts` - Unit tests
+
+### Completion Date
+
+2026-01-19

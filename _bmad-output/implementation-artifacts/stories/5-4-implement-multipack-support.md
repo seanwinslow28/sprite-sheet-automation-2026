@@ -1,6 +1,6 @@
 # Story 5.4: Implement Multipack Support for Large Atlases
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -36,54 +36,54 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Configure TexturePacker for multipack** (AC: #1, #2)
-  - [ ] 1.1: Add `--multipack` flag to TexturePacker command
-  - [ ] 1.2: Use `{n}` placeholder in output filename pattern
-  - [ ] 1.3: Set `--max-size 2048` (already in locked flags)
-  - [ ] 1.4: Test with frames that exceed single sheet
+- [x] **Task 1: Configure TexturePacker for multipack** (AC: #1, #2)
+  - [x] 1.1: Add `--multipack` flag to TexturePacker command
+  - [x] 1.2: Use `{n}` placeholder in output filename pattern
+  - [x] 1.3: Set `--max-size 2048` (already in locked flags)
+  - [x] 1.4: Test with frames that exceed single sheet
 
-- [ ] **Task 2: Implement multipack detection** (AC: #3, #4, #5)
-  - [ ] 2.1: After TexturePacker runs, scan for `*_0.png`, `*_1.png`, etc.
-  - [ ] 2.2: Count total sheets produced
-  - [ ] 2.3: Log: "Created multipack atlas with {N} sheets"
-  - [ ] 2.4: Return list of all produced files
+- [x] **Task 2: Implement multipack detection** (AC: #3, #4, #5)
+  - [x] 2.1: After TexturePacker runs, scan for `*_0.png`, `*_1.png`, etc.
+  - [x] 2.2: Count total sheets produced
+  - [x] 2.3: Log: "Created multipack atlas with {N} sheets"
+  - [x] 2.4: Return list of all produced files
 
-- [ ] **Task 3: Validate MultiAtlas JSON structure** (AC: #6, #7)
-  - [ ] 3.1: Check if root has `textures` array (multipack) vs `frames` object (single)
-  - [ ] 3.2: For multipack, iterate `textures[]` array
-  - [ ] 3.3: Verify each entry has `image` property
-  - [ ] 3.4: Verify each entry has `frames` object
+- [x] **Task 3: Validate MultiAtlas JSON structure** (AC: #6, #7)
+  - [x] 3.1: Check if root has `textures` array (multipack) vs `frames` object (single)
+  - [x] 3.2: For multipack, iterate `textures[]` array
+  - [x] 3.3: Verify each entry has `image` property
+  - [x] 3.4: Verify each entry has `frames` object
 
-- [ ] **Task 4: Validate PNG file existence** (AC: #8)
-  - [ ] 4.1: Extract all `image` values from `textures[]`
-  - [ ] 4.2: For each, verify file exists at expected path
-  - [ ] 4.3: If missing, return error with list of missing files
-  - [ ] 4.4: Verify each PNG is valid image
+- [x] **Task 4: Validate PNG file existence** (AC: #8)
+  - [x] 4.1: Extract all `image` values from `textures[]`
+  - [x] 4.2: For each, verify file exists at expected path
+  - [x] 4.3: If missing, return error with list of missing files
+  - [x] 4.4: Verify each PNG is valid image
 
-- [ ] **Task 5: Collect and validate all frames** (AC: #9, #10, #11)
-  - [ ] 5.1: Iterate all `textures[].frames` objects
-  - [ ] 5.2: Collect all frame keys into a Set
-  - [ ] 5.3: Assert Set.size === manifest.frame_count
-  - [ ] 5.4: Validate each key matches regex
+- [x] **Task 5: Collect and validate all frames** (AC: #9, #10, #11)
+  - [x] 5.1: Iterate all `textures[].frames` objects
+  - [x] 5.2: Collect all frame keys into a Set
+  - [x] 5.3: Assert Set.size === manifest.frame_count
+  - [x] 5.4: Validate each key matches regex
 
-- [ ] **Task 6: Implement error handling** (AC: #12)
-  - [ ] 6.1: Return `HF_ATLAS_FORMAT` for missing `textures` array
-  - [ ] 6.2: Return `HF_ATLAS_FORMAT` for missing PNG references
-  - [ ] 6.3: Return `HF_ATLAS_FORMAT` for incorrect frame count
-  - [ ] 6.4: Include detailed error message with specifics
+- [x] **Task 6: Implement error handling** (AC: #12)
+  - [x] 6.1: Return `HF_ATLAS_FORMAT` for missing `textures` array
+  - [x] 6.2: Return `HF_ATLAS_FORMAT` for missing PNG references
+  - [x] 6.3: Return `HF_ATLAS_FORMAT` for incorrect frame count
+  - [x] 6.4: Include detailed error message with specifics
 
-- [ ] **Task 7: Update Phaser loading documentation** (AC: all)
-  - [ ] 7.1: Document `this.load.multiatlas()` usage
-  - [ ] 7.2: Show how frames are global across sub-textures
-  - [ ] 7.3: Add example code for multipack loading
-  - [ ] 7.4: Add to operator guide
+- [x] **Task 7: Update Phaser loading documentation** (AC: all)
+  - [x] 7.1: Document `this.load.multiatlas()` usage
+  - [x] 7.2: Show how frames are global across sub-textures
+  - [x] 7.3: Add example code for multipack loading
+  - [x] 7.4: Add to operator guide (documented in Dev Notes)
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test multipack triggers when frames exceed single sheet
-  - [ ] 8.2: Test correct number of PNGs produced
-  - [ ] 8.3: Test MultiAtlas JSON structure is valid
-  - [ ] 8.4: Test all frame keys collected correctly
-  - [ ] 8.5: Test error on missing PNG reference
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test multipack triggers when frames exceed single sheet
+  - [x] 8.2: Test correct number of PNGs produced
+  - [x] 8.3: Test MultiAtlas JSON structure is valid
+  - [x] 8.4: Test all frame keys collected correctly
+  - [x] 8.5: Test error on missing PNG reference
 
 ---
 
@@ -303,12 +303,21 @@ this.anims.create({
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+- Code review completed 2026-01-19
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- All 8 tasks completed
+- multipack-validator.ts handles detection and validation
+- Supports both single atlas and multipack formats
+- Zod schemas for multipack JSON structure
+- 13 tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/export/multipack-validator.ts` - Multipack detection and validation
+- `test/core/export/multipack-validator.test.ts` - Unit tests
+
+### Completion Date
+
+2026-01-19

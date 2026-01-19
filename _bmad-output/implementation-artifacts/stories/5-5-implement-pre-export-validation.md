@@ -1,6 +1,6 @@
 # Story 5.5: Implement Pre-Export Validation Checklist
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -38,83 +38,83 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create validation checklist runner** (AC: #1-12)
-  - [ ] 1.1: Create `src/core/export/pre-export-validator.ts`
-  - [ ] 1.2: Define `PreExportCheck` interface with name, check function, severity
-  - [ ] 1.3: Implement `runPreExportChecks(approvedPath: string, manifest: Manifest): ValidationResult`
-  - [ ] 1.4: Run all 12 checks in sequence
+- [x] **Task 1: Create validation checklist runner** (AC: #1-12)
+  - [x] 1.1: Create `src/core/export/pre-export-validator.ts`
+  - [x] 1.2: Define `PreExportCheck` interface with name, check function, severity
+  - [x] 1.3: Implement `runPreExportChecks(approvedPath: string, manifest: Manifest): ValidationResult`
+  - [x] 1.4: Run all 12 checks in sequence
 
-- [ ] **Task 2: Implement frame count check** (AC: #1)
-  - [ ] 2.1: Count PNG files in approved folder
-  - [ ] 2.2: Compare against `manifest.identity.frame_count`
-  - [ ] 2.3: Report: "Expected 8 frames, found 7"
-  - [ ] 2.4: List missing frame indices
+- [x] **Task 2: Implement frame count check** (AC: #1)
+  - [x] 2.1: Count PNG files in approved folder
+  - [x] 2.2: Compare against `manifest.identity.frame_count`
+  - [x] 2.3: Report: "Expected 8 frames, found 7"
+  - [x] 2.4: List missing frame indices
 
-- [ ] **Task 3: Implement dimension check** (AC: #2)
-  - [ ] 3.1: For each frame, load with Sharp and get metadata
-  - [ ] 3.2: Compare against `manifest.canvas.target_size`
-  - [ ] 3.3: Report: "Frame 3: Expected 128x128, found 127x128"
-  - [ ] 3.4: Check both width and height
+- [x] **Task 3: Implement dimension check** (AC: #2)
+  - [x] 3.1: For each frame, load with Sharp and get metadata
+  - [x] 3.2: Compare against `manifest.canvas.target_size`
+  - [x] 3.3: Report: "Frame 3: Expected 128x128, found 127x128"
+  - [x] 3.4: Check both width and height
 
-- [ ] **Task 4: Implement alpha channel check** (AC: #3, #8)
-  - [ ] 4.1: Verify each frame has 4 channels (RGBA)
-  - [ ] 4.2: Report: "Frame 5: Missing alpha channel (3 channels found)"
-  - [ ] 4.3: Verify color depth is 8 bits per channel
-  - [ ] 4.4: Report: "Frame 2: Expected 32-bit RGBA, found 24-bit RGB"
+- [x] **Task 4: Implement alpha channel check** (AC: #3, #8)
+  - [x] 4.1: Verify each frame has 4 channels (RGBA)
+  - [x] 4.2: Report: "Frame 5: Missing alpha channel (3 channels found)"
+  - [x] 4.3: Verify color depth is 8 bits per channel
+  - [x] 4.4: Report: "Frame 2: Expected 32-bit RGBA, found 24-bit RGB"
 
-- [ ] **Task 5: Implement corruption check** (AC: #4)
-  - [ ] 5.1: Attempt to load each frame with Sharp
-  - [ ] 5.2: Catch load errors as corruption
-  - [ ] 5.3: Report: "Frame 6: Image corrupted or unreadable"
-  - [ ] 5.4: Include error details in report
+- [x] **Task 5: Implement corruption check** (AC: #4)
+  - [x] 5.1: Attempt to load each frame with Sharp
+  - [x] 5.2: Catch load errors as corruption
+  - [x] 5.3: Report: "Frame 6: Image corrupted or unreadable"
+  - [x] 5.4: Include error details in report
 
-- [ ] **Task 6: Implement naming convention check** (AC: #5)
-  - [ ] 6.1: Verify filenames match pattern `frame_XXXX.png`
-  - [ ] 6.2: Report: "Invalid filename: 'sprite_3.png' (expected 'frame_0003.png')"
-  - [ ] 6.3: Check for case sensitivity issues
-  - [ ] 6.4: Verify file extensions
+- [x] **Task 6: Implement naming convention check** (AC: #5)
+  - [x] 6.1: Verify filenames match pattern `frame_XXXX.png`
+  - [x] 6.2: Report: "Invalid filename: 'sprite_3.png' (expected 'frame_0003.png')"
+  - [x] 6.3: Check for case sensitivity issues
+  - [x] 6.4: Verify file extensions
 
-- [ ] **Task 7: Implement duplicate check** (AC: #6)
-  - [ ] 7.1: Calculate SHA256 hash of each frame
-  - [ ] 7.2: Detect duplicate hashes
-  - [ ] 7.3: Report: "Duplicate frames detected: frame_0003.png == frame_0004.png"
-  - [ ] 7.4: This might indicate copy-paste error
+- [x] **Task 7: Implement duplicate check** (AC: #6)
+  - [x] 7.1: Calculate SHA256 hash of each frame
+  - [x] 7.2: Detect duplicate hashes
+  - [x] 7.3: Report: "Duplicate frames detected: frame_0003.png == frame_0004.png"
+  - [x] 7.4: This might indicate copy-paste error
 
-- [ ] **Task 8: Implement file size check** (AC: #7, #11)
-  - [ ] 8.1: For each frame, check file size is 1KB - 500KB
-  - [ ] 8.2: Report: "Frame 1: File too small (512 bytes) - may be empty"
-  - [ ] 8.3: Sum all frame sizes for total
-  - [ ] 8.4: Warn if total exceeds 50MB (reasonable for packing)
+- [x] **Task 8: Implement file size check** (AC: #7, #11)
+  - [x] 8.1: For each frame, check file size is 1KB - 500KB
+  - [x] 8.2: Report: "Frame 1: File too small (512 bytes) - may be empty"
+  - [x] 8.3: Sum all frame sizes for total
+  - [x] 8.4: Warn if total exceeds 50MB (reasonable for packing)
 
-- [ ] **Task 9: Implement stray file check** (AC: #9)
-  - [ ] 9.1: List all files in approved folder
-  - [ ] 9.2: Filter out expected frame files
-  - [ ] 9.3: Report: "Stray files found: thumbs.db, .DS_Store"
-  - [ ] 9.4: Ignore common system files (configurable)
+- [x] **Task 9: Implement stray file check** (AC: #9)
+  - [x] 9.1: List all files in approved folder
+  - [x] 9.2: Filter out expected frame files
+  - [x] 9.3: Report: "Stray files found: thumbs.db, .DS_Store"
+  - [x] 9.4: Ignore common system files (configurable)
 
-- [ ] **Task 10: Implement sequence contiguity check** (AC: #10)
-  - [ ] 10.1: Extract frame indices from filenames
-  - [ ] 10.2: Sort and check for gaps
-  - [ ] 10.3: Report: "Missing frames: 4, 5" (gap detected)
-  - [ ] 10.4: Verify sequence starts at 0
+- [x] **Task 10: Implement sequence contiguity check** (AC: #10)
+  - [x] 10.1: Extract frame indices from filenames
+  - [x] 10.2: Sort and check for gaps
+  - [x] 10.3: Report: "Missing frames: 4, 5" (gap detected)
+  - [x] 10.4: Verify sequence starts at 0
 
-- [ ] **Task 11: Implement bounding box consistency check** (AC: #12)
-  - [ ] 11.1: For each frame, calculate opaque bounding box
-  - [ ] 11.2: Check variance across frames (allow ±5%)
-  - [ ] 11.3: Report: "Bounding box variance too high: frame 3 is 50% larger"
-  - [ ] 11.4: This prevents trim jitter in TexturePacker
+- [x] **Task 11: Implement bounding box consistency check** (AC: #12)
+  - [x] 11.1: For each frame, calculate opaque bounding box
+  - [x] 11.2: Check variance across frames (allow ±5%)
+  - [x] 11.3: Report: "Bounding box variance too high: frame 3 is 50% larger"
+  - [x] 11.4: This prevents trim jitter in TexturePacker
 
-- [ ] **Task 12: Implement failure reporting** (AC: #13, #14)
-  - [ ] 12.1: Aggregate all check results
-  - [ ] 12.2: Format report with frame-specific issues
-  - [ ] 12.3: Return blocking result if any critical check fails
-  - [ ] 12.4: Log report to `runs/{run_id}/pre_export_validation.json`
+- [x] **Task 12: Implement failure reporting** (AC: #13, #14)
+  - [x] 12.1: Aggregate all check results
+  - [x] 12.2: Format report with frame-specific issues
+  - [x] 12.3: Return blocking result if any critical check fails
+  - [x] 12.4: Log report to `runs/{run_id}/pre_export_validation.json`
 
-- [ ] **Task 13: Write tests** (AC: all)
-  - [ ] 13.1: Test each individual check with valid/invalid inputs
-  - [ ] 13.2: Test aggregation of multiple failures
-  - [ ] 13.3: Test blocking behavior
-  - [ ] 13.4: Test report format
+- [x] **Task 13: Write tests** (AC: all)
+  - [x] 13.1: Test each individual check with valid/invalid inputs
+  - [x] 13.2: Test aggregation of multiple failures
+  - [x] 13.3: Test blocking behavior
+  - [x] 13.4: Test report format
 
 ---
 
@@ -342,12 +342,21 @@ async function checkBoundingBoxConsistency(
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+- Code review completed 2026-01-19
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- All 13 tasks completed
+- All 12 validation checks implemented
+- Frame counting, dimension, alpha, corruption, naming, duplicate, file size, stray files, sequence, bounding box checks
+- Blocking behavior on critical failures
+- 25 tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/export/pre-export-validator.ts` - Pre-export validation runner
+- `test/core/export/pre-export-validator.test.ts` - Unit tests
+
+### Completion Date
+
+2026-01-19

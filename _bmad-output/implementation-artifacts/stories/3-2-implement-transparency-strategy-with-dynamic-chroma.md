@@ -1,6 +1,6 @@
 # Story 3.2: Implement Transparency Strategy Enforcement with Dynamic Chroma Key
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -37,62 +37,62 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create transparency enforcer** (AC: #1, #2)
-  - [ ] 1.1: Create `src/core/transparency-enforcer.ts`
-  - [ ] 1.2: Define `TransparencyConfig` interface from manifest settings
-  - [ ] 1.3: Implement `enforceTransparency(imagePath: string, config: TransparencyConfig): Result<TransparencyResult, SystemError>`
-  - [ ] 1.4: Return `TransparencyResult` with: `outputPath`, `strategy`, `chromaColor?`, `hadAlpha`
+- [x] **Task 1: Create transparency enforcer** (AC: #1, #2)
+  - [x] 1.1: Create `src/core/transparency-enforcer.ts`
+  - [x] 1.2: Define `TransparencyConfig` interface from manifest settings
+  - [x] 1.3: Implement `enforceTransparency(imagePath: string, config: TransparencyConfig): Result<TransparencyResult, SystemError>`
+  - [x] 1.4: Return `TransparencyResult` with: `outputPath`, `strategy`, `chromaColor?`, `hadAlpha`
 
-- [ ] **Task 2: Implement true alpha validation** (AC: #1, #2)
-  - [ ] 2.1: Load image with Sharp and check for alpha channel
-  - [ ] 2.2: Use `metadata().channels` to verify 4 channels (RGBA)
-  - [ ] 2.3: Return `HF_NO_ALPHA` error if no alpha channel present
-  - [ ] 2.4: Pass through image unchanged if valid alpha exists
+- [x] **Task 2: Implement true alpha validation** (AC: #1, #2)
+  - [x] 2.1: Load image with Sharp and check for alpha channel
+  - [x] 2.2: Use `metadata().channels` to verify 4 channels (RGBA)
+  - [x] 2.3: Return `HF_NO_ALPHA` error if no alpha channel present
+  - [x] 2.4: Pass through image unchanged if valid alpha exists
 
-- [ ] **Task 3: Implement palette analysis for auto-detection** (AC: #3, #4, #5)
-  - [ ] 3.1: Create `analyzeAnchorPalette(anchorPath: string): Promise<Set<string>>` function
-  - [ ] 3.2: Extract all unique RGB colors from anchor image
-  - [ ] 3.3: Store palette analysis in `runs/{run_id}/palette_analysis.json`
-  - [ ] 3.4: Run at start of pipeline run, cache for all frames
+- [x] **Task 3: Implement palette analysis for auto-detection** (AC: #3, #4, #5)
+  - [x] 3.1: Create `analyzeAnchorPalette(anchorPath: string): Promise<Set<string>>` function
+  - [x] 3.2: Extract all unique RGB colors from anchor image
+  - [x] 3.3: Store palette analysis in `runs/{run_id}/palette_analysis.json`
+  - [x] 3.4: Run at start of pipeline run, cache for all frames
 
-- [ ] **Task 4: Implement dynamic chroma selection** (AC: #3, #4, #5)
-  - [ ] 4.1: Define chroma candidates: `['#00FF00', '#FF00FF', '#00FFFF', '#0000FF']`
-  - [ ] 4.2: For each candidate, check if color exists in anchor palette (with tolerance)
-  - [ ] 4.3: Select first candidate NOT present in palette
-  - [ ] 4.4: Use color distance threshold of 30 (Euclidean RGB distance) for "contains" check
-  - [ ] 4.5: Log selected chroma color and reason
+- [x] **Task 4: Implement dynamic chroma selection** (AC: #3, #4, #5)
+  - [x] 4.1: Define chroma candidates: `['#00FF00', '#FF00FF', '#00FFFF', '#0000FF']`
+  - [x] 4.2: For each candidate, check if color exists in anchor palette (with tolerance)
+  - [x] 4.3: Select first candidate NOT present in palette
+  - [x] 4.4: Use color distance threshold of 30 (Euclidean RGB distance) for "contains" check
+  - [x] 4.5: Log selected chroma color and reason
 
-- [ ] **Task 5: Implement chroma key removal** (AC: #6, #8)
-  - [ ] 5.1: Identify pixels matching chroma color (within tolerance)
-  - [ ] 5.2: Set matching pixels to fully transparent (alpha = 0)
-  - [ ] 5.3: Handle edge pixels with partial chroma contamination
-  - [ ] 5.4: Use Sharp `removeAlpha().ensureAlpha()` pipeline
+- [x] **Task 5: Implement chroma key removal** (AC: #6, #8)
+  - [x] 5.1: Identify pixels matching chroma color (within tolerance)
+  - [x] 5.2: Set matching pixels to fully transparent (alpha = 0)
+  - [x] 5.3: Handle edge pixels with partial chroma contamination
+  - [x] 5.4: Use Sharp `removeAlpha().ensureAlpha()` pipeline
 
-- [ ] **Task 6: Implement fringe prevention** (AC: #9)
-  - [ ] 6.1: Detect edge pixels adjacent to chroma-keyed areas
-  - [ ] 6.2: Check if edge pixels have colors within 50 distance of chroma
-  - [ ] 6.3: Log warning if potential fringe artifacts detected
-  - [ ] 6.4: Emit `SF_FRINGE_RISK` soft fail if severity exceeds threshold
+- [x] **Task 6: Implement fringe prevention** (AC: #9)
+  - [x] 6.1: Detect edge pixels adjacent to chroma-keyed areas
+  - [x] 6.2: Check if edge pixels have colors within 50 distance of chroma
+  - [x] 6.3: Log warning if potential fringe artifacts detected
+  - [x] 6.4: Emit `SF_FRINGE_RISK` soft fail if severity exceeds threshold
 
-- [ ] **Task 7: Implement explicit chroma override** (AC: #10)
-  - [ ] 7.1: Check if `transparency.chroma_color` is explicit hex value
-  - [ ] 7.2: Skip auto-detection if explicit value provided
-  - [ ] 7.3: Validate hex format with regex
-  - [ ] 7.4: Log "Using explicit chroma color: {color}"
+- [x] **Task 7: Implement explicit chroma override** (AC: #10)
+  - [x] 7.1: Check if `transparency.chroma_color` is explicit hex value
+  - [x] 7.2: Skip auto-detection if explicit value provided
+  - [x] 7.3: Validate hex format with regex
+  - [x] 7.4: Log "Using explicit chroma color: {color}"
 
-- [ ] **Task 8: Implement logging** (AC: #7)
-  - [ ] 8.1: Log strategy type (true_alpha or chroma_key)
-  - [ ] 8.2: Log selected chroma color for chroma_key mode
-  - [ ] 8.3: Log to `audit_log.jsonl`
-  - [ ] 8.4: Include in frame metrics
+- [x] **Task 8: Implement logging** (AC: #7)
+  - [x] 8.1: Log strategy type (true_alpha or chroma_key)
+  - [x] 8.2: Log selected chroma color for chroma_key mode
+  - [x] 8.3: Log to `audit_log.jsonl`
+  - [x] 8.4: Include in frame metrics
 
-- [ ] **Task 9: Write tests** (AC: all)
-  - [ ] 9.1: Test true alpha validation passes valid images
-  - [ ] 9.2: Test true alpha rejects images without alpha
-  - [ ] 9.3: Test auto-detection avoids green in anchor
-  - [ ] 9.4: Test auto-detection avoids magenta when green not present
-  - [ ] 9.5: Test explicit chroma override works
-  - [ ] 9.6: Test fringe detection for edge cases
+- [x] **Task 9: Write tests** (AC: all)
+  - [x] 9.1: Test true alpha validation passes valid images
+  - [x] 9.2: Test true alpha rejects images without alpha
+  - [x] 9.3: Test auto-detection avoids green in anchor
+  - [x] 9.4: Test auto-detection avoids magenta when green not present
+  - [x] 9.5: Test explicit chroma override works
+  - [x] 9.6: Test fringe detection for edge cases
 
 ---
 

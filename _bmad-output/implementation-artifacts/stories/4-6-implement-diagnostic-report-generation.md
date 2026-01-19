@@ -1,6 +1,6 @@
 # Story 4.6: Implement Diagnostic Report Generation
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -33,67 +33,67 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Define diagnostic report schema** (AC: #3, #4, #5)
-  - [ ] 1.1: Create `DiagnosticReport` interface
-  - [ ] 1.2: Define `FrameBreakdown` structure
-  - [ ] 1.3: Define `FailureCode` aggregation structure
-  - [ ] 1.4: Add Zod schema for validation
+- [x] **Task 1: Define diagnostic report schema** (AC: #3, #4, #5)
+  - [x] 1.1: Create `DiagnosticReport` interface
+  - [x] 1.2: Define `FrameBreakdown` structure
+  - [x] 1.3: Define `FailureCode` aggregation structure
+  - [x] 1.4: Add Zod schema for validation
 
-- [ ] **Task 2: Implement stop condition capture** (AC: #3)
-  - [ ] 2.1: Capture stop condition type (retry_rate, reject_rate, consecutive_fails)
-  - [ ] 2.2: Capture threshold value that was exceeded
-  - [ ] 2.3: Capture actual value that triggered stop
-  - [ ] 2.4: Capture timestamp of stop
+- [x] **Task 2: Implement stop condition capture** (AC: #3)
+  - [x] 2.1: Capture stop condition type (retry_rate, reject_rate, consecutive_fails)
+  - [x] 2.2: Capture threshold value that was exceeded
+  - [x] 2.3: Capture actual value that triggered stop
+  - [x] 2.4: Capture timestamp of stop
 
-- [ ] **Task 3: Implement frame-by-frame breakdown** (AC: #4)
-  - [ ] 3.1: Create `generateFrameBreakdown(state: RunState): FrameBreakdown[]`
-  - [ ] 3.2: For each frame: index, status, attempt_count, final_reason_codes
-  - [ ] 3.3: Include composite scores for failed attempts
-  - [ ] 3.4: Include which retry actions were tried
+- [x] **Task 3: Implement frame-by-frame breakdown** (AC: #4)
+  - [x] 3.1: Create `generateFrameBreakdown(state: RunState): FrameBreakdown[]`
+  - [x] 3.2: For each frame: index, status, attempt_count, final_reason_codes
+  - [x] 3.3: Include composite scores for failed attempts
+  - [x] 3.4: Include which retry actions were tried
 
-- [ ] **Task 4: Implement failure code aggregation** (AC: #5)
-  - [ ] 4.1: Count occurrences of each failure code across all frames
-  - [ ] 4.2: Sort by frequency descending
-  - [ ] 4.3: Return top 3 with count and percentage
-  - [ ] 4.4: Include example frame indices for each code
+- [x] **Task 4: Implement failure code aggregation** (AC: #5)
+  - [x] 4.1: Count occurrences of each failure code across all frames
+  - [x] 4.2: Sort by frequency descending
+  - [x] 4.3: Return top 3 with count and percentage
+  - [x] 4.4: Include example frame indices for each code
 
-- [ ] **Task 5: Implement root cause analysis** (AC: #6)
-  - [ ] 5.1: Define cause-to-pattern mapping
-  - [ ] 5.2: Analyze top failure codes for patterns:
+- [x] **Task 5: Implement root cause analysis** (AC: #6)
+  - [x] 5.1: Define cause-to-pattern mapping
+  - [x] 5.2: Analyze top failure codes for patterns:
     - High SF01: "Anchor may lack distinctive features"
     - High SF02: "Palette constraints too strict"
     - High SF03: "Pose reference conflicting with anchor"
-  - [ ] 5.3: Generate 1-2 sentence root cause suggestion
-  - [ ] 5.4: Assign confidence level (high/medium/low)
+  - [x] 5.3: Generate 1-2 sentence root cause suggestion
+  - [x] 5.4: Assign confidence level (high/medium/low)
 
-- [ ] **Task 6: Implement recovery action recommendations** (AC: #7)
-  - [ ] 6.1: Map failure patterns to recovery actions
-  - [ ] 6.2: Generate actionable recommendations:
+- [x] **Task 6: Implement recovery action recommendations** (AC: #7)
+  - [x] 6.1: Map failure patterns to recovery actions
+  - [x] 6.2: Generate actionable recommendations:
     - "Try using a higher resolution anchor image"
     - "Reduce palette strictness in manifest"
     - "Add more reference frames for complex poses"
-  - [ ] 6.3: Prioritize recommendations by impact
-  - [ ] 6.4: Include estimated effort (low/medium/high)
+  - [x] 6.3: Prioritize recommendations by impact
+  - [x] 6.4: Include estimated effort (low/medium/high)
 
-- [ ] **Task 7: Implement secret sanitization** (AC: #9)
-  - [ ] 7.1: Identify fields that could contain secrets (prompts, paths)
-  - [ ] 7.2: Redact API key patterns: `sk-...`, `AIza...`
-  - [ ] 7.3: Redact file paths containing 'secret', 'key', 'token'
-  - [ ] 7.4: Preserve diagnostic value while protecting secrets
+- [x] **Task 7: Implement secret sanitization** (AC: #9)
+  - [x] 7.1: Identify fields that could contain secrets (prompts, paths)
+  - [x] 7.2: Redact API key patterns: `sk-...`, `AIza...`
+  - [x] 7.3: Redact file paths containing 'secret', 'key', 'token'
+  - [x] 7.4: Preserve diagnostic value while protecting secrets
 
-- [ ] **Task 8: Implement report formatting** (AC: #2, #8)
-  - [ ] 8.1: Use pretty-printed JSON with 2-space indent
-  - [ ] 8.2: Include section headers as comments (where valid)
-  - [ ] 8.3: Add human-readable timestamps
-  - [ ] 8.4: Write atomically to `runs/{run_id}/diagnostic.json`
+- [x] **Task 8: Implement report formatting** (AC: #2, #8)
+  - [x] 8.1: Use pretty-printed JSON with 2-space indent
+  - [x] 8.2: Include section headers as comments (where valid)
+  - [x] 8.3: Add human-readable timestamps
+  - [x] 8.4: Write atomically to `runs/{run_id}/diagnostic.json`
 
-- [ ] **Task 9: Write tests** (AC: all)
-  - [ ] 9.1: Test report generated on stop condition
-  - [ ] 9.2: Test frame breakdown is complete
-  - [ ] 9.3: Test top 3 failure codes are correct
-  - [ ] 9.4: Test root cause suggestions are relevant
-  - [ ] 9.5: Test secrets are sanitized
-  - [ ] 9.6: Test report is valid JSON
+- [x] **Task 9: Write tests** (AC: all)
+  - [x] 9.1: Test report generated on stop condition
+  - [x] 9.2: Test frame breakdown is complete
+  - [x] 9.3: Test top 3 failure codes are correct
+  - [x] 9.4: Test root cause suggestions are relevant
+  - [x] 9.5: Test secrets are sanitized
+  - [x] 9.6: Test report is valid JSON
 
 ---
 
@@ -324,12 +324,18 @@ const RECOVERY_ACTIONS: RecoveryAction[] = [
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+N/A - Implementation tested via unit tests.
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- Implemented diagnostic report generation with JSON output
+- Added root cause analysis with pattern matching
+- Implemented recovery action recommendations with priority
+- Added secret sanitization for safe logging
+- Console formatting for human-readable output
+- All tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/diagnostic-generator.ts` - Diagnostic report generation (474 lines)
+- `test/core/diagnostic-generator.test.ts` - Unit tests

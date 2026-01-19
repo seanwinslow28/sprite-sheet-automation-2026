@@ -1,6 +1,6 @@
 # Story 5.9: Implement Export Settings Configuration
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -26,50 +26,50 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Define export config schema** (AC: #1, #2, #3, #5)
-  - [ ] 1.1: Add `ExportConfigSchema` to manifest Zod schema
-  - [ ] 1.2: Define `packer_flags` as optional string array
-  - [ ] 1.3: Define `atlas_format` as enum (phaser, default)
-  - [ ] 1.4: Define `output_path` as optional string
-  - [ ] 1.5: Document each field in schema
+- [x] **Task 1: Define export config schema** (AC: #1, #2, #3, #5)
+  - [x] 1.1: Add `ExportConfigSchema` to manifest Zod schema
+  - [x] 1.2: Define `packer_flags` as optional string array
+  - [x] 1.3: Define `atlas_format` as enum (phaser, default)
+  - [x] 1.4: Define `output_path` as optional string
+  - [x] 1.5: Document each field in schema
 
-- [ ] **Task 2: Implement flag merging logic** (AC: #1, #4)
-  - [ ] 2.1: Create `mergePackerFlags(locked: string[], custom: string[]): string[]`
-  - [ ] 2.2: Identify locked flags that cannot be overridden
-  - [ ] 2.3: Filter out any custom flags that conflict with locked
-  - [ ] 2.4: Log warning if custom flag was rejected
-  - [ ] 2.5: Append non-conflicting custom flags
+- [x] **Task 2: Implement flag merging logic** (AC: #1, #4)
+  - [x] 2.1: Create `mergePackerFlags(locked: string[], custom: string[]): string[]`
+  - [x] 2.2: Identify locked flags that cannot be overridden
+  - [x] 2.3: Filter out any custom flags that conflict with locked
+  - [x] 2.4: Log warning if custom flag was rejected
+  - [x] 2.5: Append non-conflicting custom flags
 
-- [ ] **Task 3: Define locked flags list** (AC: #4)
-  - [ ] 3.1: Document which flags are locked and why
-  - [ ] 3.2: Create `LOCKED_FLAGS` constant with flag names
-  - [ ] 3.3: Create `LOCKED_FLAG_VALUES` for flags that have fixed values
-  - [ ] 3.4: Examples: `--format`, `--disable-rotation`, `--trim-mode`
+- [x] **Task 3: Define locked flags list** (AC: #4)
+  - [x] 3.1: Document which flags are locked and why
+  - [x] 3.2: Create `LOCKED_FLAGS` constant with flag names
+  - [x] 3.3: Create `LOCKED_FLAG_VALUES` for flags that have fixed values
+  - [x] 3.4: Examples: `--format`, `--disable-rotation`, `--trim-mode`
 
-- [ ] **Task 4: Implement atlas format handling** (AC: #2)
-  - [ ] 4.1: Default to "phaser" format
-  - [ ] 4.2: Map format to TexturePacker `--format` flag
-  - [ ] 4.3: Validate format is supported
-  - [ ] 4.4: For MVP, only "phaser" is supported; others error
+- [x] **Task 4: Implement atlas format handling** (AC: #2)
+  - [x] 4.1: Default to "phaser" format
+  - [x] 4.2: Map format to TexturePacker `--format` flag
+  - [x] 4.3: Validate format is supported
+  - [x] 4.4: For MVP, only "phaser" is supported; others error
 
-- [ ] **Task 5: Implement custom output path** (AC: #3)
-  - [ ] 5.1: If `export.output_path` specified, use it
-  - [ ] 5.2: Resolve relative paths from project root
-  - [ ] 5.3: Validate path is writable
-  - [ ] 5.4: Create directory if it doesn't exist
+- [x] **Task 5: Implement custom output path** (AC: #3)
+  - [x] 5.1: If `export.output_path` specified, use it
+  - [x] 5.2: Resolve relative paths from project root
+  - [x] 5.3: Validate path is writable
+  - [x] 5.4: Create directory if it doesn't exist
 
-- [ ] **Task 6: Integrate with exporter** (AC: all)
-  - [ ] 6.1: Pass resolved export config to atlas exporter
-  - [ ] 6.2: Apply merged flags to TexturePacker command
-  - [ ] 6.3: Output to configured path
-  - [ ] 6.4: Log effective configuration
+- [x] **Task 6: Integrate with exporter** (AC: all)
+  - [x] 6.1: Pass resolved export config to atlas exporter
+  - [x] 6.2: Apply merged flags to TexturePacker command
+  - [x] 6.3: Output to configured path
+  - [x] 6.4: Log effective configuration
 
-- [ ] **Task 7: Write tests** (AC: all)
-  - [ ] 7.1: Test default config when not specified
-  - [ ] 7.2: Test custom flags are merged correctly
-  - [ ] 7.3: Test locked flags cannot be overridden
-  - [ ] 7.4: Test custom output path is used
-  - [ ] 7.5: Test invalid config is rejected
+- [x] **Task 7: Write tests** (AC: all)
+  - [x] 7.1: Test default config when not specified
+  - [x] 7.2: Test custom flags are merged correctly
+  - [x] 7.3: Test locked flags cannot be overridden
+  - [x] 7.4: Test custom output path is used
+  - [x] 7.5: Test invalid config is rejected
 
 ---
 
@@ -260,12 +260,24 @@ function resolveExportConfig(
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+- Code review completed 2026-01-19
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- All 7 tasks completed
+- export-config-resolver.ts implements config resolution
+- mergePackerFlags handles locked vs allowed flags
+- LOCKED_FLAGS and LOCKED_FLAG_VALUES defined
+- ResolvedExportConfig interface for resolved settings
+- ExportConfigSchema added to manifest
+- 12 tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/export/export-config-resolver.ts` - Export config resolution
+- `src/adapters/texturepacker-adapter.ts` - Updated with flag merging
+- `test/core/export/export-config-resolver.test.ts` - Unit tests
+
+### Completion Date
+
+2026-01-19

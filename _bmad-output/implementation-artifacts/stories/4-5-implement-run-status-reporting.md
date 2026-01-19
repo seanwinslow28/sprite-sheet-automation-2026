@@ -1,6 +1,6 @@
 # Story 4.5: Implement Run Status Reporting
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -32,60 +32,60 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Define RunStatus interface** (AC: #1, #2)
-  - [ ] 1.1: Create `RunStatus` type with: `status`, `reason_code`, `message`
-  - [ ] 1.2: Define status enum: `in-progress`, `completed`, `stopped`, `failed`
-  - [ ] 1.3: Define reason codes for each status type
-  - [ ] 1.4: Add to `src/domain/types/run-status.ts`
+- [x] **Task 1: Define RunStatus interface** (AC: #1, #2)
+  - [x] 1.1: Create `RunStatus` type with: `status`, `reason_code`, `message`
+  - [x] 1.2: Define status enum: `in-progress`, `completed`, `stopped`, `failed`
+  - [x] 1.3: Define reason codes for each status type
+  - [x] 1.4: Add to `src/domain/types/run-status.ts`
 
-- [ ] **Task 2: Implement status calculation** (AC: #3)
-  - [ ] 2.1: Create `calculateRunStatus(state: RunState): RunStatus`
-  - [ ] 2.2: Aggregate: `frames_completed` (approved count)
-  - [ ] 2.3: Aggregate: `frames_failed` (failed + rejected count)
-  - [ ] 2.4: Aggregate: `total_attempts` (sum of all attempts)
-  - [ ] 2.5: Aggregate: `retry_rate` (frames with >1 attempt / total)
+- [x] **Task 2: Implement status calculation** (AC: #3)
+  - [x] 2.1: Create `calculateRunStatus(state: RunState): RunStatus`
+  - [x] 2.2: Aggregate: `frames_completed` (approved count)
+  - [x] 2.3: Aggregate: `frames_failed` (failed + rejected count)
+  - [x] 2.4: Aggregate: `total_attempts` (sum of all attempts)
+  - [x] 2.5: Aggregate: `retry_rate` (frames with >1 attempt / total)
 
-- [ ] **Task 3: Implement in-progress status** (AC: #5)
-  - [ ] 3.1: Include `current_frame_index`
-  - [ ] 3.2: Include `current_attempt` for current frame
-  - [ ] 3.3: Calculate `elapsed_time` from run start
-  - [ ] 3.4: Estimate `remaining_frames`
+- [x] **Task 3: Implement in-progress status** (AC: #5)
+  - [x] 3.1: Include `current_frame_index`
+  - [x] 3.2: Include `current_attempt` for current frame
+  - [x] 3.3: Calculate `elapsed_time` from run start
+  - [x] 3.4: Estimate `remaining_frames`
 
-- [ ] **Task 4: Implement completed status** (AC: #6)
-  - [ ] 4.1: Calculate `success_rate` (approved / total)
-  - [ ] 4.2: Calculate `total_duration` from start to end
-  - [ ] 4.3: Include `export_location` path
-  - [ ] 4.4: Include `atlas_files` list
+- [x] **Task 4: Implement completed status** (AC: #6)
+  - [x] 4.1: Calculate `success_rate` (approved / total)
+  - [x] 4.2: Calculate `total_duration` from start to end
+  - [x] 4.3: Include `export_location` path
+  - [x] 4.4: Include `atlas_files` list
 
-- [ ] **Task 5: Implement stopped status** (AC: #7)
-  - [ ] 5.1: Include `stop_condition` that triggered
-  - [ ] 5.2: Include `stop_threshold` and `actual_value`
-  - [ ] 5.3: Generate resume command: `pipeline run --resume {run_id}`
-  - [ ] 5.4: Include `frames_remaining` count
+- [x] **Task 5: Implement stopped status** (AC: #7)
+  - [x] 5.1: Include `stop_condition` that triggered
+  - [x] 5.2: Include `stop_threshold` and `actual_value`
+  - [x] 5.3: Generate resume command: `pipeline run --resume {run_id}`
+  - [x] 5.4: Include `frames_remaining` count
 
-- [ ] **Task 6: Implement failed status** (AC: #8)
-  - [ ] 6.1: Include `error_type` (system error vs. audit failure)
-  - [ ] 6.2: Include `error_message` (sanitized, no secrets)
-  - [ ] 6.3: Include `diagnostic_path` for detailed error info
-  - [ ] 6.4: Include `stack_trace` if available (dev mode only)
+- [x] **Task 6: Implement failed status** (AC: #8)
+  - [x] 6.1: Include `error_type` (system error vs. audit failure)
+  - [x] 6.2: Include `error_message` (sanitized, no secrets)
+  - [x] 6.3: Include `diagnostic_path` for detailed error info
+  - [x] 6.4: Include `stack_trace` if available (dev mode only)
 
-- [ ] **Task 7: Implement status persistence** (AC: #4)
-  - [ ] 7.1: Update `state.json` with current status after each transition
-  - [ ] 7.2: Use atomic write pattern (temp-then-rename)
-  - [ ] 7.3: Include timestamp of status change
-  - [ ] 7.4: Preserve status history for debugging
+- [x] **Task 7: Implement status persistence** (AC: #4)
+  - [x] 7.1: Update `state.json` with current status after each transition
+  - [x] 7.2: Use atomic write pattern (temp-then-rename)
+  - [x] 7.3: Include timestamp of status change
+  - [x] 7.4: Preserve status history for debugging
 
-- [ ] **Task 8: Implement CLI status output** (AC: all)
-  - [ ] 8.1: Create `formatStatusForCLI(status: RunStatus): string`
-  - [ ] 8.2: Use colors: green (completed), yellow (in-progress), red (failed/stopped)
-  - [ ] 8.3: Format metrics as table or key-value pairs
-  - [ ] 8.4: Include progress bar for in-progress runs
+- [x] **Task 8: Implement CLI status output** (AC: all)
+  - [x] 8.1: Create `formatStatusForCLI(status: RunStatus): string`
+  - [x] 8.2: Use colors: green (completed), yellow (in-progress), red (failed/stopped)
+  - [x] 8.3: Format metrics as table or key-value pairs
+  - [x] 8.4: Include progress bar for in-progress runs
 
-- [ ] **Task 9: Write tests** (AC: all)
-  - [ ] 9.1: Test status calculation for each state
-  - [ ] 9.2: Test aggregate metrics are correct
-  - [ ] 9.3: Test status persistence is atomic
-  - [ ] 9.4: Test CLI formatting
+- [x] **Task 9: Write tests** (AC: all)
+  - [x] 9.1: Test status calculation for each state
+  - [x] 9.2: Test aggregate metrics are correct
+  - [x] 9.3: Test status persistence is atomic
+  - [x] 9.4: Test CLI formatting
 
 ---
 
@@ -236,12 +236,18 @@ Export:
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+N/A - Implementation tested via unit tests.
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- Implemented status calculation for all 4 run states
+- Added CLI formatting with progress bars and colors
+- Implemented reason code mapping for all status types
+- Added type guards for status detail identification
+- All tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/status-reporter.ts` - Status calculation and formatting (378 lines)
+- `src/domain/types/run-status.ts` - Status type definitions
+- `test/core/status-reporter.test.ts` - Unit tests

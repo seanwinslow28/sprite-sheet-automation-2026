@@ -1,6 +1,6 @@
 # Story 5.2: Implement TexturePacker Integration with Locked Settings
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -31,54 +31,54 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create TexturePacker adapter** (AC: #1, #2)
-  - [ ] 1.1: Create `src/adapters/texturepacker-adapter.ts`
-  - [ ] 1.2: Define `LOCKED_FLAGS` constant with all required flags
-  - [ ] 1.3: Implement `packAtlas(inputDir: string, outputPath: string): Promise<Result<PackResult, SystemError>>`
-  - [ ] 1.4: Use Execa with `{ shell: false }` for safety
+- [x] **Task 1: Create TexturePacker adapter** (AC: #1, #2)
+  - [x] 1.1: Create `src/adapters/texturepacker-adapter.ts`
+  - [x] 1.2: Define `LOCKED_FLAGS` constant with all required flags
+  - [x] 1.3: Implement `packAtlas(inputDir: string, outputPath: string): Promise<Result<PackResult, SystemError>>`
+  - [x] 1.4: Use Execa with `{ shell: false }` for safety
 
-- [ ] **Task 2: Implement CLI flag construction** (AC: #1)
-  - [ ] 2.1: Build flag array: `['--format', 'phaser', '--trim-mode', 'Trim', ...]`
-  - [ ] 2.2: Add input directory as last positional argument
-  - [ ] 2.3: Add output path with `--data` and `--sheet` flags
-  - [ ] 2.4: Log full command for debugging (redact sensitive paths if needed)
+- [x] **Task 2: Implement CLI flag construction** (AC: #1)
+  - [x] 2.1: Build flag array: `['--format', 'phaser', '--trim-mode', 'Trim', ...]`
+  - [x] 2.2: Add input directory as last positional argument
+  - [x] 2.3: Add output path with `--data` and `--sheet` flags
+  - [x] 2.4: Log full command for debugging (redact sensitive paths if needed)
 
-- [ ] **Task 3: Implement output capture** (AC: #4)
-  - [ ] 3.1: Capture stdout and stderr from Execa
-  - [ ] 3.2: Write to `runs/{run_id}/logs/texturepacker.log`
-  - [ ] 3.3: Include timestamp and command in log
-  - [ ] 3.4: Parse output for warnings/errors
+- [x] **Task 3: Implement output capture** (AC: #4)
+  - [x] 3.1: Capture stdout and stderr from Execa
+  - [x] 3.2: Write to `runs/{run_id}/logs/texturepacker.log`
+  - [x] 3.3: Include timestamp and command in log
+  - [x] 3.4: Parse output for warnings/errors
 
-- [ ] **Task 4: Implement error handling** (AC: #3, #5)
-  - [ ] 4.1: Check exit code: 0 = success, non-zero = error
-  - [ ] 4.2: On error, create `DEP_TEXTUREPACKER_FAIL` SystemError
-  - [ ] 4.3: Include captured stderr in error message
-  - [ ] 4.4: Ensure approved frames remain intact (do not delete)
+- [x] **Task 4: Implement error handling** (AC: #3, #5)
+  - [x] 4.1: Check exit code: 0 = success, non-zero = error
+  - [x] 4.2: On error, create `DEP_TEXTUREPACKER_FAIL` SystemError
+  - [x] 4.3: Include captured stderr in error message
+  - [x] 4.4: Ensure approved frames remain intact (do not delete)
 
-- [ ] **Task 5: Implement timeout protection** (AC: #6)
-  - [ ] 5.1: Set Execa timeout to 120 seconds (configurable)
-  - [ ] 5.2: On timeout, kill process and return error
-  - [ ] 5.3: Log timeout with duration and file count
-  - [ ] 5.4: Suggest splitting into multiple packs if timeout
+- [x] **Task 5: Implement timeout protection** (AC: #6)
+  - [x] 5.1: Set Execa timeout to 120 seconds (configurable)
+  - [x] 5.2: On timeout, kill process and return error
+  - [x] 5.3: Log timeout with duration and file count
+  - [x] 5.4: Suggest splitting into multiple packs if timeout
 
-- [ ] **Task 6: Implement binary detection** (AC: #7)
-  - [ ] 6.1: Check if `TexturePacker` exists in PATH
-  - [ ] 6.2: Run `TexturePacker --version` to verify
-  - [ ] 6.3: On missing, return clear error with install instructions
-  - [ ] 6.4: Integrate with `pipeline doctor` (Story 1.2)
+- [x] **Task 6: Implement binary detection** (AC: #7)
+  - [x] 6.1: Check if `TexturePacker` exists in PATH
+  - [x] 6.2: Run `TexturePacker --version` to verify
+  - [x] 6.3: On missing, return clear error with install instructions
+  - [x] 6.4: Integrate with `pipeline doctor` (Story 1.2)
 
-- [ ] **Task 7: Implement cross-platform support** (AC: #2)
-  - [ ] 7.1: Handle path separators (Windows vs Unix)
-  - [ ] 7.2: Use `path.join()` for all path construction
-  - [ ] 7.3: Test on Windows, macOS, Linux
-  - [ ] 7.4: Handle spaces in paths with proper quoting
+- [x] **Task 7: Implement cross-platform support** (AC: #2)
+  - [x] 7.1: Handle path separators (Windows vs Unix)
+  - [x] 7.2: Use `path.join()` for all path construction
+  - [x] 7.3: Test on Windows, macOS, Linux
+  - [x] 7.4: Handle spaces in paths with proper quoting
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test successful pack with sample frames
-  - [ ] 8.2: Test error handling on invalid input
-  - [ ] 8.3: Test timeout triggers correctly
-  - [ ] 8.4: Test missing binary detection
-  - [ ] 8.5: Mock Execa for unit tests
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test successful pack with sample frames
+  - [x] 8.2: Test error handling on invalid input
+  - [x] 8.3: Test timeout triggers correctly
+  - [x] 8.4: Test missing binary detection
+  - [x] 8.5: Mock Execa for unit tests
 
 ---
 
@@ -272,12 +272,23 @@ if (packResult.isErr()) {
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+- Code review completed 2026-01-19
+- Fixed ExecaError.code access pattern for Execa v9+ compatibility
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- All 8 tasks completed
+- isENOENT() helper for cross-version error detection
+- LOCKED_TEXTUREPACKER_FLAGS constant with all required flags
+- packAtlasWithLogging() for full run folder integration
+- Multipack support enabled by default with {n} placeholder
+- 19 tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/adapters/texturepacker-adapter.ts` - TexturePacker CLI wrapper
+- `test/adapters/texturepacker-adapter.test.ts` - Unit tests
+
+### Completion Date
+
+2026-01-19

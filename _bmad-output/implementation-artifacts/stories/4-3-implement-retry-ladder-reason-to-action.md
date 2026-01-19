@@ -1,6 +1,6 @@
 # Story 4.3: Implement Retry Ladder with Reason-to-Action Mapping
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -44,64 +44,64 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Define retry action types** (AC: #1-5)
-  - [ ] 1.1: Create `RetryAction` enum: `IDENTITY_RESCUE`, `TIGHTEN_NEGATIVE`, `POSE_RESCUE`, `POST_PROCESS`, `REGENERATE_HIGHRES`, `RE_ANCHOR`, `STOP`
-  - [ ] 1.2: Create `ReasonToActionMap` type
-  - [ ] 1.3: Define default mapping in `src/domain/retry-ladder.ts`
-  - [ ] 1.4: Allow manifest override via `retry.ladder` config
+- [x] **Task 1: Define retry action types** (AC: #1-5)
+  - [x] 1.1: Create `RetryAction` enum: `IDENTITY_RESCUE`, `TIGHTEN_NEGATIVE`, `POSE_RESCUE`, `POST_PROCESS`, `REGENERATE_HIGHRES`, `RE_ANCHOR`, `STOP`
+  - [x] 1.2: Create `ReasonToActionMap` type
+  - [x] 1.3: Define default mapping in `src/domain/retry-ladder.ts`
+  - [x] 1.4: Allow manifest override via `retry.ladder` config
 
-- [ ] **Task 2: Implement RetryManager** (AC: #6, #7)
-  - [ ] 2.1: Create `src/core/retry-manager.ts`
-  - [ ] 2.2: Implement `getNextAction(reasonCode: string, attemptIndex: number): RetryAction`
-  - [ ] 2.3: Log action before returning: "Frame N: Attempting IDENTITY_RESCUE (attempt 2)"
-  - [ ] 2.4: Track which actions have been tried for current frame
+- [x] **Task 2: Implement RetryManager** (AC: #6, #7)
+  - [x] 2.1: Create `src/core/retry-manager.ts`
+  - [x] 2.2: Implement `getNextAction(reasonCode: string, attemptIndex: number): RetryAction`
+  - [x] 2.3: Log action before returning: "Frame N: Attempting IDENTITY_RESCUE (attempt 2)"
+  - [x] 2.4: Track which actions have been tried for current frame
 
-- [ ] **Task 3: Implement action executors** (AC: #1-5)
-  - [ ] 3.1: `executeIdentityRescue()`: Force re-anchor + apply lock prompt template
-  - [ ] 3.2: `executeTightenNegative()`: Append palette constraints to negative prompt
-  - [ ] 3.3: `executePoseRescue()`: Emphasize baseline/pose in prompt
-  - [ ] 3.4: `executePostProcess()`: Apply alpha cleanup filter via Sharp
-  - [ ] 3.5: `executeRegenerateHighRes()`: Bump generation_size temporarily
+- [x] **Task 3: Implement action executors** (AC: #1-5)
+  - [x] 3.1: `executeIdentityRescue()`: Force re-anchor + apply lock prompt template
+  - [x] 3.2: `executeTightenNegative()`: Append palette constraints to negative prompt
+  - [x] 3.3: `executePoseRescue()`: Emphasize baseline/pose in prompt
+  - [x] 3.4: `executePostProcess()`: Apply alpha cleanup filter via Sharp
+  - [x] 3.5: `executeRegenerateHighRes()`: Bump generation_size temporarily
 
-- [ ] **Task 4: Implement consecutive re-anchor tracking** (AC: #8, #9)
-  - [ ] 4.1: Track `consecutive_reanchor_count` per frame in state
-  - [ ] 4.2: Increment when re-anchor action is taken
-  - [ ] 4.3: Reset to 0 when different action is taken or frame passes
-  - [ ] 4.4: Check threshold: if >= 2 and both failed SF01 < 0.9
+- [x] **Task 4: Implement consecutive re-anchor tracking** (AC: #8, #9)
+  - [x] 4.1: Track `consecutive_reanchor_count` per frame in state
+  - [x] 4.2: Increment when re-anchor action is taken
+  - [x] 4.3: Reset to 0 when different action is taken or frame passes
+  - [x] 4.4: Check threshold: if >= 2 and both failed SF01 < 0.9
 
-- [ ] **Task 5: Implement HF_IDENTITY_COLLAPSE** (AC: #10, #11, #12)
-  - [ ] 5.1: When collapse triggered, set frame status to `rejected`
-  - [ ] 5.2: Record `rejected_reason: 'HF_IDENTITY_COLLAPSE'`
-  - [ ] 5.3: Do NOT retry further on this frame
-  - [ ] 5.4: Log diagnostic: "Suggestion: Anchor may lack resolution for this pose angle"
-  - [ ] 5.5: Continue to next frame index
+- [x] **Task 5: Implement HF_IDENTITY_COLLAPSE** (AC: #10, #11, #12)
+  - [x] 5.1: When collapse triggered, set frame status to `rejected`
+  - [x] 5.2: Record `rejected_reason: 'HF_IDENTITY_COLLAPSE'`
+  - [x] 5.3: Do NOT retry further on this frame
+  - [x] 5.4: Log diagnostic: "Suggestion: Anchor may lack resolution for this pose angle"
+  - [x] 5.5: Continue to next frame index
 
-- [ ] **Task 6: Implement reject rate calculation** (AC: #13, #14)
-  - [ ] 6.1: After each rejection, calculate `reject_rate = rejected_count / total_frames_attempted`
-  - [ ] 6.2: If reject_rate > 0.3, trigger run STOPPED state
-  - [ ] 6.3: Record stop reason: "REJECT_RATE_EXCEEDED"
-  - [ ] 6.4: Log: "Run stopped: Reject rate {X}% exceeds 30% threshold"
+- [x] **Task 6: Implement reject rate calculation** (AC: #13, #14)
+  - [x] 6.1: After each rejection, calculate `reject_rate = rejected_count / total_frames_attempted`
+  - [x] 6.2: If reject_rate > 0.3, trigger run STOPPED state
+  - [x] 6.3: Record stop reason: "REJECT_RATE_EXCEEDED"
+  - [x] 6.4: Log: "Run stopped: Reject rate {X}% exceeds 30% threshold"
 
-- [ ] **Task 7: Implement oscillation detection** (AC: #15, #16, #17)
-  - [ ] 7.1: Track attempt results in sequence for each frame
-  - [ ] 7.2: Detect pattern: [fail, pass, fail] or [pass, fail, pass] with re-anchor
-  - [ ] 7.3: If re-anchor triggered > 2 times, classify as oscillation
-  - [ ] 7.4: Escalate to HF_IDENTITY_COLLAPSE
-  - [ ] 7.5: Log: "Frame N: Oscillation detected, marking as identity collapse"
+- [x] **Task 7: Implement oscillation detection** (AC: #15, #16, #17)
+  - [x] 7.1: Track attempt results in sequence for each frame
+  - [x] 7.2: Detect pattern: [fail, pass, fail] or [pass, fail, pass] with re-anchor
+  - [x] 7.3: If re-anchor triggered > 2 times, classify as oscillation
+  - [x] 7.4: Escalate to HF_IDENTITY_COLLAPSE
+  - [x] 7.5: Log: "Frame N: Oscillation detected, marking as identity collapse"
 
-- [ ] **Task 8: Implement ladder exhaustion handling** (AC: #7)
-  - [ ] 8.1: Track which actions have been tried for current frame
-  - [ ] 8.2: If all actions exhausted, mark frame as failed (not collapsed)
-  - [ ] 8.3: Record `failed_reason: 'LADDER_EXHAUSTED'`
-  - [ ] 8.4: Move to next frame
+- [x] **Task 8: Implement ladder exhaustion handling** (AC: #7)
+  - [x] 8.1: Track which actions have been tried for current frame
+  - [x] 8.2: If all actions exhausted, mark frame as failed (not collapsed)
+  - [x] 8.3: Record `failed_reason: 'LADDER_EXHAUSTED'`
+  - [x] 8.4: Move to next frame
 
-- [ ] **Task 9: Write tests** (AC: all)
-  - [ ] 9.1: Test SF01 triggers IDENTITY_RESCUE
-  - [ ] 9.2: Test ladder escalation on repeated failures
-  - [ ] 9.3: Test HF_IDENTITY_COLLAPSE after 2 consecutive re-anchors
-  - [ ] 9.4: Test run continues after frame rejection
-  - [ ] 9.5: Test reject_rate triggers STOPPED
-  - [ ] 9.6: Test oscillation detection
+- [x] **Task 9: Write tests** (AC: all)
+  - [x] 9.1: Test SF01 triggers IDENTITY_RESCUE
+  - [x] 9.2: Test ladder escalation on repeated failures
+  - [x] 9.3: Test HF_IDENTITY_COLLAPSE after 2 consecutive re-anchors
+  - [x] 9.4: Test run continues after frame rejection
+  - [x] 9.5: Test reject_rate triggers STOPPED
+  - [x] 9.6: Test oscillation detection
 
 ---
 
@@ -228,12 +228,18 @@ function calculateRejectRate(state: RunState): number {
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+N/A - Implementation tested via unit tests.
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- Implemented 8-level retry ladder with reason-to-action mapping
+- Added HF_IDENTITY_COLLAPSE detection with 2+ consecutive re-anchors
+- Implemented oscillation detection for alternating pass/fail patterns
+- Integrated with orchestrator for automatic retry decisions
+- All 29 tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/retry-manager.ts` - Retry ladder logic
+- `src/domain/retry-actions.ts` - Retry action types and mappings
+- `test/core/retry-manager.test.ts` - Unit tests (29 tests)

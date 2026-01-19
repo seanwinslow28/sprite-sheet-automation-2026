@@ -1,6 +1,6 @@
 # Story 2.2: Implement Manifest Lock File Generation
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -25,43 +25,43 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create lock file generator** (AC: #1, #2)
-  - [ ] 1.1: Create `src/core/lock-file-generator.ts`
-  - [ ] 1.2: Define `LockFile` interface matching schema
-  - [ ] 1.3: Implement `generateLockFile(manifest: Manifest, runDir: string): Result<LockFile, SystemError>`
-  - [ ] 1.4: Resolve all relative paths to absolute paths using `path.resolve()`
-  - [ ] 1.5: Verify all resolved paths exist on disk
+- [x] **Task 1: Create lock file generator** (AC: #1, #2)
+  - [x] 1.1: Create `src/core/lock-file-generator.ts`
+  - [x] 1.2: Define `LockFile` interface matching schema
+  - [x] 1.3: Implement `generateLockFile(manifest: Manifest, runDir: string): Result<LockFile, SystemError>`
+  - [x] 1.4: Resolve all relative paths to absolute paths using `path.resolve()`
+  - [x] 1.5: Verify all resolved paths exist on disk
 
-- [ ] **Task 2: Capture environment info** (AC: #3, #4)
-  - [ ] 2.1: Capture Node.js version from `process.version`
-  - [ ] 2.2: Capture OS platform from `process.platform`
-  - [ ] 2.3: Read generator adapter version from package.json or constant
-  - [ ] 2.4: Extract model ID from manifest config
-  - [ ] 2.5: Query Gemini API for model version if available (graceful fallback)
+- [x] **Task 2: Capture environment info** (AC: #3, #4)
+  - [x] 2.1: Capture Node.js version from `process.version`
+  - [x] 2.2: Capture OS platform from `process.platform`
+  - [x] 2.3: Read generator adapter version from package.json or constant
+  - [x] 2.4: Extract model ID from manifest config
+  - [x] 2.5: Query Gemini API for model version if available (graceful fallback)
 
-- [ ] **Task 3: Add timestamp and run metadata** (AC: #5)
-  - [ ] 3.1: Generate ISO 8601 timestamp for `run_start`
-  - [ ] 3.2: Generate unique `run_id` (timestamp + short UUID)
-  - [ ] 3.3: Include manifest file path (original location)
-  - [ ] 3.4: Include manifest hash (SHA256 of content)
+- [x] **Task 3: Add timestamp and run metadata** (AC: #5)
+  - [x] 3.1: Generate ISO 8601 timestamp for `run_start`
+  - [x] 3.2: Generate unique `run_id` (timestamp + short UUID)
+  - [x] 3.3: Include manifest file path (original location)
+  - [x] 3.4: Include manifest hash (SHA256 of content)
 
-- [ ] **Task 4: Implement atomic file write** (AC: #6)
-  - [ ] 4.1: Create `src/utils/fs-helpers.ts` with `writeJsonAtomic()`
-  - [ ] 4.2: Write to `manifest.lock.json.tmp` first
-  - [ ] 4.3: Rename to `manifest.lock.json` after write completes
-  - [ ] 4.4: Handle rename failures with proper error codes
+- [x] **Task 4: Implement atomic file write** (AC: #6)
+  - [x] 4.1: Create `src/utils/fs-helpers.ts` with `writeJsonAtomic()`
+  - [x] 4.2: Write to `manifest.lock.json.tmp` first
+  - [x] 4.3: Rename to `manifest.lock.json` after write completes
+  - [x] 4.4: Handle rename failures with proper error codes
 
-- [ ] **Task 5: Implement security redaction** (AC: related to NFR27)
-  - [ ] 5.1: Create `redactSecrets(config: object): object`
-  - [ ] 5.2: Replace API keys with `[REDACTED]`
-  - [ ] 5.3: Replace tokens and credentials
-  - [ ] 5.4: Preserve structure for debugging
+- [x] **Task 5: Implement security redaction** (AC: related to NFR27)
+  - [x] 5.1: Create `redactSecrets(config: object): object`
+  - [x] 5.2: Replace API keys with `[REDACTED]`
+  - [x] 5.3: Replace tokens and credentials
+  - [x] 5.4: Preserve structure for debugging
 
-- [ ] **Task 6: Write tests** (AC: all)
-  - [ ] 6.1: Test lock file contains all required fields
-  - [ ] 6.2: Test paths are resolved to absolute
-  - [ ] 6.3: Test atomic write survives simulated crash
-  - [ ] 6.4: Test secrets are properly redacted
+- [x] **Task 6: Write tests** (AC: all)
+  - [x] 6.1: Test lock file contains all required fields
+  - [x] 6.2: Test paths are resolved to absolute
+  - [x] 6.3: Test atomic write survives simulated crash
+  - [x] 6.4: Test secrets are properly redacted
 
 ---
 
@@ -155,8 +155,14 @@ Must log:
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- All acceptance criteria met
+- 8/8 tests passing in `test/core/lock-file-generator.test.ts`
+- Atomic write pattern implemented with temp-then-rename
+- Secret redaction covers API keys and tokens
+- SHA256 manifest hash included
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/lock-file-generator.ts` - Lock file generation logic
+- `src/utils/fs-helpers.ts` - Atomic file write helpers
+- `test/core/lock-file-generator.test.ts` - Lock file tests

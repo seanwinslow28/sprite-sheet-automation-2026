@@ -1,6 +1,6 @@
 # Story 5.1: Implement Deterministic Frame Naming Convention
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -31,48 +31,48 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create frame naming utility** (AC: #1, #3)
-  - [ ] 1.1: Create `src/utils/frame-naming.ts`
-  - [ ] 1.2: Implement `generateFrameName(moveId: string, frameIndex: number): string`
-  - [ ] 1.3: Use 4-digit zero padding: `frameIndex.toString().padStart(4, '0')`
-  - [ ] 1.4: Return format: `{moveId}/{paddedIndex}` (e.g., `idle/0003`)
+- [x] **Task 1: Create frame naming utility** (AC: #1, #3)
+  - [x] 1.1: Create `src/utils/frame-naming.ts`
+  - [x] 1.2: Implement `generateFrameName(moveId: string, frameIndex: number): string`
+  - [x] 1.3: Use 4-digit zero padding: `frameIndex.toString().padStart(4, '0')`
+  - [x] 1.4: Return format: `{moveId}/{paddedIndex}` (e.g., `idle/0003`)
 
-- [ ] **Task 2: Implement frame renaming for export** (AC: #1, #2)
-  - [ ] 2.1: Create `prepareFramesForExport(approvedPath: string, moveId: string): Promise<string>`
-  - [ ] 2.2: Create export staging folder: `export_staging/`
-  - [ ] 2.3: Copy approved frames with new names
-  - [ ] 2.4: Return path to staged folder
+- [x] **Task 2: Implement frame renaming for export** (AC: #1, #2)
+  - [x] 2.1: Create `prepareFramesForExport(approvedPath: string, moveId: string): Promise<string>`
+  - [x] 2.2: Create export staging folder: `export_staging/`
+  - [x] 2.3: Copy approved frames with new names
+  - [x] 2.4: Return path to staged folder
 
-- [ ] **Task 3: Implement naming mapping log** (AC: #4)
-  - [ ] 3.1: Track original filename → new filename mapping
-  - [ ] 3.2: Write mapping to `runs/{run_id}/export/frame_mapping.json`
-  - [ ] 3.3: Include both paths and frame indices
-  - [ ] 3.4: Use for debugging and traceability
+- [x] **Task 3: Implement naming mapping log** (AC: #4)
+  - [x] 3.1: Track original filename → new filename mapping
+  - [x] 3.2: Write mapping to `runs/{run_id}/export/frame_mapping.json`
+  - [x] 3.3: Include both paths and frame indices
+  - [x] 3.4: Use for debugging and traceability
 
-- [ ] **Task 4: Configure TexturePacker naming** (AC: #5)
-  - [ ] 4.1: Add `--sheet {n4}` to TexturePacker CLI flags
-  - [ ] 4.2: Add `--texture-format png` flag
-  - [ ] 4.3: Ensure frame keys in output JSON match naming convention
-  - [ ] 4.4: Test with sample frames
+- [x] **Task 4: Configure TexturePacker naming** (AC: #5)
+  - [x] 4.1: Add `--sheet {n4}` to TexturePacker CLI flags
+  - [x] 4.2: Add `--texture-format png` flag
+  - [x] 4.3: Ensure frame keys in output JSON match naming convention
+  - [x] 4.4: Test with sample frames
 
-- [ ] **Task 5: Document Phaser loading pattern** (AC: #6)
-  - [ ] 5.1: Add code snippet for `generateFrameNames()` usage
-  - [ ] 5.2: Include `zeroPad: 4` configuration
-  - [ ] 5.3: Add to operator guide (Story 6.6)
-  - [ ] 5.4: Include example animation creation code
+- [x] **Task 5: Document Phaser loading pattern** (AC: #6)
+  - [x] 5.1: Add code snippet for `generateFrameNames()` usage
+  - [x] 5.2: Include `zeroPad: 4` configuration
+  - [x] 5.3: Add to operator guide (Story 6.6) - Documented in Dev Notes
+  - [x] 5.4: Include example animation creation code
 
-- [ ] **Task 6: Implement naming validator** (AC: #2)
-  - [ ] 6.1: Create `validateFrameNaming(frames: string[]): ValidationResult`
-  - [ ] 6.2: Check format matches regex: `^[a-z_]+/\d{4}$`
-  - [ ] 6.3: Check sequence is contiguous (no gaps)
-  - [ ] 6.4: Return errors for invalid names
+- [x] **Task 6: Implement naming validator** (AC: #2)
+  - [x] 6.1: Create `validateFrameNaming(frames: string[]): ValidationResult`
+  - [x] 6.2: Check format matches regex: `^[a-z_]+/\d{4}$`
+  - [x] 6.3: Check sequence is contiguous (no gaps)
+  - [x] 6.4: Return errors for invalid names
 
-- [ ] **Task 7: Write tests** (AC: all)
-  - [ ] 7.1: Test frame name generation for various indices
-  - [ ] 7.2: Test 4-digit padding for indices 0-9999
-  - [ ] 7.3: Test naming validator catches invalid formats
-  - [ ] 7.4: Test mapping log is created correctly
-  - [ ] 7.5: Test lexicographical sort order
+- [x] **Task 7: Write tests** (AC: all)
+  - [x] 7.1: Test frame name generation for various indices
+  - [x] 7.2: Test 4-digit padding for indices 0-9999
+  - [x] 7.3: Test naming validator catches invalid formats
+  - [x] 7.4: Test mapping log is created correctly
+  - [x] 7.5: Test lexicographical sort order
 
 ---
 
@@ -215,12 +215,22 @@ this.anims.create({
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+- Code review completed 2026-01-19
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- All 7 tasks completed
+- frame-naming.ts implements generateFrameName, parseFrameName, validateFrameNaming
+- frame-preparer.ts handles export staging with mapping log
+- Zod schemas for external snake_case format
+- Tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/utils/frame-naming.ts` - Frame naming utilities
+- `src/core/export/frame-preparer.ts` - Export staging and frame preparation
+- `src/domain/schemas/atlas.ts` - Atlas JSON schemas with frame key validation
+
+### Completion Date
+
+2026-01-19

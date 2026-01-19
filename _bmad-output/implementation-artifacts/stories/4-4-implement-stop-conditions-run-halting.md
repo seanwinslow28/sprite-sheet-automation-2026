@@ -1,6 +1,6 @@
 # Story 4.4: Implement Stop Conditions and Run Halting
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -32,57 +32,57 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Define stop condition schema** (AC: #1, #2, #3, #8)
-  - [ ] 1.1: Add `StopConditions` to manifest Zod schema
-  - [ ] 1.2: Define fields: `max_retry_rate`, `max_reject_rate`, `max_consecutive_fails`
-  - [ ] 1.3: Set defaults: 0.5, 0.3, 3
-  - [ ] 1.4: Allow per-manifest override
+- [x] **Task 1: Define stop condition schema** (AC: #1, #2, #3, #8)
+  - [x] 1.1: Add `StopConditions` to manifest Zod schema
+  - [x] 1.2: Define fields: `max_retry_rate`, `max_reject_rate`, `max_consecutive_fails`
+  - [x] 1.3: Set defaults: 0.5, 0.3, 3
+  - [x] 1.4: Allow per-manifest override
 
-- [ ] **Task 2: Implement rate calculators** (AC: #1, #2)
-  - [ ] 2.1: Create `calculateRetryRate(state: RunState): number`
-  - [ ] 2.2: Retry rate = frames_with_retries / total_frames_attempted
-  - [ ] 2.3: Create `calculateRejectRate(state: RunState): number`
-  - [ ] 2.4: Reject rate = rejected_frames / total_frames_attempted
+- [x] **Task 2: Implement rate calculators** (AC: #1, #2)
+  - [x] 2.1: Create `calculateRetryRate(state: RunState): number`
+  - [x] 2.2: Retry rate = frames_with_retries / total_frames_attempted
+  - [x] 2.3: Create `calculateRejectRate(state: RunState): number`
+  - [x] 2.4: Reject rate = rejected_frames / total_frames_attempted
 
-- [ ] **Task 3: Implement consecutive fail tracker** (AC: #3)
-  - [ ] 3.1: Track `consecutive_fail_count` in run state
-  - [ ] 3.2: Increment on frame failure/rejection
-  - [ ] 3.3: Reset to 0 on frame approval
-  - [ ] 3.4: Compare against threshold after each frame
+- [x] **Task 3: Implement consecutive fail tracker** (AC: #3)
+  - [x] 3.1: Track `consecutive_fail_count` in run state
+  - [x] 3.2: Increment on frame failure/rejection
+  - [x] 3.3: Reset to 0 on frame approval
+  - [x] 3.4: Compare against threshold after each frame
 
-- [ ] **Task 4: Implement stop condition evaluator** (AC: #1, #2, #3)
-  - [ ] 4.1: Create `evaluateStopConditions(state: RunState, config: StopConditions): StopReason | null`
-  - [ ] 4.2: Check retry rate against max_retry_rate
-  - [ ] 4.3: Check reject rate against max_reject_rate
-  - [ ] 4.4: Check consecutive fails against max_consecutive_fails
-  - [ ] 4.5: Return first triggered condition (priority order)
+- [x] **Task 4: Implement stop condition evaluator** (AC: #1, #2, #3)
+  - [x] 4.1: Create `evaluateStopConditions(state: RunState, config: StopConditions): StopReason | null`
+  - [x] 4.2: Check retry rate against max_retry_rate
+  - [x] 4.3: Check reject rate against max_reject_rate
+  - [x] 4.4: Check consecutive fails against max_consecutive_fails
+  - [x] 4.5: Return first triggered condition (priority order)
 
-- [ ] **Task 5: Implement graceful halt** (AC: #5, #6)
-  - [ ] 5.1: Set `run_status: 'stopped'` in state
-  - [ ] 5.2: Record `stop_reason: { condition, value, threshold }`
-  - [ ] 5.3: Complete current frame if possible (don't corrupt mid-write)
-  - [ ] 5.4: Flush all pending writes atomically
-  - [ ] 5.5: Log halt with summary statistics
+- [x] **Task 5: Implement graceful halt** (AC: #5, #6)
+  - [x] 5.1: Set `run_status: 'stopped'` in state
+  - [x] 5.2: Record `stop_reason: { condition, value, threshold }`
+  - [x] 5.3: Complete current frame if possible (don't corrupt mid-write)
+  - [x] 5.4: Flush all pending writes atomically
+  - [x] 5.5: Log halt with summary statistics
 
-- [ ] **Task 6: Implement resume placeholder** (AC: #7)
-  - [ ] 6.1: Add `resumable: true` flag to stopped runs
-  - [ ] 6.2: Store `resume_from_frame: number` in state
-  - [ ] 6.3: Log: "Run can be resumed with: pipeline run --resume {run_id}"
-  - [ ] 6.4: Actual resume logic deferred to v1+ (Story 4.7 handles basic idempotency)
+- [x] **Task 6: Implement resume placeholder** (AC: #7)
+  - [x] 6.1: Add `resumable: true` flag to stopped runs
+  - [x] 6.2: Store `resume_from_frame: number` in state
+  - [x] 6.3: Log: "Run can be resumed with: pipeline run --resume {run_id}"
+  - [x] 6.4: Actual resume logic deferred to v1+ (Story 4.7 handles basic idempotency)
 
-- [ ] **Task 7: Integrate with orchestrator** (AC: #4)
-  - [ ] 7.1: Call `evaluateStopConditions()` after each frame completes
-  - [ ] 7.2: If condition triggered, break out of generation loop
-  - [ ] 7.3: Execute graceful halt sequence
-  - [ ] 7.4: Return appropriate status to CLI
+- [x] **Task 7: Integrate with orchestrator** (AC: #4)
+  - [x] 7.1: Call `evaluateStopConditions()` after each frame completes
+  - [x] 7.2: If condition triggered, break out of generation loop
+  - [x] 7.3: Execute graceful halt sequence
+  - [x] 7.4: Return appropriate status to CLI
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test retry rate triggers halt at 50%
-  - [ ] 8.2: Test reject rate triggers halt at 30%
-  - [ ] 8.3: Test consecutive fails triggers halt at 3
-  - [ ] 8.4: Test state is persisted before halt
-  - [ ] 8.5: Test run status is 'stopped' not 'failed'
-  - [ ] 8.6: Test custom thresholds from manifest
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test retry rate triggers halt at 50%
+  - [x] 8.2: Test reject rate triggers halt at 30%
+  - [x] 8.3: Test consecutive fails triggers halt at 3
+  - [x] 8.4: Test state is persisted before halt
+  - [x] 8.5: Test run status is 'stopped' not 'failed'
+  - [x] 8.6: Test custom thresholds from manifest
 
 ---
 
@@ -236,12 +236,17 @@ async function executeGracefulHalt(
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+N/A - Implementation tested via unit tests.
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- Implemented stop condition evaluator with 4 condition types
+- Added rate calculators for retry and reject rates
+- Implemented consecutive fail tracking
+- Integrated with orchestrator for automatic halt
+- All 19 tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/stop-condition-evaluator.ts` - Stop condition evaluation logic
+- `test/core/stop-condition-evaluator.test.ts` - Unit tests (19 tests)
