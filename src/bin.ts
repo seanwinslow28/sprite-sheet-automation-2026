@@ -19,6 +19,7 @@ import { registerCleanCommand } from './commands/clean.js';
 import { registerNewManifestCommand } from './commands/new-manifest.js';
 import { registerGuideCommand } from './commands/guide.js';
 import { registerDemoCommand } from './commands/demo.js';
+import { registerGenCommand } from './commands/gen.js';
 import { logger } from './utils/logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -44,27 +45,24 @@ registerCleanCommand(program);
 registerNewManifestCommand(program);
 registerGuideCommand(program);
 registerDemoCommand(program);
+registerGenCommand(program);
 
 // Placeholder commands - to be implemented in subsequent stories
 program
-    .command('gen')
-    .description('Generate sprite animation from manifest')
-    .action(() => {
-        logger.info({ command: 'gen' }, 'gen command - to be implemented');
-    });
-
-program
     .command('director')
-    .description('Analyze and plan sprite generation')
+    .description('Launch Director Mode standalone (normally use gen --interactive)')
     .action(() => {
-        logger.info({ command: 'director' }, 'director command - to be implemented');
+        logger.info({ command: 'director' }, 'director command - use gen --interactive instead');
+        console.log('Use: banana gen --move=<move> --interactive');
     });
 
 program
     .command('export')
-    .description('Export sprites to texture atlas')
+    .description('Export sprites to texture atlas (normally automatic after gen)')
     .action(() => {
-        logger.info({ command: 'export' }, 'export command - to be implemented');
+        logger.info({ command: 'export' }, 'export command - export runs automatically after gen');
+        console.log('Export runs automatically after generation.');
+        console.log('For manual export, use: banana gen --move=<move>');
     });
 
 program.parse();

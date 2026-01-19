@@ -1,6 +1,6 @@
 # Story 8.6: Implement Graceful Shutdown and Resume
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -33,53 +33,53 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Implement signal handlers** (AC: #1-5)
-  - [ ] 1.1: Register SIGINT handler
-  - [ ] 1.2: Register SIGTERM handler
-  - [ ] 1.3: Set shutdown flag to prevent new operations
-  - [ ] 1.4: Log shutdown initiation
+- [x] **Task 1: Implement signal handlers** (AC: #1-5)
+  - [x] 1.1: Register SIGINT handler
+  - [x] 1.2: Register SIGTERM handler
+  - [x] 1.3: Set shutdown flag to prevent new operations
+  - [x] 1.4: Log shutdown initiation
 
-- [ ] **Task 2: Implement current operation completion** (AC: #2)
-  - [ ] 2.1: Track current operation (generation, audit, etc.)
-  - [ ] 2.2: Allow current operation to complete
-  - [ ] 2.3: Set timeout for stuck operations (30s)
-  - [ ] 2.4: Force shutdown on second signal
+- [x] **Task 2: Implement current operation completion** (AC: #2)
+  - [x] 2.1: Track current operation (generation, audit, etc.)
+  - [x] 2.2: Allow current operation to complete
+  - [x] 2.3: Set timeout for stuck operations (30s)
+  - [x] 2.4: Force shutdown on second signal
 
-- [ ] **Task 3: Implement state persistence on shutdown** (AC: #3)
-  - [ ] 3.1: Save current frame progress
-  - [ ] 3.2: Save all completed work
-  - [ ] 3.3: Mark run as "interrupted"
-  - [ ] 3.4: Use atomic writes
+- [x] **Task 3: Implement state persistence on shutdown** (AC: #3)
+  - [x] 3.1: Save current frame progress
+  - [x] 3.2: Save all completed work
+  - [x] 3.3: Mark run as "interrupted"
+  - [x] 3.4: Use atomic writes
 
-- [ ] **Task 4: Implement connection cleanup** (AC: #4)
-  - [ ] 4.1: Close Gemini API connections
-  - [ ] 4.2: Close Director server if running
-  - [ ] 4.3: Close any file handles
-  - [ ] 4.4: Cancel pending HTTP requests
+- [x] **Task 4: Implement connection cleanup** (AC: #4)
+  - [x] 4.1: Close Gemini API connections
+  - [x] 4.2: Close Director server if running
+  - [x] 4.3: Close any file handles
+  - [x] 4.4: Cancel pending HTTP requests
 
-- [ ] **Task 5: Implement resume detection** (AC: #6)
-  - [ ] 5.1: Check for existing state.json on startup
-  - [ ] 5.2: Verify run is resumable (not complete/stopped)
-  - [ ] 5.3: Load previous state
-  - [ ] 5.4: Handle corrupted state
+- [x] **Task 5: Implement resume detection** (AC: #6)
+  - [x] 5.1: Check for existing state.json on startup
+  - [x] 5.2: Verify run is resumable (not complete/stopped)
+  - [x] 5.3: Load previous state
+  - [x] 5.4: Handle corrupted state
 
-- [ ] **Task 6: Implement resume prompt** (AC: #7)
-  - [ ] 6.1: Create inquirer prompt
-  - [ ] 6.2: Show resume option with frame count
-  - [ ] 6.3: Allow fresh start option
-  - [ ] 6.4: Handle --no-resume flag
+- [x] **Task 6: Implement resume prompt** (AC: #7)
+  - [x] 6.1: Create inquirer prompt
+  - [x] 6.2: Show resume option with frame count
+  - [x] 6.3: Allow fresh start option
+  - [x] 6.4: Handle --no-resume flag
 
-- [ ] **Task 7: Implement resume logic** (AC: #8, #9)
-  - [ ] 7.1: Skip already-approved frames
-  - [ ] 7.2: Restore orchestrator state
-  - [ ] 7.3: Continue from checkpoint
-  - [ ] 7.4: Log resume information
+- [x] **Task 7: Implement resume logic** (AC: #8, #9)
+  - [x] 7.1: Skip already-approved frames
+  - [x] 7.2: Restore orchestrator state
+  - [x] 7.3: Continue from checkpoint
+  - [x] 7.4: Log resume information
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test graceful shutdown saves state
-  - [ ] 8.2: Test resume detects previous run
-  - [ ] 8.3: Test resume skips approved frames
-  - [ ] 8.4: Test force shutdown on double signal
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test graceful shutdown saves state
+  - [x] 8.2: Test resume detects previous run
+  - [x] 8.3: Test resume skips approved frames
+  - [x] 8.4: Test force shutdown on double signal
 
 ---
 
@@ -370,12 +370,20 @@ async function executeGen(options: GenOptions): Promise<void> {
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+N/A
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- shutdown-handler.ts with SIGINT/SIGTERM handlers
+- 30s force shutdown timeout
+- requestAbort() for orchestrator
+- resume-detector.ts with interactive prompt for resumable runs
+- --no-resume flag to skip resume detection
+- uncaughtException and unhandledRejection handlers
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/shutdown-handler.ts` - Signal handlers
+- `src/core/resume-detector.ts` - Resume detection and prompts
+- `test/core/shutdown-handler.test.ts` - Shutdown tests
+- `test/core/resume-detector.test.ts` - Resume tests

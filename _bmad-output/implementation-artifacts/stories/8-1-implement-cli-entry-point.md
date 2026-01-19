@@ -1,6 +1,6 @@
 # Story 8.1: Implement CLI Entry Point with Commander
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -26,53 +26,53 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create CLI entry point** (AC: #5)
-  - [ ] 1.1: Create `src/bin.ts` with shebang
-  - [ ] 1.2: Import Commander and configure program
-  - [ ] 1.3: Set version from package.json
-  - [ ] 1.4: Add to package.json bin field
+- [x] **Task 1: Create CLI entry point** (AC: #5)
+  - [x] 1.1: Create `src/bin.ts` with shebang
+  - [x] 1.2: Import Commander and configure program
+  - [x] 1.3: Set version from package.json
+  - [x] 1.4: Add to package.json bin field
 
-- [ ] **Task 2: Configure Commander program** (AC: #1, #2, #3)
-  - [ ] 2.1: Set program name and description
-  - [ ] 2.2: Set version with -V flag
-  - [ ] 2.3: Configure global options (--verbose, --config)
-  - [ ] 2.4: Add help text customization
+- [x] **Task 2: Configure Commander program** (AC: #1, #2, #3)
+  - [x] 2.1: Set program name and description
+  - [x] 2.2: Set version with -V flag
+  - [x] 2.3: Configure global options (--verbose, --config)
+  - [x] 2.4: Add help text customization
 
-- [ ] **Task 3: Register gen command** (AC: #2)
-  - [ ] 3.1: Create `src/commands/gen.ts`
-  - [ ] 3.2: Define --move, --interactive, --frames options
-  - [ ] 3.3: Wire to command handler
-  - [ ] 3.4: Add command description
+- [x] **Task 3: Register gen command** (AC: #2)
+  - [x] 3.1: Create `src/commands/gen.ts`
+  - [x] 3.2: Define --move, --interactive, --frames options
+  - [x] 3.3: Wire to command handler
+  - [x] 3.4: Add command description
 
-- [ ] **Task 4: Register doctor command** (AC: #2)
-  - [ ] 4.1: Create `src/commands/doctor.ts`
-  - [ ] 4.2: Define command options
-  - [ ] 4.3: Wire to existing doctor implementation
-  - [ ] 4.4: Add command description
+- [x] **Task 4: Register doctor command** (AC: #2)
+  - [x] 4.1: Create `src/commands/doctor.ts`
+  - [x] 4.2: Define command options
+  - [x] 4.3: Wire to existing doctor implementation
+  - [x] 4.4: Add command description
 
-- [ ] **Task 5: Register schema command** (AC: #2)
-  - [ ] 5.1: Create `src/commands/schema.ts`
-  - [ ] 5.2: Define --output option
-  - [ ] 5.3: Wire to schema display
-  - [ ] 5.4: Add command description
+- [x] **Task 5: Register schema command** (AC: #2)
+  - [x] 5.1: Create `src/commands/schema.ts`
+  - [x] 5.2: Define --output option
+  - [x] 5.3: Wire to schema display
+  - [x] 5.4: Add command description
 
-- [ ] **Task 6: Register inspect command** (AC: #2)
-  - [ ] 6.1: Create `src/commands/inspect.ts`
-  - [ ] 6.2: Define run_id argument
-  - [ ] 6.3: Define --frame, --diagnostic options
-  - [ ] 6.4: Wire to inspect implementation
+- [x] **Task 6: Register inspect command** (AC: #2)
+  - [x] 6.1: Create `src/commands/inspect.ts`
+  - [x] 6.2: Define run_id argument
+  - [x] 6.3: Define --frame, --diagnostic options
+  - [x] 6.4: Wire to inspect implementation
 
-- [ ] **Task 7: Register validate and demo commands** (AC: #2)
-  - [ ] 7.1: Create `src/commands/validate.ts`
-  - [ ] 7.2: Create `src/commands/demo.ts`
-  - [ ] 7.3: Define options for each
-  - [ ] 7.4: Wire to implementations
+- [x] **Task 7: Register validate and demo commands** (AC: #2)
+  - [x] 7.1: Create `src/commands/validate.ts`
+  - [x] 7.2: Create `src/commands/demo.ts`
+  - [x] 7.3: Define options for each
+  - [x] 7.4: Wire to implementations
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test --help shows all commands
-  - [ ] 8.2: Test --version shows version
-  - [ ] 8.3: Test unknown command shows error
-  - [ ] 8.4: Test global options work
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test --help shows all commands
+  - [x] 8.2: Test --version shows version
+  - [x] 8.3: Test unknown command shows error
+  - [x] 8.4: Test global options work
 
 ---
 
@@ -279,12 +279,22 @@ function getGlobalOptions(program: Command) {
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+N/A
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- bin.ts created with Commander.js 12.x setup
+- All commands registered: gen, doctor, schema, inspect, validate, demo
+- Version pulled from package.json
+- Package.json bin field configured
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/bin.ts` - CLI entry point
+- `src/commands/gen.ts` - Generate command
+- `src/commands/doctor.ts` - Doctor command
+- `src/commands/schema.ts` - Schema command
+- `src/commands/inspect.ts` - Inspect command
+- `src/commands/validate.ts` - Validate command
+- `src/commands/demo.ts` - Demo command
+- `test/commands/*.test.ts` - Command tests

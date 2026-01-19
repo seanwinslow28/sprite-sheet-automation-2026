@@ -460,118 +460,134 @@ development_status:
   # ============================================================================
   # Web-based UI for review, nudge, and patch. FRONTEND + BACKEND.
   # ----------------------------------------------------------------------------
-  epic-7: in-progress
+  epic-7: done
 
   7-1-implement-director-session-state:
-    status: review
+    status: done
     completion_date: 2026-01-19
-    notes: "72 tests passing. DirectorSession schema + DirectorSessionManager with full lifecycle."
+    notes: "72 tests passing. DirectorSession schema + DirectorSessionManager with full lifecycle. Code review completed - Result API fixes applied."
     agent: claude-code
     rationale: "Session state management with frame lifecycle. State machine complexity."
 
   7-2-implement-timeline-component:
-    status: review
+    status: done
     completion_date: 2026-01-19
     notes: "31 UI tests passing. Timeline filmstrip with status colors, keyboard nav, accessibility."
     agent: cursor
     rationale: "VISUAL UI COMPONENT. Filmstrip with color-coded borders. Cursor's real-time visual feedback is ideal."
 
   7-3-implement-stage-component-onion-skinning:
-    status: review
+    status: done
     completion_date: 2026-01-19
     notes: "33 UI tests passing. Canvas with onion skinning, zoom controls, baseline guide, keyboard shortcuts."
     agent: cursor
     rationale: "VISUAL UI COMPONENT. Canvas with overlays, zoom levels, transparency. Cursor excels here."
 
   7-4-implement-nudge-tool:
-    status: review
+    status: done
     completion_date: 2026-01-19
     notes: "27 UI tests passing. Drag-to-nudge with useDrag hook, delta recording, touch support."
     agent: cursor
     rationale: "INTERACTIVE UI. Drag handling, delta tracking, visual preview. Cursor's real-time feedback."
 
   7-5-implement-mask-pen-tool:
-    status: review
+    status: done
     completion_date: 2026-01-19
     notes: "39 UI tests passing. Brush drawing with interpolation, eraser, binary mask export, prompt input."
     agent: cursor
     rationale: "CANVAS DRAWING TOOL. Brush cursor, pixel selection, eraser toggle. Frontend-heavy."
 
   7-6-implement-patch-api:
-    status: review
+    status: done
     completion_date: 2026-01-19
-    notes: "35 tests passing (17 adapter + 18 service). GeminiInpaintAdapter + PatchService with history preservation."
+    notes: "35 tests passing (17 adapter + 18 service). GeminiInpaintAdapter + PatchService with history preservation. Code review completed - Result API fixes applied."
     agent: claude-code
     rationale: "Backend API connecting to Gemini inpaint endpoint. Error handling, history preservation."
 
   7-7-implement-inspector-pane:
-    status: review
+    status: done
     completion_date: 2026-01-19
     notes: "46 UI tests passing. Inspector with ScoreDisplay, FlagsList, MetricsBreakdown, PromptDisplay, AttemptHistory. ReasonCodes reference."
     agent: claude-code
     rationale: "UI COMPONENT. Audit details display, reason code reference. Visual layout."
 
   7-8-implement-visual-diff-overlays:
-    status: review
+    status: done
     completion_date: 2026-01-19
     notes: "50 UI tests passing. DiffOverlay with PaletteDiffOverlay (blinking highlights, legalize) and AlignmentOverlay (baseline comparison, gap label). Color and baseline utilities."
     agent: claude-code
     rationale: "CANVAS OVERLAYS. Blinking pixels, alignment lines, pixel distance labels. Visual feedback critical."
 
   7-9-implement-commit-and-export-flow:
-    status: review
+    status: done
     completion_date: 2026-01-19
-    notes: "43 tests passing (18 backend + 25 UI). CommitService with delta application, patched frame handling. CommitButton UI with success overlay."
+    notes: "43 tests passing (18 backend + 25 UI). CommitService with delta application, patched frame handling. CommitButton UI with success overlay. Code review completed - Result API fixes applied."
     agent: claude-code
     rationale: "Multi-step export flow: apply deltas, write files, close server. Orchestration complexity."
 
-  epic-7-retrospective: optional
+  epic-7-retrospective: done
 
   # ============================================================================
   # EPIC 8: CLI Pipeline Integration
   # ============================================================================
   # Unified 'banana' CLI with Express server bridge. FULL-STACK INTEGRATION.
   # ----------------------------------------------------------------------------
-  epic-8: backlog
+  epic-8: done
 
   8-1-implement-cli-entry-point:
-    status: ready-for-dev
-    agent: codex-cli
+    status: done
+    agent: claude-code
     rationale: "Commander.js setup with subcommands. Well-defined CLI structure."
+    completion_date: 2026-01-19
+    notes: "bin.ts with Commander.js 12.x. gen, doctor, export, director commands registered. Version from package.json."
 
   8-2-implement-banana-gen-command:
-    status: ready-for-dev
+    status: done
     agent: claude-code
     rationale: "Full generation flow connecting all components. Integration orchestration."
+    completion_date: 2026-01-19
+    notes: "gen.ts command with all flags: --move, --manifest, --interactive, --frames, --skip-validation, --allow-validation-fail, --no-resume, --verbose, --runs-dir, --port, --dry-run. Connects manifest, anchor analysis, lock file, orchestrator."
 
   8-3-implement-interactive-mode-flag:
-    status: ready-for-dev
+    status: done
     agent: claude-code
     rationale: "CLI/server coordination with event handling, process lifecycle management. Complex async flow."
+    completion_date: 2026-01-19
+    notes: "-i/--interactive flag launches Director Mode server after generation. EventEmitter-based coordination between CLI and server."
 
   8-4-implement-director-server-bridge:
-    status: ready-for-dev
+    status: done
     agent: claude-code
     rationale: "Express server with REST API (GET/POST endpoints). Backend architecture."
+    completion_date: 2026-01-19
+    notes: "director-server.ts with Node http server. REST API: GET /api/session, GET /api/frame/:id, POST /api/patch, POST /api/nudge, POST /api/commit. Static file serving with SPA fallback."
 
   8-5-implement-pipeline-orchestrator:
-    status: ready-for-dev
+    status: done
     agent: claude-code
     rationale: "CENTRAL ORCHESTRATION. 5-phase execution (INIT→LOOP→DIRECTOR→EXPORT→COMPLETE). Highest integration complexity."
+    completion_date: 2026-01-19
+    notes: "Orchestrator integration via gen.ts command. createOrchestratorContext, runOrchestrator with state machine execution. 35 tests passing."
 
   8-6-implement-graceful-shutdown-resume:
-    status: ready-for-dev
+    status: done
     agent: claude-code
     rationale: "SIGINT/SIGTERM handling, state preservation, resume prompts. Complex process lifecycle."
+    completion_date: 2026-01-19
+    notes: "shutdown-handler.ts with SIGINT/SIGTERM handlers, 30s force timeout. resume-detector.ts with interactive prompt for resumable runs."
 
   8-7-implement-export-phase-integration:
-    status: ready-for-dev
-    agent: codex-cli
+    status: done
+    agent: claude-code
     rationale: "Sequential execution of export steps. Well-defined order."
+    completion_date: 2026-01-19
+    notes: "export-service.ts orchestrates TexturePacker export, Phaser validation, summary generation. ExportOptions for skip-validation, allow-validation-fail."
 
   8-8-implement-progress-logging-spinners:
-    status: ready-for-dev
-    agent: codex-cli
+    status: done
+    agent: claude-code
     rationale: "ora spinners with status updates. Clear UI patterns."
+    completion_date: 2026-01-19
+    notes: "progress-reporter.ts with ora spinners, chalk colors. CI detection disables spinners. Log file persistence. Frame progress, summary, Director launch messages."
 
-  epic-8-retrospective: optional
+  epic-8-retrospective: done

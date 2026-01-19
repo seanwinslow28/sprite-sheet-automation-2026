@@ -1,6 +1,6 @@
 # Story 8.7: Implement Export Phase Integration
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -29,54 +29,54 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create ExportService** (AC: #1-6)
-  - [ ] 1.1: Create `src/core/export-service.ts`
-  - [ ] 1.2: Define export options interface
-  - [ ] 1.3: Create run method with all steps
-  - [ ] 1.4: Handle errors at each step
+- [x] **Task 1: Create ExportService** (AC: #1-6)
+  - [x] 1.1: Create `src/core/export-service.ts`
+  - [x] 1.2: Define export options interface
+  - [x] 1.3: Create run method with all steps
+  - [x] 1.4: Handle errors at each step
 
-- [ ] **Task 2: Implement frame renaming** (AC: #1)
-  - [ ] 2.1: Read approved frames from folder
-  - [ ] 2.2: Rename to 4-digit padded format
-  - [ ] 2.3: Create export input folder
-  - [ ] 2.4: Maintain frame order
+- [x] **Task 2: Implement frame renaming** (AC: #1)
+  - [x] 2.1: Read approved frames from folder
+  - [x] 2.2: Rename to 4-digit padded format
+  - [x] 2.3: Create export input folder
+  - [x] 2.4: Maintain frame order
 
-- [ ] **Task 3: Implement TexturePacker invocation** (AC: #2)
-  - [ ] 3.1: Build command with locked flags
-  - [ ] 3.2: Execute via execa
-  - [ ] 3.3: Capture stdout/stderr
-  - [ ] 3.4: Handle failure without losing frames
+- [x] **Task 3: Implement TexturePacker invocation** (AC: #2)
+  - [x] 3.1: Build command with locked flags
+  - [x] 3.2: Execute via execa
+  - [x] 3.3: Capture stdout/stderr
+  - [x] 3.4: Handle failure without losing frames
 
-- [ ] **Task 4: Implement Phaser validation** (AC: #3, #7)
-  - [ ] 4.1: Check skip-validation flag
-  - [ ] 4.2: Run TEST-02 (Pivot)
-  - [ ] 4.3: Run TEST-03 (Trim Jitter)
-  - [ ] 4.4: Run TEST-04 (Suffix)
-  - [ ] 4.5: Collect results
+- [x] **Task 4: Implement Phaser validation** (AC: #3, #7)
+  - [x] 4.1: Check skip-validation flag
+  - [x] 4.2: Run TEST-02 (Pivot)
+  - [x] 4.3: Run TEST-03 (Trim Jitter)
+  - [x] 4.4: Run TEST-04 (Suffix)
+  - [x] 4.5: Collect results
 
-- [ ] **Task 5: Implement result reporting** (AC: #4)
-  - [ ] 5.1: Format validation results
-  - [ ] 5.2: Display pass/fail for each test
-  - [ ] 5.3: Show failure details
-  - [ ] 5.4: Write to logs
+- [x] **Task 5: Implement result reporting** (AC: #4)
+  - [x] 5.1: Format validation results
+  - [x] 5.2: Display pass/fail for each test
+  - [x] 5.3: Show failure details
+  - [x] 5.4: Write to logs
 
-- [ ] **Task 6: Implement status marking** (AC: #5)
-  - [ ] 6.1: Determine final status
-  - [ ] 6.2: Update state.json
-  - [ ] 6.3: Create summary.json
-  - [ ] 6.4: Mark release-ready or validation-failed
+- [x] **Task 6: Implement status marking** (AC: #5)
+  - [x] 6.1: Determine final status
+  - [x] 6.2: Update state.json
+  - [x] 6.3: Create summary.json
+  - [x] 6.4: Mark release-ready or validation-failed
 
-- [ ] **Task 7: Implement validation bypass** (AC: #7, #8)
-  - [ ] 7.1: Check --skip-validation flag
-  - [ ] 7.2: Check --allow-validation-fail flag
-  - [ ] 7.3: Log bypass/override warnings
-  - [ ] 7.4: Mark appropriately in status
+- [x] **Task 7: Implement validation bypass** (AC: #7, #8)
+  - [x] 7.1: Check --skip-validation flag
+  - [x] 7.2: Check --allow-validation-fail flag
+  - [x] 7.3: Log bypass/override warnings
+  - [x] 7.4: Mark appropriately in status
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test frame renaming
-  - [ ] 8.2: Test TexturePacker invocation
-  - [ ] 8.3: Test validation integration
-  - [ ] 8.4: Test skip/allow flags
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test frame renaming
+  - [x] 8.2: Test TexturePacker invocation
+  - [x] 8.3: Test validation integration
+  - [x] 8.4: Test skip/allow flags
 
 ---
 
@@ -400,12 +400,20 @@ export/
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+N/A
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- export-service.ts orchestrates TexturePacker export and Phaser validation
+- ExportOptions for skip-validation, allow-validation-fail
+- Frame collection from approved folder
+- Atlas exporter with locked TexturePacker flags
+- Phaser micro-tests via phaser-test-harness
+- Summary generation with validation results
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/export-service.ts` - Export orchestration
+- `src/core/export/atlas-exporter.ts` - TexturePacker wrapper
+- `src/core/validation/phaser-test-harness.ts` - Phaser tests
+- `test/core/export-service.test.ts` - Export tests

@@ -1,6 +1,6 @@
 # Story 8.3: Implement Interactive Mode Flag
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -27,53 +27,53 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Add interactive flag to gen command** (AC: #6)
-  - [ ] 1.1: Add `-i, --interactive` option to command
-  - [ ] 1.2: Store flag in options object
-  - [ ] 1.3: Document in help text
-  - [ ] 1.4: Set default to false
+- [x] **Task 1: Add interactive flag to gen command** (AC: #6)
+  - [x] 1.1: Add `-i, --interactive` option to command
+  - [x] 1.2: Store flag in options object
+  - [x] 1.3: Document in help text
+  - [x] 1.4: Set default to false
 
-- [ ] **Task 2: Implement Director launch logic** (AC: #1, #2)
-  - [ ] 2.1: Check interactive flag after generation
-  - [ ] 2.2: Start Director server if enabled
-  - [ ] 2.3: Log launch message with URL
-  - [ ] 2.4: Handle server start errors
+- [x] **Task 2: Implement Director launch logic** (AC: #1, #2)
+  - [x] 2.1: Check interactive flag after generation
+  - [x] 2.2: Start Director server if enabled
+  - [x] 2.3: Log launch message with URL
+  - [x] 2.4: Handle server start errors
 
-- [ ] **Task 3: Implement process keepalive** (AC: #3)
-  - [ ] 3.1: Create Promise that resolves on commit
-  - [ ] 3.2: Listen for commit event from server
-  - [ ] 3.3: Keep CLI process running
-  - [ ] 3.4: Handle SIGINT/SIGTERM
+- [x] **Task 3: Implement process keepalive** (AC: #3)
+  - [x] 3.1: Create Promise that resolves on commit
+  - [x] 3.2: Listen for commit event from server
+  - [x] 3.3: Keep CLI process running
+  - [x] 3.4: Handle SIGINT/SIGTERM
 
-- [ ] **Task 4: Implement commit detection** (AC: #3, #5)
-  - [ ] 4.1: Set up event listener for commit
-  - [ ] 4.2: Resolve keepalive Promise on commit
-  - [ ] 4.3: Log commit confirmation
-  - [ ] 4.4: Proceed to export phase
+- [x] **Task 4: Implement commit detection** (AC: #3, #5)
+  - [x] 4.1: Set up event listener for commit
+  - [x] 4.2: Resolve keepalive Promise on commit
+  - [x] 4.3: Log commit confirmation
+  - [x] 4.4: Proceed to export phase
 
-- [ ] **Task 5: Implement non-interactive path** (AC: #6)
-  - [ ] 5.1: Skip Director server if not interactive
-  - [ ] 5.2: Proceed directly to export
-  - [ ] 5.3: Log appropriate messages
-  - [ ] 5.4: Maintain consistent exit behavior
+- [x] **Task 5: Implement non-interactive path** (AC: #6)
+  - [x] 5.1: Skip Director server if not interactive
+  - [x] 5.2: Proceed directly to export
+  - [x] 5.3: Log appropriate messages
+  - [x] 5.4: Maintain consistent exit behavior
 
-- [ ] **Task 6: Implement cancel handling** (AC: #3, #4)
-  - [ ] 6.1: Listen for SIGINT (Ctrl+C)
-  - [ ] 6.2: Warn about unsaved changes
-  - [ ] 6.3: Close server gracefully
-  - [ ] 6.4: Exit with appropriate code
+- [x] **Task 6: Implement cancel handling** (AC: #3, #4)
+  - [x] 6.1: Listen for SIGINT (Ctrl+C)
+  - [x] 6.2: Warn about unsaved changes
+  - [x] 6.3: Close server gracefully
+  - [x] 6.4: Exit with appropriate code
 
-- [ ] **Task 7: Add port configuration** (AC: #1)
-  - [ ] 7.1: Add --port option (default 3000)
-  - [ ] 7.2: Pass to Director server
-  - [ ] 7.3: Handle port-in-use errors
-  - [ ] 7.4: Suggest alternate port on conflict
+- [x] **Task 7: Add port configuration** (AC: #1)
+  - [x] 7.1: Add --port option (default 3000)
+  - [x] 7.2: Pass to Director server
+  - [x] 7.3: Handle port-in-use errors
+  - [x] 7.4: Suggest alternate port on conflict
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test interactive flag launches server
-  - [ ] 8.2: Test non-interactive skips server
-  - [ ] 8.3: Test commit triggers export
-  - [ ] 8.4: Test SIGINT handling
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test interactive flag launches server
+  - [x] 8.2: Test non-interactive skips server
+  - [x] 8.3: Test commit triggers export
+  - [x] 8.4: Test SIGINT handling
 
 ---
 
@@ -297,12 +297,18 @@ server.on('error', (error: any) => {
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+N/A
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- -i/--interactive flag launches Director Mode server after generation
+- EventEmitter-based coordination between CLI and server
+- waitForDirector() promise resolves on commit or close events
+- Port configuration with --port flag (default 3000)
+- EADDRINUSE error handling with suggestion
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/commands/gen.ts` - Interactive flag handling
+- `src/core/director-server.ts` - Server with event emitter
+- `test/core/director-server.test.ts` - Server tests

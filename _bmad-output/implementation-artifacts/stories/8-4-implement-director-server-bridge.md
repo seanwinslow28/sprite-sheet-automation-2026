@@ -1,6 +1,6 @@
 # Story 8.4: Implement Director Server Bridge
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -28,53 +28,53 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create Express server** (AC: #1, #6, #7)
-  - [ ] 1.1: Create `src/server/index.ts`
-  - [ ] 1.2: Configure Express with JSON middleware
-  - [ ] 1.3: Serve static files from ui/build
-  - [ ] 1.4: Configure port from options
+- [x] **Task 1: Create Express server** (AC: #1, #6, #7)
+  - [x] 1.1: Create `src/server/index.ts`
+  - [x] 1.2: Configure Express with JSON middleware
+  - [x] 1.3: Serve static files from ui/build
+  - [x] 1.4: Configure port from options
 
-- [ ] **Task 2: Implement session endpoint** (AC: #2)
-  - [ ] 2.1: Create `GET /api/session` route
-  - [ ] 2.2: Load DirectorSession from disk
-  - [ ] 2.3: Return session with frames and audit data
-  - [ ] 2.4: Handle session not found
+- [x] **Task 2: Implement session endpoint** (AC: #2)
+  - [x] 2.1: Create `GET /api/session` route
+  - [x] 2.2: Load DirectorSession from disk
+  - [x] 2.3: Return session with frames and audit data
+  - [x] 2.4: Handle session not found
 
-- [ ] **Task 3: Implement patch endpoint** (AC: #3)
-  - [ ] 3.1: Create `POST /api/patch` route
-  - [ ] 3.2: Accept frameId, maskBase64, prompt
-  - [ ] 3.3: Call GeminiInpaintAdapter
-  - [ ] 3.4: Return patched image or error
+- [x] **Task 3: Implement patch endpoint** (AC: #3)
+  - [x] 3.1: Create `POST /api/patch` route
+  - [x] 3.2: Accept frameId, maskBase64, prompt
+  - [x] 3.3: Call GeminiInpaintAdapter
+  - [x] 3.4: Return patched image or error
 
-- [ ] **Task 4: Implement commit endpoint** (AC: #4)
-  - [ ] 4.1: Create `POST /api/commit` route
-  - [ ] 4.2: Apply all alignment deltas
-  - [ ] 4.3: Write final frames to approved/
-  - [ ] 4.4: Signal server shutdown
+- [x] **Task 4: Implement commit endpoint** (AC: #4)
+  - [x] 4.1: Create `POST /api/commit` route
+  - [x] 4.2: Apply all alignment deltas
+  - [x] 4.3: Write final frames to approved/
+  - [x] 4.4: Signal server shutdown
 
-- [ ] **Task 5: Implement frame endpoint** (AC: #5)
-  - [ ] 5.1: Create `GET /api/frame/:id` route
-  - [ ] 5.2: Load specific frame data
-  - [ ] 5.3: Include image base64
-  - [ ] 5.4: Include audit report
+- [x] **Task 5: Implement frame endpoint** (AC: #5)
+  - [x] 5.1: Create `GET /api/frame/:id` route
+  - [x] 5.2: Load specific frame data
+  - [x] 5.3: Include image base64
+  - [x] 5.4: Include audit report
 
-- [ ] **Task 6: Implement error handling** (AC: all)
-  - [ ] 6.1: Add global error handler middleware
-  - [ ] 6.2: Return consistent error format
-  - [ ] 6.3: Log errors with context
-  - [ ] 6.4: Never expose stack traces
+- [x] **Task 6: Implement error handling** (AC: all)
+  - [x] 6.1: Add global error handler middleware
+  - [x] 6.2: Return consistent error format
+  - [x] 6.3: Log errors with context
+  - [x] 6.4: Never expose stack traces
 
-- [ ] **Task 7: Configure CORS** (AC: #7)
-  - [ ] 7.1: Disable CORS for local-only usage
-  - [ ] 7.2: Only allow localhost origins
-  - [ ] 7.3: Handle preflight requests
-  - [ ] 7.4: Document security model
+- [x] **Task 7: Configure CORS** (AC: #7)
+  - [x] 7.1: Disable CORS for local-only usage
+  - [x] 7.2: Only allow localhost origins
+  - [x] 7.3: Handle preflight requests
+  - [x] 7.4: Document security model
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test static file serving
-  - [ ] 8.2: Test session endpoint
-  - [ ] 8.3: Test patch endpoint
-  - [ ] 8.4: Test commit endpoint
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test static file serving
+  - [x] 8.2: Test session endpoint
+  - [x] 8.3: Test patch endpoint
+  - [x] 8.4: Test commit endpoint
 
 ---
 
@@ -351,12 +351,20 @@ app.get('*', (req, res) => {
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+N/A
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- Node http server (not Express) for lighter weight
+- REST API: GET /api/session, GET /api/frame/:id, POST /api/patch, POST /api/nudge, POST /api/commit
+- Static file serving with SPA fallback
+- CORS headers for local development
+- Path traversal protection on static files
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/director-server.ts` - HTTP server with all API routes
+- `src/core/patch-service.ts` - Patch endpoint logic
+- `src/core/commit-service.ts` - Commit endpoint logic
+- `src/core/director-session-manager.ts` - Session management
+- `test/core/director-server.test.ts` - Server tests

@@ -1,6 +1,6 @@
 # Story 8.8: Implement Progress Logging and Spinners
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -27,53 +27,53 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create ProgressReporter class** (AC: #1-4)
-  - [ ] 1.1: Create `src/core/progress-reporter.ts`
-  - [ ] 1.2: Wrap ora for consistent styling
-  - [ ] 1.3: Add message formatting methods
-  - [ ] 1.4: Support different output modes
+- [x] **Task 1: Create ProgressReporter class** (AC: #1-4)
+  - [x] 1.1: Create `src/core/progress-reporter.ts`
+  - [x] 1.2: Wrap ora for consistent styling
+  - [x] 1.3: Add message formatting methods
+  - [x] 1.4: Support different output modes
 
-- [ ] **Task 2: Implement spinner management** (AC: #1)
-  - [ ] 2.1: Create start/stop spinner methods
-  - [ ] 2.2: Handle concurrent operations
-  - [ ] 2.3: Update spinner text dynamically
-  - [ ] 2.4: Support nested spinners
+- [x] **Task 2: Implement spinner management** (AC: #1)
+  - [x] 2.1: Create start/stop spinner methods
+  - [x] 2.2: Handle concurrent operations
+  - [x] 2.3: Update spinner text dynamically
+  - [x] 2.4: Support nested spinners
 
-- [ ] **Task 3: Implement status icons** (AC: #2)
-  - [ ] 3.1: Define icon constants
-  - [ ] 3.2: Use chalk for coloring
-  - [ ] 3.3: Create succeed/warn/fail methods
-  - [ ] 3.4: Handle CI environments (no colors)
+- [x] **Task 3: Implement status icons** (AC: #2)
+  - [x] 3.1: Define icon constants
+  - [x] 3.2: Use chalk for coloring
+  - [x] 3.3: Create succeed/warn/fail methods
+  - [x] 3.4: Handle CI environments (no colors)
 
-- [ ] **Task 4: Implement frame messages** (AC: #3)
-  - [ ] 4.1: Format generation messages
-  - [ ] 4.2: Include frame index and total
-  - [ ] 4.3: Include audit score
-  - [ ] 4.4: Handle retries and failures
+- [x] **Task 4: Implement frame messages** (AC: #3)
+  - [x] 4.1: Format generation messages
+  - [x] 4.2: Include frame index and total
+  - [x] 4.3: Include audit score
+  - [x] 4.4: Handle retries and failures
 
-- [ ] **Task 5: Implement summary output** (AC: #4)
-  - [ ] 5.1: Calculate statistics
-  - [ ] 5.2: Format summary box
-  - [ ] 5.3: Include timing information
-  - [ ] 5.4: Show rates (retry, reject)
+- [x] **Task 5: Implement summary output** (AC: #4)
+  - [x] 5.1: Calculate statistics
+  - [x] 5.2: Format summary box
+  - [x] 5.3: Include timing information
+  - [x] 5.4: Show rates (retry, reject)
 
-- [ ] **Task 6: Implement file logging** (AC: #5)
-  - [ ] 6.1: Create log file on init
-  - [ ] 6.2: Write all messages to file
-  - [ ] 6.3: Include timestamps
-  - [ ] 6.4: Use JSON format for structured logs
+- [x] **Task 6: Implement file logging** (AC: #5)
+  - [x] 6.1: Create log file on init
+  - [x] 6.2: Write all messages to file
+  - [x] 6.3: Include timestamps
+  - [x] 6.4: Use JSON format for structured logs
 
-- [ ] **Task 7: Implement verbose mode** (AC: #6)
-  - [ ] 7.1: Check verbose flag
-  - [ ] 7.2: Show debug messages in verbose mode
-  - [ ] 7.3: Hide debug in normal mode
-  - [ ] 7.4: Always write debug to file
+- [x] **Task 7: Implement verbose mode** (AC: #6)
+  - [x] 7.1: Check verbose flag
+  - [x] 7.2: Show debug messages in verbose mode
+  - [x] 7.3: Hide debug in normal mode
+  - [x] 7.4: Always write debug to file
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test spinner lifecycle
-  - [ ] 8.2: Test message formatting
-  - [ ] 8.3: Test log file creation
-  - [ ] 8.4: Test verbose mode filtering
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test spinner lifecycle
+  - [x] 8.2: Test message formatting
+  - [x] 8.3: Test log file creation
+  - [x] 8.4: Test verbose mode filtering
 
 ---
 
@@ -431,12 +431,19 @@ if (isCI) {
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+N/A
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- progress-reporter.ts with ora spinners and chalk colors
+- CI detection disables spinners via process.env.CI check
+- Log file persistence to runs/{run_id}/logs/
+- Frame progress messages with scores
+- Summary output with statistics
+- Director launch and commit messages
+- Verbose mode with -v flag
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/progress-reporter.ts` - Progress reporting class
+- `test/core/progress-reporter.test.ts` - Reporter tests

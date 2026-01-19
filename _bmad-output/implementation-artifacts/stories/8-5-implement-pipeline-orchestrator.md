@@ -1,6 +1,6 @@
 # Story 8.5: Implement Pipeline Orchestrator
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -31,55 +31,55 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create PipelineOrchestrator class** (AC: #1-5)
-  - [ ] 1.1: Create `src/core/pipeline-orchestrator.ts`
-  - [ ] 1.2: Define phase enum and state interface
-  - [ ] 1.3: Implement constructor with manifest and move
-  - [ ] 1.4: Create phase execution methods
+- [x] **Task 1: Create PipelineOrchestrator class** (AC: #1-5)
+  - [x] 1.1: Create `src/core/pipeline-orchestrator.ts`
+  - [x] 1.2: Define phase enum and state interface
+  - [x] 1.3: Implement constructor with manifest and move
+  - [x] 1.4: Create phase execution methods
 
-- [ ] **Task 2: Implement INIT phase** (AC: #1)
-  - [ ] 2.1: Validate manifest against schema
-  - [ ] 2.2: Create run folder structure
-  - [ ] 2.3: Generate manifest.lock.json
-  - [ ] 2.4: Analyze anchor image
-  - [ ] 2.5: Initialize state.json
+- [x] **Task 2: Implement INIT phase** (AC: #1)
+  - [x] 2.1: Validate manifest against schema
+  - [x] 2.2: Create run folder structure
+  - [x] 2.3: Generate manifest.lock.json
+  - [x] 2.4: Analyze anchor image
+  - [x] 2.5: Initialize state.json
 
-- [ ] **Task 3: Implement GENERATION LOOP** (AC: #2)
-  - [ ] 3.1: Create frame generation loop
-  - [ ] 3.2: Call generator adapter for each frame
-  - [ ] 3.3: Run audit on generated frame
-  - [ ] 3.4: Check for auto-alignment need
-  - [ ] 3.5: Decide approve/retry/reject
+- [x] **Task 3: Implement GENERATION LOOP** (AC: #2)
+  - [x] 3.1: Create frame generation loop
+  - [x] 3.2: Call generator adapter for each frame
+  - [x] 3.3: Run audit on generated frame
+  - [x] 3.4: Check for auto-alignment need
+  - [x] 3.5: Decide approve/retry/reject
 
-- [ ] **Task 4: Implement auto-alignment** (AC: #2)
-  - [ ] 4.1: Detect HF03 baseline drift
-  - [ ] 4.2: Apply contact patch alignment
-  - [ ] 4.3: Mark as auto-aligned in state
-  - [ ] 4.4: Continue to approval
+- [x] **Task 4: Implement auto-alignment** (AC: #2)
+  - [x] 4.1: Detect HF03 baseline drift
+  - [x] 4.2: Apply contact patch alignment
+  - [x] 4.3: Mark as auto-aligned in state
+  - [x] 4.4: Continue to approval
 
-- [ ] **Task 5: Implement DIRECTOR MODE phase** (AC: #3)
-  - [ ] 5.1: Check for interactive flag
-  - [ ] 5.2: Start Director server
-  - [ ] 5.3: Wait for commit
-  - [ ] 5.4: Handle cancel/timeout
+- [x] **Task 5: Implement DIRECTOR MODE phase** (AC: #3)
+  - [x] 5.1: Check for interactive flag
+  - [x] 5.2: Start Director server
+  - [x] 5.3: Wait for commit
+  - [x] 5.4: Handle cancel/timeout
 
-- [ ] **Task 6: Implement EXPORT phase** (AC: #4)
-  - [ ] 6.1: Prepare frames for export
-  - [ ] 6.2: Run TexturePacker
-  - [ ] 6.3: Run Phaser validation
-  - [ ] 6.4: Handle validation results
+- [x] **Task 6: Implement EXPORT phase** (AC: #4)
+  - [x] 6.1: Prepare frames for export
+  - [x] 6.2: Run TexturePacker
+  - [x] 6.3: Run Phaser validation
+  - [x] 6.4: Handle validation results
 
-- [ ] **Task 7: Implement state persistence** (AC: #6, #7)
-  - [ ] 7.1: Save state after each phase
-  - [ ] 7.2: Use atomic writes
-  - [ ] 7.3: Include current phase and progress
-  - [ ] 7.4: Support resume detection
+- [x] **Task 7: Implement state persistence** (AC: #6, #7)
+  - [x] 7.1: Save state after each phase
+  - [x] 7.2: Use atomic writes
+  - [x] 7.3: Include current phase and progress
+  - [x] 7.4: Support resume detection
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test full pipeline execution
-  - [ ] 8.2: Test phase transitions
-  - [ ] 8.3: Test state persistence
-  - [ ] 8.4: Test resume from checkpoint
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test full pipeline execution
+  - [x] 8.2: Test phase transitions
+  - [x] 8.3: Test state persistence
+  - [x] 8.4: Test resume from checkpoint
 
 ---
 
@@ -436,12 +436,21 @@ async function detectExistingRun(manifest: Manifest, move: string): Promise<Pipe
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+N/A
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- Orchestrator integration via gen.ts command
+- createOrchestratorContext and runOrchestrator with state machine execution
+- 5-phase execution (INIT→LOOP→DIRECTOR→EXPORT→COMPLETE)
+- Frame state tracking with approval/rejection/retry
+- Atomic state persistence
+- 35 tests passing
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/core/orchestrator.ts` - Main orchestrator
+- `src/core/run-folder-manager.ts` - Run folder creation
+- `src/core/lock-file-generator.ts` - Lock file generation
+- `src/core/state-manager.ts` - State persistence
+- `test/core/orchestrator.test.ts` - Orchestrator tests

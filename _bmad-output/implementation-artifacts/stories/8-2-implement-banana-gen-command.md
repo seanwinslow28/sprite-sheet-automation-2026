@@ -1,6 +1,6 @@
 # Story 8.2: Implement `banana gen` Command
 
-Status: ready-for-dev
+Status: done
 
 ---
 
@@ -35,54 +35,54 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Implement gen command handler** (AC: #1-7)
-  - [ ] 1.1: Create `src/commands/gen.ts` with full implementation
-  - [ ] 1.2: Parse command options (--move, --manifest, etc.)
-  - [ ] 1.3: Initialize pipeline orchestrator
-  - [ ] 1.4: Handle errors gracefully
+- [x] **Task 1: Implement gen command handler** (AC: #1-7)
+  - [x] 1.1: Create `src/commands/gen.ts` with full implementation
+  - [x] 1.2: Parse command options (--move, --manifest, etc.)
+  - [x] 1.3: Initialize pipeline orchestrator
+  - [x] 1.4: Handle errors gracefully
 
-- [ ] **Task 2: Implement manifest loading** (AC: #1)
-  - [ ] 2.1: Locate manifest file (default or specified)
-  - [ ] 2.2: Parse YAML to object
-  - [ ] 2.3: Validate against Zod schema
-  - [ ] 2.4: Report validation errors clearly
+- [x] **Task 2: Implement manifest loading** (AC: #1)
+  - [x] 2.1: Locate manifest file (default or specified)
+  - [x] 2.2: Parse YAML to object
+  - [x] 2.3: Validate against Zod schema
+  - [x] 2.4: Report validation errors clearly
 
-- [ ] **Task 3: Implement run initialization** (AC: #2, #3)
-  - [ ] 3.1: Generate run ID
-  - [ ] 3.2: Create run folder structure
-  - [ ] 3.3: Analyze anchor image
-  - [ ] 3.4: Create manifest.lock.json
+- [x] **Task 3: Implement run initialization** (AC: #2, #3)
+  - [x] 3.1: Generate run ID
+  - [x] 3.2: Create run folder structure
+  - [x] 3.3: Analyze anchor image
+  - [x] 3.4: Create manifest.lock.json
 
-- [ ] **Task 4: Implement generation loop** (AC: #4, #5, #6)
-  - [ ] 4.1: Iterate through frame indices
-  - [ ] 4.2: Generate each frame via adapter
-  - [ ] 4.3: Audit generated frame
-  - [ ] 4.4: Apply auto-alignment if needed
-  - [ ] 4.5: Handle retry logic
+- [x] **Task 4: Implement generation loop** (AC: #4, #5, #6)
+  - [x] 4.1: Iterate through frame indices
+  - [x] 4.2: Generate each frame via adapter
+  - [x] 4.3: Audit generated frame
+  - [x] 4.4: Apply auto-alignment if needed
+  - [x] 4.5: Handle retry logic
 
-- [ ] **Task 5: Implement progress spinners** (AC: #8, #9)
-  - [ ] 5.1: Install and configure ora
-  - [ ] 5.2: Show spinner for each operation
-  - [ ] 5.3: Update text with current frame
-  - [ ] 5.4: Show success/warning/error icons
+- [x] **Task 5: Implement progress spinners** (AC: #8, #9)
+  - [x] 5.1: Install and configure ora
+  - [x] 5.2: Show spinner for each operation
+  - [x] 5.3: Update text with current frame
+  - [x] 5.4: Show success/warning/error icons
 
-- [ ] **Task 6: Implement status messages** (AC: #9)
-  - [ ] 6.1: Format generation messages
-  - [ ] 6.2: Include audit scores
-  - [ ] 6.3: Show auto-align warnings
-  - [ ] 6.4: Show failure reasons
+- [x] **Task 6: Implement status messages** (AC: #9)
+  - [x] 6.1: Format generation messages
+  - [x] 6.2: Include audit scores
+  - [x] 6.3: Show auto-align warnings
+  - [x] 6.4: Show failure reasons
 
-- [ ] **Task 7: Implement summary output** (AC: #10, #11)
-  - [ ] 7.1: Calculate summary statistics
-  - [ ] 7.2: Format summary message
-  - [ ] 7.3: Write summary to logs
-  - [ ] 7.4: Display to console
+- [x] **Task 7: Implement summary output** (AC: #10, #11)
+  - [x] 7.1: Calculate summary statistics
+  - [x] 7.2: Format summary message
+  - [x] 7.3: Write summary to logs
+  - [x] 7.4: Display to console
 
-- [ ] **Task 8: Write tests** (AC: all)
-  - [ ] 8.1: Test successful generation flow
-  - [ ] 8.2: Test manifest validation errors
-  - [ ] 8.3: Test progress display
-  - [ ] 8.4: Test log file creation
+- [x] **Task 8: Write tests** (AC: all)
+  - [x] 8.1: Test successful generation flow
+  - [x] 8.2: Test manifest validation errors
+  - [x] 8.3: Test progress display
+  - [x] 8.4: Test log file creation
 
 ---
 
@@ -314,12 +314,21 @@ runs/{run_id}/
 
 ### Debug Log References
 
-*(To be filled during implementation)*
+N/A
 
 ### Completion Notes List
 
-*(To be filled during implementation)*
+- Full gen command implementation with all CLI flags
+- Manifest loading via YAML parser with Zod validation
+- Run initialization with folder creation and lock file generation
+- Anchor analysis integration
+- Orchestrator context creation and execution
+- Progress spinners via ProgressReporter
 
 ### File List
 
-*(To be filled during implementation)*
+- `src/commands/gen.ts` - Gen command implementation
+- `src/core/orchestrator.ts` - Pipeline orchestration
+- `src/core/run-folder-manager.ts` - Run folder structure
+- `src/core/lock-file-generator.ts` - Manifest lock generation
+- `test/commands/gen.test.ts` - Command tests
