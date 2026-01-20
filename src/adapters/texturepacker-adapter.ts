@@ -36,7 +36,8 @@ function isENOENT(error: unknown): boolean {
  */
 export interface PackResult {
     atlasPath: string;
-    sheetPath: string;
+    sheetPath: string;       // Primary sheet path (first sheet for multipack)
+    sheetPaths: string[];    // All sheet paths (Critical Bug #2 fix: multipack support)
     frameCount: number;
     sheetCount: number;
     durationMs: number;
@@ -136,21 +137,29 @@ async function countFramesInDir(dirPath: string): Promise<number> {
 }
 
 /**
- * Count sheet files (for multipack detection)
+ * Get actual sheet file paths (Critical Bug #2 fix: multipack support)
+ * Returns paths that actually exist on disk
  */
-async function countSheetFiles(basePath: string): Promise<number> {
+async function getSheetFilePaths(basePath: string): Promise<string[]> {
     const dir = path.dirname(basePath);
     const baseName = path.basename(basePath, '.png');
 
     try {
         const files = await fs.readdir(dir);
-        // Count files matching pattern: baseName.png, baseName-0.png, baseName-1.png, etc.
-        const sheetFiles = files.filter(
-            f => f === `${baseName}.png` || f.match(new RegExp(`^${baseName}-\\d+\\.png$`))
-        );
-        return sheetFiles.length || 1;
+        // Find files matching pattern: baseName.png, baseName-0.png, baseName-1.png, etc.
+        const sheetFiles = files
+            .filter(f => f === `${baseName}.png` || f.match(new RegExp(`^${baseName}-\\d+\\.png$`)))
+            .map(f => path.join(dir, f))
+            .sort();
+
+        // If no files found, return the expected single-pack path
+        if (sheetFiles.length === 0) {
+            return [basePath];
+        }
+
+        return sheetFiles;
     } catch {
-        return 1;
+        return [basePath];
     }
 }
 
@@ -278,13 +287,15 @@ export async function packAtlas(
             });
         }
 
-        // Count frames and sheets
+        // Count frames and get actual sheet paths (Critical Bug #2 fix)
         const frameCount = await countFramesInDir(inputDir);
-        const sheetCount = await countSheetFiles(pngPath);
+        const sheetPaths = await getSheetFilePaths(pngPath);
+        const sheetCount = sheetPaths.length;
 
         return Result.ok({
             atlasPath: jsonPath,
-            sheetPath: pngPath,
+            sheetPath: sheetPaths[0] || pngPath,  // Primary sheet (first for multipack)
+            sheetPaths,
             frameCount,
             sheetCount,
             durationMs,
@@ -393,12 +404,15 @@ export async function packAtlasWithLogging(
             });
         }
 
+        // Get actual sheet paths (Critical Bug #2 fix)
         const frameCount = await countFramesInDir(inputDir);
-        const sheetCount = await countSheetFiles(`${outputBasePath}.png`);
+        const sheetPaths = await getSheetFilePaths(`${outputBasePath}.png`);
+        const sheetCount = sheetPaths.length;
 
         return Result.ok({
             atlasPath: `${outputBasePath}.json`,
-            sheetPath: `${outputBasePath}.png`,
+            sheetPath: sheetPaths[0] || `${outputBasePath}.png`,
+            sheetPaths,
             frameCount,
             sheetCount,
             durationMs,

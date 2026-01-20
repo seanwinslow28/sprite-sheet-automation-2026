@@ -98,8 +98,20 @@ export class CommitService {
     let nudgedCount = 0;
     let patchedCount = 0;
 
-    // Process each frame
-    for (const frame of frames) {
+    // High Bug #3 fix: Only process APPROVED frames
+    const approvedFrames = frames.filter(f => f.status === 'APPROVED');
+
+    if (approvedFrames.length === 0) {
+      logger.warn({
+        event: 'commit_no_approved_frames',
+        sessionId: session.sessionId,
+        totalFrames: frames.length,
+      });
+      // Allow commit with 0 frames - session still gets marked committed
+    }
+
+    // Process only approved frames
+    for (const frame of approvedFrames) {
       const processResult = await this.processFrame(
         frame,
         approvedDir

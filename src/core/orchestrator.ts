@@ -13,6 +13,7 @@ import {
     saveState,
     markFrameInProgress,
     markFrameApproved,
+    markFrameFailed,
     isRunComplete,
 } from './state-manager.js';
 
@@ -283,12 +284,30 @@ async function executeInit(ctx: OrchestratorContext): Promise<void> {
         // Resume existing run
         const loadResult = await loadStateForResumption(resumeDecision.existingRun);
         if (loadResult.ok) {
-            // Merge loaded state with attempt tracking
-            const resumedState = initializeAttemptTracking(
-                loadResult.value,
-                ctx.manifest.identity.frame_count
-            );
-            ctx.state = resumedState;
+            const loadedState = loadResult.value;
+
+            // High Bug #1 fix: Preserve attempt tracking from previous run
+            // Check if state already has attempt tracking data
+            const hasAttemptTracking = 'totalAttempts' in loadedState &&
+                'frameAttempts' in loadedState;
+
+            if (hasAttemptTracking) {
+                // State already has attempt tracking - use it directly
+                ctx.state = loadedState as RunStateWithAttempts;
+
+                logger.info({
+                    resumedFrom: resumeDecision.existingRun.runId,
+                    totalAttempts: (loadedState as RunStateWithAttempts).totalAttempts,
+                }, 'Resumed with preserved attempt tracking');
+            } else {
+                // Old state format - initialize attempt tracking fresh
+                const resumedState = initializeAttemptTracking(
+                    loadedState,
+                    ctx.manifest.identity.frame_count
+                );
+                ctx.state = resumedState;
+            }
+
             ctx.currentFrameIndex = resumeDecision.firstPendingFrame ?? 0;
 
             logger.info({
@@ -464,6 +483,8 @@ async function executeRetryDeciding(
     const maxAttempts = ctx.manifest.generator.max_attempts_per_frame ?? 5;
     if (isMaxAttemptsReached(ctx.state, frameIndex, maxAttempts)) {
         ctx.state = markFrameMaxAttemptsReached(ctx.state, frameIndex);
+        // Critical Bug #1 fix: Also update frame_states to mark as failed
+        ctx.state = markFrameFailed(ctx.state, frameIndex, 'MAX_ATTEMPTS_REACHED');
         await persistState(ctx);
 
         return {
@@ -482,6 +503,8 @@ async function executeRetryDeciding(
     if (isStopDecision(decision)) {
         // Frame should be rejected (identity collapse or oscillation)
         ctx.state = markFrameRejected(ctx.state, frameIndex, decision.stopReason);
+        // Critical Bug #1 fix: Also update frame_states to mark as failed
+        ctx.state = markFrameFailed(ctx.state, frameIndex, decision.stopReason);
         await persistState(ctx);
 
         return {
@@ -512,6 +535,8 @@ async function executeRetryDeciding(
 
     // Both ladder and attempts exhausted
     ctx.state = markFrameMaxAttemptsReached(ctx.state, frameIndex);
+    // Critical Bug #1 fix: Also update frame_states to mark as failed
+    ctx.state = markFrameFailed(ctx.state, frameIndex, 'LADDER_EXHAUSTED');
     await persistState(ctx);
 
     return {
@@ -550,8 +575,9 @@ async function executeApproving(
     // Reset retry state for this frame
     resetFrameRetryState(ctx.retryStorage, frameIndex);
 
-    // Record pass for oscillation tracking
-    recordPassFail(ctx.retryStorage, frameIndex, 'pass');
+    // High Bug #2 fix: REMOVED duplicate recordPassFail call
+    // Pass/fail is already recorded in AUDITING state (line ~727)
+    // Recording twice skews oscillation detection pattern
 
     await persistState(ctx);
 

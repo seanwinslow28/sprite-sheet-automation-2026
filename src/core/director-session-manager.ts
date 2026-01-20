@@ -42,12 +42,51 @@ export interface CreateSessionOptions {
 }
 
 /**
+ * Simple async mutex for session operations
+ * Race condition fix: Prevents concurrent PATCH/NUDGE/COMMIT from corrupting state
+ */
+class SessionMutex {
+    private locked = false;
+    private queue: Array<() => void> = [];
+
+    async acquire(): Promise<void> {
+        if (!this.locked) {
+            this.locked = true;
+            return;
+        }
+
+        return new Promise((resolve) => {
+            this.queue.push(resolve);
+        });
+    }
+
+    release(): void {
+        if (this.queue.length > 0) {
+            const next = this.queue.shift()!;
+            next();
+        } else {
+            this.locked = false;
+        }
+    }
+
+    async runExclusive<T>(fn: () => Promise<T>): Promise<T> {
+        await this.acquire();
+        try {
+            return await fn();
+        } finally {
+            this.release();
+        }
+    }
+}
+
+/**
  * Director Session Manager class
  * Manages session state with atomic persistence
  */
 export class DirectorSessionManager {
     private session: DirectorSession | null = null;
     private readonly sessionPath: string;
+    private readonly mutex = new SessionMutex();  // Race condition fix
 
     constructor(
         private readonly runId: string,
@@ -227,126 +266,138 @@ export class DirectorSessionManager {
 
     /**
      * Update a frame's status with transition validation
+     * Race condition fix: Uses mutex to prevent concurrent updates
      */
     async updateFrameStatus(
         frameIndex: number,
         newStatus: FrameStatus
     ): Promise<Result<void, SessionError>> {
-        if (!this.session) {
-            return Result.err({
-                code: 'NO_ACTIVE_SESSION',
-                message: 'No active session',
-            });
-        }
+        return this.mutex.runExclusive(async () => {
+            if (!this.session) {
+                return Result.err({
+                    code: 'NO_ACTIVE_SESSION',
+                    message: 'No active session',
+                });
+            }
 
-        const frame = this.session.frames[String(frameIndex)];
-        if (!frame) {
-            return Result.err({
-                code: 'FRAME_NOT_FOUND',
-                message: `Frame ${frameIndex} not found in session`,
-            });
-        }
+            const frame = this.session.frames[String(frameIndex)];
+            if (!frame) {
+                return Result.err({
+                    code: 'FRAME_NOT_FOUND',
+                    message: `Frame ${frameIndex} not found in session`,
+                });
+            }
 
-        // Validate transition
-        if (!isValidStatusTransition(frame.status, newStatus)) {
-            return Result.err({
-                code: 'INVALID_TRANSITION',
-                message: `Invalid status transition from ${frame.status} to ${newStatus}`,
-                context: { frameIndex, from: frame.status, to: newStatus },
-            });
-        }
+            // Validate transition
+            if (!isValidStatusTransition(frame.status, newStatus)) {
+                return Result.err({
+                    code: 'INVALID_TRANSITION',
+                    message: `Invalid status transition from ${frame.status} to ${newStatus}`,
+                    context: { frameIndex, from: frame.status, to: newStatus },
+                });
+            }
 
-        frame.status = newStatus;
-        return this.saveSession(this.session);
+            frame.status = newStatus;
+            return this.saveSession(this.session);
+        });
     }
 
     /**
      * Update a frame's audit report
+     * Race condition fix: Uses mutex to prevent concurrent updates
      */
     async updateFrameAuditReport(
         frameIndex: number,
         auditReport: AuditReport
     ): Promise<Result<void, SessionError>> {
-        if (!this.session) {
-            return Result.err({
-                code: 'NO_ACTIVE_SESSION',
-                message: 'No active session',
-            });
-        }
+        return this.mutex.runExclusive(async () => {
+            if (!this.session) {
+                return Result.err({
+                    code: 'NO_ACTIVE_SESSION',
+                    message: 'No active session',
+                });
+            }
 
-        const frame = this.session.frames[String(frameIndex)];
-        if (!frame) {
-            return Result.err({
-                code: 'FRAME_NOT_FOUND',
-                message: `Frame ${frameIndex} not found in session`,
-            });
-        }
+            const frame = this.session.frames[String(frameIndex)];
+            if (!frame) {
+                return Result.err({
+                    code: 'FRAME_NOT_FOUND',
+                    message: `Frame ${frameIndex} not found in session`,
+                });
+            }
 
-        frame.auditReport = auditReport;
-        return this.saveSession(this.session);
+            frame.auditReport = auditReport;
+            return this.saveSession(this.session);
+        });
     }
 
     /**
      * Update a frame's overrides
+     * Race condition fix: Uses mutex to prevent concurrent updates
      */
     async updateFrameOverrides(
         frameIndex: number,
         overrides: Partial<DirectorOverrides>
     ): Promise<Result<void, SessionError>> {
-        if (!this.session) {
-            return Result.err({
-                code: 'NO_ACTIVE_SESSION',
-                message: 'No active session',
-            });
-        }
+        return this.mutex.runExclusive(async () => {
+            if (!this.session) {
+                return Result.err({
+                    code: 'NO_ACTIVE_SESSION',
+                    message: 'No active session',
+                });
+            }
 
-        const frame = this.session.frames[String(frameIndex)];
-        if (!frame) {
-            return Result.err({
-                code: 'FRAME_NOT_FOUND',
-                message: `Frame ${frameIndex} not found in session`,
-            });
-        }
+            const frame = this.session.frames[String(frameIndex)];
+            if (!frame) {
+                return Result.err({
+                    code: 'FRAME_NOT_FOUND',
+                    message: `Frame ${frameIndex} not found in session`,
+                });
+            }
 
-        // Merge overrides
-        frame.directorOverrides = {
-            ...frame.directorOverrides,
-            ...overrides,
-        };
+            // Merge overrides
+            frame.directorOverrides = {
+                ...frame.directorOverrides,
+                ...overrides,
+            };
 
-        return this.saveSession(this.session);
+            return this.saveSession(this.session);
+        });
     }
 
     /**
      * Set alignment delta for a frame
+     * Race condition fix: Uses mutex to prevent concurrent updates
      */
     async setAlignmentDelta(
         frameIndex: number,
         delta: Omit<HumanAlignmentDelta, 'frameId' | 'timestamp'>
     ): Promise<Result<void, SessionError>> {
-        if (!this.session) {
-            return Result.err({
-                code: 'NO_ACTIVE_SESSION',
-                message: 'No active session',
-            });
-        }
+        return this.mutex.runExclusive(async () => {
+            if (!this.session) {
+                return Result.err({
+                    code: 'NO_ACTIVE_SESSION',
+                    message: 'No active session',
+                });
+            }
 
-        const frame = this.session.frames[String(frameIndex)];
-        if (!frame) {
-            return Result.err({
-                code: 'FRAME_NOT_FOUND',
-                message: `Frame ${frameIndex} not found in session`,
-            });
-        }
+            const frame = this.session.frames[String(frameIndex)];
+            if (!frame) {
+                return Result.err({
+                    code: 'FRAME_NOT_FOUND',
+                    message: `Frame ${frameIndex} not found in session`,
+                });
+            }
 
-        frame.directorOverrides.alignment = {
-            frameId: frame.id,
-            userOverrideX: delta.userOverrideX,
-            userOverrideY: delta.userOverrideY,
-            timestamp: new Date().toISOString(),
-        };
+            frame.directorOverrides.alignment = {
+                frameId: frame.id,
+                userOverrideX: delta.userOverrideX,
+                userOverrideY: delta.userOverrideY,
+                timestamp: new Date().toISOString(),
+            };
 
-        return this.saveSession(this.session);
+            return this.saveSession(this.session);
+        });
     }
 
     /**
@@ -358,22 +409,26 @@ export class DirectorSessionManager {
 
     /**
      * Commit the session (finalize for export)
+     * Race condition fix: Uses mutex to prevent concurrent updates
      */
     async commitSession(): Promise<Result<void, SessionError>> {
-        if (!this.session) {
-            return Result.err({
-                code: 'NO_ACTIVE_SESSION',
-                message: 'No active session',
-            });
-        }
+        return this.mutex.runExclusive(async () => {
+            if (!this.session) {
+                return Result.err({
+                    code: 'NO_ACTIVE_SESSION',
+                    message: 'No active session',
+                });
+            }
 
-        this.session.status = 'committed';
-        logger.info({ sessionId: this.session.sessionId }, 'Session committed');
-        return this.saveSession(this.session);
+            this.session.status = 'committed';
+            logger.info({ sessionId: this.session.sessionId }, 'Session committed');
+            return this.saveSession(this.session);
+        });
     }
 
     /**
      * Mark session as committed with commit info (for Story 7.9)
+     * Race condition fix: Uses mutex to prevent concurrent updates
      */
     async markCommitted(commitInfo: {
         approvedCount: number;
@@ -381,36 +436,41 @@ export class DirectorSessionManager {
         patchedCount: number;
         timestamp: string;
     }): Promise<Result<void, SessionError>> {
-        if (!this.session) {
-            return Result.err({
-                code: 'NO_ACTIVE_SESSION',
-                message: 'No active session',
-            });
-        }
+        return this.mutex.runExclusive(async () => {
+            if (!this.session) {
+                return Result.err({
+                    code: 'NO_ACTIVE_SESSION',
+                    message: 'No active session',
+                });
+            }
 
-        this.session.status = 'committed';
-        this.session.commitInfo = commitInfo;
-        logger.info({
-            sessionId: this.session.sessionId,
-            ...commitInfo,
-        }, 'Session marked committed');
-        return this.saveSession(this.session);
+            this.session.status = 'committed';
+            this.session.commitInfo = commitInfo;
+            logger.info({
+                sessionId: this.session.sessionId,
+                ...commitInfo,
+            }, 'Session marked committed');
+            return this.saveSession(this.session);
+        });
     }
 
     /**
      * Discard the session (cancel)
+     * Race condition fix: Uses mutex to prevent concurrent updates
      */
     async discardSession(): Promise<Result<void, SessionError>> {
-        if (!this.session) {
-            return Result.err({
-                code: 'NO_ACTIVE_SESSION',
-                message: 'No active session',
-            });
-        }
+        return this.mutex.runExclusive(async () => {
+            if (!this.session) {
+                return Result.err({
+                    code: 'NO_ACTIVE_SESSION',
+                    message: 'No active session',
+                });
+            }
 
-        this.session.status = 'discarded';
-        logger.info({ sessionId: this.session.sessionId }, 'Session discarded');
-        return this.saveSession(this.session);
+            this.session.status = 'discarded';
+            logger.info({ sessionId: this.session.sessionId }, 'Session discarded');
+            return this.saveSession(this.session);
+        });
     }
 
     /**

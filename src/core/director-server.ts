@@ -254,9 +254,13 @@ export class DirectorServer extends EventEmitter {
                 return;
             }
 
+            // Build approved frame paths from state.json (Critical Bug #3 fix)
+            const approvedFramePaths = this.buildApprovedFramePaths(stateResult.frame_states || []);
+
             const createResult = await this.sessionManager.initializeOrResume({
                 moveId: 'unknown',
                 totalFrames: stateResult.total_frames,
+                approvedFramePaths,
             });
 
             if (createResult.isErr()) {
@@ -302,8 +306,17 @@ export class DirectorServer extends EventEmitter {
 
     /**
      * Load run state from state.json
+     * Returns frame states with approved/candidate paths for Director session
      */
-    private async loadRunState(): Promise<{ total_frames: number } | null> {
+    private async loadRunState(): Promise<{
+        total_frames: number;
+        frame_states: Array<{
+            index: number;
+            status: string;
+            approved_path: string | null;
+            last_candidate_path: string | null;
+        }>;
+    } | null> {
         try {
             const statePath = join(this.runPath, 'state.json');
             const content = await fs.readFile(statePath, 'utf-8');
@@ -311,6 +324,31 @@ export class DirectorServer extends EventEmitter {
         } catch {
             return null;
         }
+    }
+
+    /**
+     * Build approved frame paths map from run state
+     * Prefers approved_path, falls back to last_candidate_path
+     */
+    private buildApprovedFramePaths(
+        frameStates: Array<{
+            index: number;
+            status: string;
+            approved_path: string | null;
+            last_candidate_path: string | null;
+        }>
+    ): Map<number, string> {
+        const paths = new Map<number, string>();
+
+        for (const frame of frameStates) {
+            // Use approved path if available, otherwise last candidate
+            const imagePath = frame.approved_path || frame.last_candidate_path;
+            if (imagePath) {
+                paths.set(frame.index, imagePath);
+            }
+        }
+
+        return paths;
     }
 
     /**
@@ -346,6 +384,14 @@ export class DirectorServer extends EventEmitter {
         if (!imageBase64 && frame.imagePath && existsSync(frame.imagePath)) {
             const buffer = await fs.readFile(frame.imagePath);
             imageBase64 = buffer.toString('base64');
+
+            // Critical Bug #4 fix: Persist imageBase64 to session for patch flow
+            // Update frame in session so subsequent PATCH requests have image data
+            const currentSession = this.sessionManager.getSession();
+            if (currentSession && currentSession.frames[String(frameIndex)]) {
+                currentSession.frames[String(frameIndex)].imageBase64 = imageBase64;
+                // Note: We don't await save here to keep GET fast; session saves on next mutation
+            }
         }
 
         this.sendJson(res, 200, {

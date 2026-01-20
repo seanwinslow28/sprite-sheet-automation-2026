@@ -106,17 +106,36 @@ export class PatchService {
       });
     }
 
-    // Check for image data
-    if (!frame.imageBase64) {
+    // Critical Bug #4 fix: Load image from disk if imageBase64 is missing
+    let imageData = frame.imageBase64;
+    if (!imageData && frame.imagePath) {
+      try {
+        const buffer = await fs.readFile(frame.imagePath);
+        imageData = buffer.toString('base64');
+
+        // Cache it in session for future requests
+        const currentSession = sessionManager.getSession();
+        if (currentSession && currentSession.frames[String(frameIndex)]) {
+          currentSession.frames[String(frameIndex)].imageBase64 = imageData;
+        }
+      } catch (readError) {
+        return Result.err({
+          code: 'MISSING_IMAGE_DATA',
+          message: `Failed to read image for frame ${frameId}: ${readError}`,
+        });
+      }
+    }
+
+    if (!imageData) {
       return Result.err({
         code: 'MISSING_IMAGE_DATA',
-        message: `Frame ${frameId} has no image data loaded`,
+        message: `Frame ${frameId} has no image data and no valid imagePath`,
       });
     }
 
     // Call Gemini inpaint
     const inpaintResult = await this.adapter.inpaint({
-      originalImage: frame.imageBase64,
+      originalImage: imageData,
       mask: maskBase64,
       prompt,
     });

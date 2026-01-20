@@ -20,7 +20,8 @@ import type { Manifest } from '../../domain/schemas/manifest.js';
  * Atlas output paths
  */
 export interface AtlasPaths {
-    png: string;
+    png: string;           // Primary PNG path (first sheet for multipack)
+    pngPaths: string[];    // All PNG paths (Critical Bug #2 fix: multipack support)
     json: string;
     name: string;
 }
@@ -76,8 +77,10 @@ export function generateAtlasPaths(
     const name = `${sanitizeForFilename(character)}_${sanitizeForFilename(move)}`;
     const exportDir = path.join(runsDir, runId, 'export');
 
+    const pngPath = path.join(exportDir, `${name}.png`);
     return {
-        png: path.join(exportDir, `${name}.png`),
+        png: pngPath,
+        pngPaths: [pngPath],  // Will be updated with actual paths after TexturePacker
         json: path.join(exportDir, `${name}.json`),
         name,
     };
@@ -203,10 +206,15 @@ export async function exportAtlas(
 
     const pack = packResult.unwrap();
 
+    // Critical Bug #2 fix: Update atlasPaths with actual PNG paths from TexturePacker
+    atlasPaths.png = pack.sheetPath;
+    atlasPaths.pngPaths = pack.sheetPaths;
+
     // Step 5: Post-export validation
     let postValidation: AtlasValidationReport;
     if (!options.skipPostValidation) {
-        const postValidResult = await validateAtlas(atlasPaths.json, atlasPaths.png);
+        // Use actual primary sheet path from pack result
+        const postValidResult = await validateAtlas(atlasPaths.json, pack.sheetPath);
         if (postValidResult.isErr()) {
             return Result.err(postValidResult.unwrapErr());
         }
