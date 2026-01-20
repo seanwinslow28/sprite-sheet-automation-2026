@@ -1,0 +1,27 @@
+# E2E Smoke Test: Basic 4-frame idle animation
+# Purpose: Validate minimal pipeline flow
+# Expected: 4 frames generated, approved, and exported to atlas
+
+identity:
+  character: testchar
+  move: idle
+  version: "1.0.0"
+
+inputs:
+  # Update this path to your actual test anchor
+  anchor_path: ./assets/test/test_anchor_512.png
+
+generator:
+  total_frames: 4
+  temperature: 1.0
+  model: gemini-2.0-flash-exp
+
+canvas:
+  target_width: 128
+  target_height: 128
+  generation_scale: 4
+
+quality:
+  min_identity_score: 0.80
+  max_baseline_drift: 10
+  max_retries_per_frame: 3

@@ -1,0 +1,30 @@
+# E2E Attack Test: 6-frame attack animation
+# Purpose: Validate MAPD bypass for high-motion frames
+# Expected: Dynamic poses with identity preservation
+
+identity:
+  character: testchar
+  move: attack
+  version: "1.0.0"
+
+inputs:
+  # Update this path to your actual test anchor
+  anchor_path: ./assets/test/test_anchor_512.png
+
+generator:
+  total_frames: 6
+  temperature: 1.0
+  model: gemini-2.0-flash-exp
+
+canvas:
+  target_width: 128
+  target_height: 128
+  generation_scale: 4
+
+quality:
+  min_identity_score: 0.70  # Lower for attack motion
+  max_baseline_drift: 16    # Higher for action poses
+  max_retries_per_frame: 4
+  mapd_bypass_moves:
+    - attack
+    - special

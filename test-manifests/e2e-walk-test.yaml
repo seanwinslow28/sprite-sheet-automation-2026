@@ -1,0 +1,27 @@
+# E2E Walk Test: 8-frame walk cycle
+# Purpose: Validate temporal coherence and loop closure
+# Expected: Smooth walk animation with consistent baseline
+
+identity:
+  character: testchar
+  move: walk
+  version: "1.0.0"
+
+inputs:
+  # Update this path to your actual test anchor
+  anchor_path: ./assets/test/test_anchor_512.png
+
+generator:
+  total_frames: 8
+  temperature: 1.0
+  model: gemini-2.0-flash-exp
+
+canvas:
+  target_width: 128
+  target_height: 128
+  generation_scale: 4
+
+quality:
+  min_identity_score: 0.75  # Lower for motion
+  max_baseline_drift: 12    # Higher tolerance for walk
+  max_retries_per_frame: 4
