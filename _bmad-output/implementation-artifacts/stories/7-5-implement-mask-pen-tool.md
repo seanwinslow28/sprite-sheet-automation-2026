@@ -1,6 +1,6 @@
 # Story 7.5: Implement Mask Pen Tool for Inpainting Regions
 
-Status: review
+Status: done
 
 ---
 

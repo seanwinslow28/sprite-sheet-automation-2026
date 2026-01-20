@@ -1,6 +1,6 @@
 # Story 7.3: Implement Stage Component with Onion Skinning
 
-Status: review
+Status: done
 
 ---
 

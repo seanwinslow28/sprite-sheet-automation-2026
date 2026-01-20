@@ -1,6 +1,6 @@
 # Story 7.7: Implement Inspector Pane with Audit Details
 
-Status: review
+Status: done
 
 ---
 

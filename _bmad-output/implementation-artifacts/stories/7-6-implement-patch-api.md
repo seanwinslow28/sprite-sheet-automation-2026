@@ -1,6 +1,6 @@
 # Story 7.6: Implement Patch API for Corrective Inpainting
 
-Status: review
+Status: done
 
 ---
 

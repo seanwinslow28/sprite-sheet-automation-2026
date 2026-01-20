@@ -1,6 +1,6 @@
 # Story 7.2: Implement Timeline Component with Status Indicators
 
-Status: review
+Status: done
 
 ---
 

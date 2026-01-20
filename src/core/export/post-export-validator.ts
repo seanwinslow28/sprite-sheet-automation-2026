@@ -246,6 +246,74 @@ async function validatePngIntegrity(
 }
 
 /**
+ * Validate PNG integrity for all multipack sheets
+ */
+async function validatePngIntegrityMulti(
+    sheets: Array<{
+        index: number;
+        image: string;
+        pngPath: string;
+        expectedSize?: { w: number; h: number };
+    }>
+): Promise<CheckResult> {
+    if (sheets.length === 0) {
+        return {
+            passed: false,
+            message: 'Multipack JSON has no texture sheets',
+        };
+    }
+
+    const results: Array<{ index: number; image: string; result: CheckResult }> = [];
+
+    for (const sheet of sheets) {
+        if (!sheet.pngPath) {
+            results.push({
+                index: sheet.index,
+                image: sheet.image || `texture_${sheet.index}`,
+                result: {
+                    passed: false,
+                    message: `Texture ${sheet.index}: Missing image filename`,
+                },
+            });
+            continue;
+        }
+
+        const result = await validatePngIntegrity(sheet.pngPath, sheet.expectedSize);
+        results.push({
+            index: sheet.index,
+            image: sheet.image || path.basename(sheet.pngPath),
+            result,
+        });
+    }
+
+    const failures = results.filter(r => !r.result.passed);
+    if (failures.length === 0) {
+        return {
+            passed: true,
+            message: `All ${results.length} multipack PNG sheets are valid`,
+            details: {
+                sheetCount: results.length,
+            },
+        };
+    }
+
+    return {
+        passed: false,
+        message: `${failures.length} of ${results.length} multipack PNG sheet(s) failed validation`,
+        details: {
+            failures: failures.slice(0, 5).map(f => ({
+                index: f.index,
+                image: f.image,
+                message: f.result.message,
+                details: f.result.details,
+            })),
+            totalFailures: failures.length,
+            sheetCount: results.length,
+        },
+    };
+}
+
+/**
  * Validate frame bounds are within PNG dimensions
  */
 async function validateFrameBounds(
@@ -292,16 +360,57 @@ async function validateFrameBounds(
         if (json.frames) {
             processFrames(json.frames);
         } else if (json.textures && Array.isArray(json.textures)) {
-            // For multipack, we can't check bounds against single PNG
-            // Each texture has its own PNG, so just count frames
-            for (const texture of json.textures) {
-                if (texture.frames) {
-                    framesChecked += Object.keys(texture.frames).length;
+            // Multipack: validate each texture against its own declared size
+            const issues: string[] = [];
+
+            for (let i = 0; i < json.textures.length; i++) {
+                const texture = json.textures[i];
+                const size = texture.size as { w: number; h: number } | undefined;
+
+                if (!size || typeof size.w !== 'number' || typeof size.h !== 'number') {
+                    issues.push(`Texture ${i}: Missing or invalid size`);
+                    continue;
+                }
+
+                if (!texture.frames || typeof texture.frames !== 'object') {
+                    continue;
+                }
+
+                for (const [key, data] of Object.entries(texture.frames)) {
+                    const frame = (data as { frame?: { x: number; y: number; w: number; h: number } }).frame;
+                    if (!frame) continue;
+
+                    framesChecked++;
+                    const { x, y, w, h } = frame;
+
+                    if (x + w > size.w) {
+                        issues.push(
+                            `Texture ${i}, ${key}: x(${x}) + w(${w}) = ${x + w} > width ${size.w}`
+                        );
+                    }
+                    if (y + h > size.h) {
+                        issues.push(
+                            `Texture ${i}, ${key}: y(${y}) + h(${h}) = ${y + h} > height ${size.h}`
+                        );
+                    }
                 }
             }
+
+            if (issues.length > 0) {
+                return {
+                    passed: false,
+                    message: `${issues.length} frame(s) extend beyond multipack bounds`,
+                    details: {
+                        issues: issues.slice(0, 10),
+                        framesChecked,
+                        format: 'multipack',
+                    },
+                };
+            }
+
             return {
                 passed: true,
-                message: `Multipack: ${framesChecked} frames across multiple PNGs`,
+                message: `All ${framesChecked} multipack frames within bounds`,
                 details: { framesChecked, format: 'multipack' },
             };
         }
@@ -353,12 +462,36 @@ export async function runPostExportValidation(
         png_path: atlasPaths.png,
     });
 
-    // Get expected size from JSON for PNG validation
+    // Get expected size from JSON for PNG validation and detect multipack
     let expectedSize: { w: number; h: number } | undefined;
+    let isMultipack = false;
+    let multipackSheets: Array<{
+        index: number;
+        image: string;
+        pngPath: string;
+        expectedSize?: { w: number; h: number };
+    }> = [];
     try {
         const content = await fs.readFile(atlasPaths.json, 'utf-8');
         const json = JSON.parse(content);
-        if (json.meta?.size) {
+
+        if (json.textures && Array.isArray(json.textures)) {
+            isMultipack = true;
+            const baseDir = path.dirname(atlasPaths.json);
+            multipackSheets = json.textures.map((texture: Record<string, unknown>, index: number) => {
+                const image = typeof texture.image === 'string' ? texture.image : '';
+                const size = texture.size as { w: number; h: number } | undefined;
+                const expected = size && typeof size.w === 'number' && typeof size.h === 'number'
+                    ? { w: size.w, h: size.h }
+                    : undefined;
+                return {
+                    index,
+                    image,
+                    pngPath: image ? path.join(baseDir, image) : '',
+                    expectedSize: expected,
+                };
+            });
+        } else if (json.meta?.size) {
             expectedSize = json.meta.size;
         }
     } catch {
@@ -369,7 +502,9 @@ export async function runPostExportValidation(
     const jsonStructure = await validateJsonStructure(atlasPaths.json);
     const frameCount = await validateFrameCount(atlasPaths.json, frame_count, move);
     const frameKeys = await validateFrameKeyFormat(atlasPaths.json, move);
-    const pngIntegrity = await validatePngIntegrity(atlasPaths.png, expectedSize);
+    const pngIntegrity = isMultipack
+        ? await validatePngIntegrityMulti(multipackSheets)
+        : await validatePngIntegrity(atlasPaths.png, expectedSize);
     const boundsCheck = await validateFrameBounds(atlasPaths.json, atlasPaths.png);
 
     // Collect issues

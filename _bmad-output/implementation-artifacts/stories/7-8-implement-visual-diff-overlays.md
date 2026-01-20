@@ -1,6 +1,6 @@
 # Story 7.8: Implement Visual Diff Overlays
 
-Status: review
+Status: done
 
 ---
 

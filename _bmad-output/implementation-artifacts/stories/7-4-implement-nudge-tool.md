@@ -1,6 +1,6 @@
 # Story 7.4: Implement Nudge Tool for Manual Alignment
 
-Status: review
+Status: done
 
 ---
 

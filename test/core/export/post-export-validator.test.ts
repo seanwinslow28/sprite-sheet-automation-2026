@@ -82,6 +82,42 @@ describe('Post-Export Validator (Story 5.6)', () => {
         };
     }
 
+    // Create minimal multipack JSON
+    function createMultipackJson(move: string) {
+        return {
+            textures: [
+                {
+                    image: 'atlas-0.png',
+                    size: { w: 256, h: 128 },
+                    format: 'RGBA8888',
+                    frames: {
+                        [`${move}/0000`]: {
+                            frame: { x: 0, y: 0, w: 128, h: 128 },
+                            rotated: false,
+                            trimmed: false,
+                            spriteSourceSize: { x: 0, y: 0, w: 128, h: 128 },
+                            sourceSize: { w: 128, h: 128 },
+                        },
+                    },
+                },
+                {
+                    image: 'atlas-1.png',
+                    size: { w: 256, h: 128 },
+                    format: 'RGBA8888',
+                    frames: {
+                        [`${move}/0001`]: {
+                            frame: { x: 0, y: 0, w: 128, h: 128 },
+                            rotated: false,
+                            trimmed: false,
+                            spriteSourceSize: { x: 0, y: 0, w: 128, h: 128 },
+                            sourceSize: { w: 128, h: 128 },
+                        },
+                    },
+                },
+            ],
+        };
+    }
+
     // Create test PNG
     async function createTestPng(filePath: string, width: number, height: number): Promise<void> {
         const buffer = Buffer.alloc(width * height * 4, 128);
@@ -96,6 +132,7 @@ describe('Post-Export Validator (Story 5.6)', () => {
             const atlasPaths: AtlasPaths = {
                 json: path.join(tempDir, 'atlas.json'),
                 png: path.join(tempDir, 'atlas.png'),
+                pngPaths: [path.join(tempDir, 'atlas.png')],
                 name: 'atlas',
             };
 
@@ -122,6 +159,7 @@ describe('Post-Export Validator (Story 5.6)', () => {
             const atlasPaths: AtlasPaths = {
                 json: path.join(tempDir, 'missing.json'),
                 png: path.join(tempDir, 'atlas.png'),
+                pngPaths: [path.join(tempDir, 'atlas.png')],
                 name: 'atlas',
             };
 
@@ -142,6 +180,7 @@ describe('Post-Export Validator (Story 5.6)', () => {
             const atlasPaths: AtlasPaths = {
                 json: path.join(tempDir, 'atlas.json'),
                 png: path.join(tempDir, 'atlas.png'),
+                pngPaths: [path.join(tempDir, 'atlas.png')],
                 name: 'atlas',
             };
 
@@ -164,6 +203,7 @@ describe('Post-Export Validator (Story 5.6)', () => {
             const atlasPaths: AtlasPaths = {
                 json: path.join(tempDir, 'atlas.json'),
                 png: path.join(tempDir, 'atlas.png'),
+                pngPaths: [path.join(tempDir, 'atlas.png')],
                 name: 'atlas',
             };
 
@@ -187,6 +227,7 @@ describe('Post-Export Validator (Story 5.6)', () => {
             const atlasPaths: AtlasPaths = {
                 json: path.join(tempDir, 'atlas.json'),
                 png: path.join(tempDir, 'atlas.png'),
+                pngPaths: [path.join(tempDir, 'atlas.png')],
                 name: 'atlas',
             };
 
@@ -209,6 +250,7 @@ describe('Post-Export Validator (Story 5.6)', () => {
             const atlasPaths: AtlasPaths = {
                 json: path.join(tempDir, 'atlas.json'),
                 png: path.join(tempDir, 'atlas.png'),
+                pngPaths: [path.join(tempDir, 'atlas.png')],
                 name: 'atlas',
             };
 
@@ -231,6 +273,7 @@ describe('Post-Export Validator (Story 5.6)', () => {
             const atlasPaths: AtlasPaths = {
                 json: path.join(tempDir, 'atlas.json'),
                 png: path.join(tempDir, 'atlas.png'),
+                pngPaths: [path.join(tempDir, 'atlas.png')],
                 name: 'atlas',
             };
 
@@ -246,6 +289,59 @@ describe('Post-Export Validator (Story 5.6)', () => {
                 expect(report.validatedAt).toMatch(/^\d{4}-\d{2}-\d{2}T/);
                 expect(report.summary.totalFrames).toBe(4);
                 expect(report.summary.validFrames).toBe(4);
+            }
+        });
+
+        it('should pass for valid multipack atlas', async () => {
+            const manifest = createManifest(2, 'idle');
+            const atlasPaths: AtlasPaths = {
+                json: path.join(tempDir, 'atlas.json'),
+                png: path.join(tempDir, 'atlas-0.png'),
+                pngPaths: [
+                    path.join(tempDir, 'atlas-0.png'),
+                    path.join(tempDir, 'atlas-1.png'),
+                ],
+                name: 'atlas',
+            };
+
+            await fs.writeFile(atlasPaths.json, JSON.stringify(createMultipackJson('idle')));
+            await createTestPng(path.join(tempDir, 'atlas-0.png'), 256, 128);
+            await createTestPng(path.join(tempDir, 'atlas-1.png'), 256, 128);
+
+            const result = await runPostExportValidation(atlasPaths, manifest, 'test-run');
+
+            expect(result.isOk()).toBe(true);
+            if (result.isOk()) {
+                const report = result.unwrap();
+                expect(report.passed).toBe(true);
+                expect(report.checks.pngIntegrity.passed).toBe(true);
+                expect(report.checks.boundsCheck.passed).toBe(true);
+            }
+        });
+
+        it('should fail when a multipack sheet is missing', async () => {
+            const manifest = createManifest(2, 'idle');
+            const atlasPaths: AtlasPaths = {
+                json: path.join(tempDir, 'atlas.json'),
+                png: path.join(tempDir, 'atlas-0.png'),
+                pngPaths: [
+                    path.join(tempDir, 'atlas-0.png'),
+                    path.join(tempDir, 'atlas-1.png'),
+                ],
+                name: 'atlas',
+            };
+
+            await fs.writeFile(atlasPaths.json, JSON.stringify(createMultipackJson('idle')));
+            await createTestPng(path.join(tempDir, 'atlas-0.png'), 256, 128);
+            // Intentionally skip atlas-1.png
+
+            const result = await runPostExportValidation(atlasPaths, manifest, 'test-run');
+
+            expect(result.isOk()).toBe(true);
+            if (result.isOk()) {
+                const report = result.unwrap();
+                expect(report.passed).toBe(false);
+                expect(report.checks.pngIntegrity.passed).toBe(false);
             }
         });
     });

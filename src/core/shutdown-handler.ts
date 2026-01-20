@@ -17,6 +17,41 @@ let forceShutdownTimeout: NodeJS.Timeout | null = null;
  * Force shutdown timeout (30 seconds)
  */
 const FORCE_SHUTDOWN_TIMEOUT_MS = 30000;
+const SHUTDOWN_POLL_INTERVAL_MS = 250;
+
+/**
+ * Wait for orchestrator to reach a terminal or paused state
+ */
+async function waitForOrchestratorStop(
+    orchestratorCtx: OrchestratorContext,
+    timeoutMs: number
+): Promise<boolean> {
+    const startTime = Date.now();
+
+    return new Promise((resolve) => {
+        const timer = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+
+            const status = orchestratorCtx.state?.status;
+            const state = orchestratorCtx.currentState;
+            const isStopped = state === 'STOPPED' ||
+                state === 'COMPLETED' ||
+                status === 'paused' ||
+                status === 'completed';
+
+            if (isStopped) {
+                clearInterval(timer);
+                resolve(true);
+                return;
+            }
+
+            if (elapsed >= timeoutMs) {
+                clearInterval(timer);
+                resolve(false);
+            }
+        }, SHUTDOWN_POLL_INTERVAL_MS);
+    });
+}
 
 /**
  * Check if shutdown is in progress
@@ -71,11 +106,17 @@ export function registerShutdownHandlers(
             // Give orchestrator time to complete current operation
             console.log('   Waiting for current operation to complete...');
 
-            // The orchestrator will save state on abort
-            // Wait a bit for it to complete
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            // Wait for the orchestrator to reach STOPPED/COMPLETED or time out
+            const stopped = await waitForOrchestratorStop(
+                orchestratorCtx,
+                FORCE_SHUTDOWN_TIMEOUT_MS - 1000
+            );
 
-            console.log('   State saved.');
+            if (!stopped) {
+                console.log('   Shutdown timed out waiting for orchestrator.');
+            } else {
+                console.log('   State saved.');
+            }
 
             // Stop the reporter spinner if active
             if (reporter) {
