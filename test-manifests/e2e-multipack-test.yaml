@@ -3,13 +3,12 @@
 # Expected: Multiple PNG sheets with correct JSON format
 
 identity:
-  character: testchar
+  character: sean
   move: combo
   version: "1.0.0"
 
 inputs:
-  # Update this path to your actual test anchor
-  anchor_path: ./assets/test/test_anchor_512.png
+  anchor_path: ./assets/anchor-characters-512x512/test-anchor-image/Champion-Sean-anchor.png
 
 generator:
   total_frames: 24

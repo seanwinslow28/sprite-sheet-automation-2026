@@ -56,15 +56,27 @@ curl -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0
   -d '{"contents":[{"parts":[{"text":"Hello"}]}]}'
 ```
 
-### Step 1.3: Prepare Test Assets
+### Step 1.3: Locate Test Assets
 
-Create or locate a test anchor sprite:
-- 512x512 PNG with transparency
-- 16-bit pixel art character
-- Centered, facing right
-- Clear baseline (feet position)
+**Asset Location:** All anchor images are pre-configured at:
+```
+assets/anchor-characters-512x512/
+├── champions/          # 6 champion characters
+├── bosses/             # 6 boss characters
+└── test-anchor-image/  # Primary test anchor
+    └── Champion-Sean-anchor.png
+```
 
-Place at: `assets/test/test_anchor_512.png`
+**Primary Test Anchor (use this for all tests):**
+```
+./assets/anchor-characters-512x512/test-anchor-image/Champion-Sean-anchor.png
+```
+
+**Alternative anchors for additional testing:**
+- `./assets/anchor-characters-512x512/champions/Champion-Aria-anchor.png`
+- `./assets/anchor-characters-512x512/bosses/Boss-Training-Dummy-anchor.png`
+
+All anchors are 512x512 PNG with transparency, 16-bit pixel art style.
 
 ---
 
@@ -72,16 +84,16 @@ Place at: `assets/test/test_anchor_512.png`
 
 ### Step 2.1: Create Test Manifest
 
-Create `test-manifests/e2e-smoke-test.yaml`:
+Use the pre-configured `test-manifests/e2e-smoke-test.yaml` or create one:
 
 ```yaml
 identity:
-  character: testchar
+  character: sean
   move: idle
   version: "1.0.0"
 
 inputs:
-  anchor_path: ./assets/test/test_anchor_512.png
+  anchor_path: ./assets/anchor-characters-512x512/test-anchor-image/Champion-Sean-anchor.png
 
 generator:
   total_frames: 4

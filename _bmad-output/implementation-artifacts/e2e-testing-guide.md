@@ -36,7 +36,33 @@ echo "GEMINI_API_KEY=your-api-key-here" >> .env
 
 ### 3. Required Assets
 
-You need a **gold anchor sprite** that meets these requirements:
+**Asset Location:** All anchor images are located at:
+```
+assets/anchor-characters-512x512/
+├── champions/
+│   ├── Champion-Aria-anchor.png
+│   ├── Champion-Kenji-anchor.png
+│   ├── Champion-Marcus-anchor.png
+│   ├── Champion-Mary-anchor.png
+│   ├── Champion-Sean-anchor.png
+│   └── Champion-Zara-anchor.png
+├── bosses/
+│   ├── Boss-Gym-Bully-anchor.png
+│   ├── Boss-Procrastination-Phantom-anchor.png
+│   ├── Boss-Sloth-Demon-anchor.png
+│   ├── Boss-Stress-Titan-anchor.png
+│   ├── Boss-Training-Dummy-anchor.png
+│   └── Boss-Ultimate-Slump-anchor.png
+└── test-anchor-image/
+    └── Champion-Sean-anchor.png  ← PRIMARY TEST ANCHOR
+```
+
+**Primary Test Anchor:**
+```
+./assets/anchor-characters-512x512/test-anchor-image/Champion-Sean-anchor.png
+```
+
+**Anchor Sprite Requirements:**
 
 | Requirement | Specification |
 |-------------|---------------|
@@ -47,10 +73,10 @@ You need a **gold anchor sprite** that meets these requirements:
 | Baseline | Feet touching bottom ~15% of visible height |
 | Style | 16-bit pixel art aesthetic |
 
-**Recommended test anchors:**
-- `assets/test/blaze_anchor_512.png` - Fire character
-- `assets/test/aqua_anchor_512.png` - Water character
-- Create your own following the spec above
+**Available test anchors:**
+- `./assets/anchor-characters-512x512/test-anchor-image/Champion-Sean-anchor.png` - **Primary test anchor**
+- `./assets/anchor-characters-512x512/champions/Champion-Aria-anchor.png` - Champion character
+- `./assets/anchor-characters-512x512/bosses/Boss-Training-Dummy-anchor.png` - Boss character
 
 ---
 
@@ -70,7 +96,7 @@ identity:
   version: "1.0.0"
 
 inputs:
-  anchor_path: ./assets/test/blaze_anchor_512.png
+  anchor_path: ./assets/anchor-characters-512x512/test-anchor-image/Champion-Sean-anchor.png
 
 generator:
   total_frames: 4
@@ -109,7 +135,7 @@ identity:
   version: "1.0.0"
 
 inputs:
-  anchor_path: ./assets/test/blaze_anchor_512.png
+  anchor_path: ./assets/anchor-characters-512x512/test-anchor-image/Champion-Sean-anchor.png
 
 generator:
   total_frames: 8
@@ -148,7 +174,7 @@ identity:
   version: "1.0.0"
 
 inputs:
-  anchor_path: ./assets/test/blaze_anchor_512.png
+  anchor_path: ./assets/anchor-characters-512x512/test-anchor-image/Champion-Sean-anchor.png
 
 generator:
   total_frames: 6
@@ -244,7 +270,7 @@ identity:
   version: "1.0.0"
 
 inputs:
-  anchor_path: ./assets/test/blaze_anchor_512.png
+  anchor_path: ./assets/anchor-characters-512x512/test-anchor-image/Champion-Sean-anchor.png
 
 generator:
   total_frames: 24  # Will likely require multipack
